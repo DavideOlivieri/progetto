@@ -14,6 +14,22 @@ public class Events {
 	private String segment;
 	private String genre;
 	
+	//constructor
+	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
+		this.event_name=event_name;
+		this.event_id=event_id;
+		this.event_url=event_url;
+		this.local_date=local_date;
+		this.local_time=local_time;
+		this.country_code=country_code;
+		this.city=city;
+		this.state=state;
+		this.country_name=country_name;
+		this.genre=genre;
+		this.subgenre=subgenre;
+		this.segment=segment;
+	}
+	
 	//getters and setters
 	
 	public String getSegment() {
@@ -96,21 +112,6 @@ public class Events {
 
 	public void setCity(String city) {
 		this.city = city;
-	}
-	//constructor
-	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
-		this.event_name=event_name;
-		this.event_id=event_id;
-		this.event_url=event_url;
-		this.local_date=local_date;
-		this.local_time=local_time;
-		this.country_code=country_code;
-		this.city=city;
-		this.state=state;
-		this.country_name=country_name;
-		this.genre=genre;
-		this.subgenre=subgenre;
-		this.segment=segment;
 	}
 
 	public String getState() {
