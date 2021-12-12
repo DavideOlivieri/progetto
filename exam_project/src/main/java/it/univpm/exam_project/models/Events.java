@@ -9,8 +9,39 @@ public class Events {
 	private String local_time;
 	private String country_code;
 	private String city;
-	private String event_classification;
+	private String state;
+	private String country_name;
+	private String segment;
+	private String genre;
+	
 	//getters and setters
+	
+	public String getSegment() {
+		return segment;
+	}
+
+	public void setSegment(String segment) {
+		this.segment = segment;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getSubgenre() {
+		return subgenre;
+	}
+
+	public void setSubgenre(String subgenre) {
+		this.subgenre = subgenre;
+	}
+
+	private String subgenre;
+	
 	public String getName() {
 		return event_name;
 	}
@@ -59,14 +90,6 @@ public class Events {
 		this.country_code = country_code;
 	}
 
-	public String getEvent_classification() {
-		return event_classification;
-	}
-
-	public void setEvent_classification(String event_classification) {
-		this.event_classification = event_classification;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -75,7 +98,7 @@ public class Events {
 		this.city = city;
 	}
 	//constructor
-	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String city, String event_classification) {
+	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
 		this.event_name=event_name;
 		this.event_id=event_id;
 		this.event_url=event_url;
@@ -83,6 +106,26 @@ public class Events {
 		this.local_time=local_time;
 		this.country_code=country_code;
 		this.city=city;
-		this.event_classification=event_classification;
+		this.state=state;
+		this.country_name=country_name;
+		this.genre=genre;
+		this.subgenre=subgenre;
+		this.segment=segment;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry_name() {
+		return country_name;
+	}
+
+	public void setCountry_name(String country_name) {
+		this.country_name = country_name;
 	}
 }
