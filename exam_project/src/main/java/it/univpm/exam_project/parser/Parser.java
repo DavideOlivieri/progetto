@@ -16,6 +16,7 @@ public class Parser {
 		eventsList = new Vector<Events>();
 		
 		try {
+
 			JSONParser parser = new JSONParser();
 			
 			JSONObject object = (JSONObject) parser.parse(file);
@@ -72,7 +73,7 @@ for (int i = 0; i < events.size(); i++) {
 			
         }
 		}catch(ParseException e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 		return eventsList;
 	}
