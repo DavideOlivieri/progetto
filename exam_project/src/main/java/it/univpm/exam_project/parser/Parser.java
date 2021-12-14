@@ -25,7 +25,7 @@ public class Parser {
 
 			JSONArray events = (JSONArray) embedded1.get("events");
 
-for (int i = 0; i < events.size(); i++) {
+			for (int i = 0; i < events.size(); i++) {
 				
 				JSONObject currentEvent = (JSONObject) events.get(i);
 				String name = (String) currentEvent.get("name");
@@ -71,10 +71,10 @@ for (int i = 0; i < events.size(); i++) {
 
 				eventsList.add(e);
 			
-        }
-		}catch(ParseException e) {
-			e.getMessage();
-		}
+				}
+			}catch(ParseException e) {
+				e.getMessage();
+			}
 		return eventsList;
 	}
 }
