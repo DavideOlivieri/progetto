@@ -16,7 +16,9 @@ import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
 
 public class Api_connection {
+	
 	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
+	
 	public static Vector<Events> connection_country(String countryCode){
 		Vector<Events> eventVector = new Vector<Events>();
 		String url = apiUrl+"&countryCode="+countryCode;
@@ -25,6 +27,7 @@ public class Api_connection {
 		eventVector = pars.parse(json);
 		return eventVector;
 	}
+	
 	public static JSONObject getJSONObject(String url) {
 		JSONObject obj = null;
 
