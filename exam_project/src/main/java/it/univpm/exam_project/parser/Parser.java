@@ -1,25 +1,61 @@
 package it.univpm.exam_project.parser;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
 import it.univpm.exam_project.models.Events;
 
 public class Parser {
 	private Vector<Events> eventsList;
-   
-	public Vector<Events> parse(String file){
-		eventsList = new Vector<Events>();
-		
-		try {
+	
+	public static void main(String[] args) {
 
-			JSONParser parser = new JSONParser();
+		String url = "";
+		if(args.length == 1) {
+			url = args[0]; 
+		}
+		else
+		{
+			return;
+		}
+		try {
 			
-			JSONObject object = (JSONObject) parser.parse(file);
+			URLConnection openConnection = new URL(url).openConnection();
+			InputStream in = openConnection.getInputStream();
+			
+			 String data = "";
+			 String line = "";
+			 try {
+			   InputStreamReader inR = new InputStreamReader( in );
+			   BufferedReader buf = new BufferedReader( inR );
+			  
+			   while ( ( line = buf.readLine() ) != null ) {
+				   data+= line;
+			   }
+			 } finally {
+			   in.close();
+			 }
+			System.out.println( data );
+			JSONObject obj = (JSONObject) JSONValue.parseWithException(data);
+			System.out.println( "OK" );
+		} catch ( ParseException e) {
+			((Throwable) e).printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+   
+	public Vector<Events> parse(JSONObject object){
+		eventsList = new Vector<Events>();
 			
 			JSONObject embedded1 = (JSONObject) object.get("_embedded");
 
@@ -67,14 +103,12 @@ public class Parser {
 				String countryName = (String) country.get("name");
 				String countryCode = (String) country.get("stateCode");
 				
-				Events e = new Events(name, id, url, localDate, localTime, countryCode, cityName, stateName, countryName, nameGenre, nameSubGenre, nameSegment);
+				Events e = new Events(name, id, url, localDate, localTime, countryCode, cityName,
+									  stateName, countryName, nameGenre, nameSubGenre, nameSegment);
 
 				eventsList.add(e);
 			
 				}
-			}catch(ParseException e) {
-				e.getMessage();
-			}
 		return eventsList;
 	}
 }
