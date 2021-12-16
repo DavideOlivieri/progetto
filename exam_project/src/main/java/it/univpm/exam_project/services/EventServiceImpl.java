@@ -13,13 +13,11 @@ public class EventServiceImpl implements EventService{
 			Events currentEvents = eventVector.get(i);
 
 			for(int j = 1; j <= 12; j++) {
-
-				if(currentEvents.getLocal_date().equals(j)) {
+				String j_string = Integer.toString(j);
+				if(currentEvents.getMonth().equals(j_string)) {
 					monthEvents[j]++;
 				}
 			}
-
-
 		}
 		return monthEvents;
 	}
@@ -42,6 +40,7 @@ public class EventServiceImpl implements EventService{
 		}
 		return app;
 	}
+	
 	public int maxEvents(Vector<Events> eventVector) {
 		int app = 0;
 		for(int i = 0; i<12;i++) {

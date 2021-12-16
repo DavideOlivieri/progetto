@@ -5,6 +5,7 @@ public class Events {
 	private String event_name;
 	private String event_id;
 	private String event_url;
+	private String month;
 	private String local_date;
 	private String local_time;
 	private String country_code;
@@ -28,6 +29,7 @@ public class Events {
 		this.genre=genre;
 		this.subgenre=subgenre;
 		this.segment=segment;
+		setMonth();
 	}
 	
 	//getters and setters
@@ -128,5 +130,17 @@ public class Events {
 
 	public void setCountry_name(String country_name) {
 		this.country_name = country_name;
+	}
+	
+	public void setMonth() {
+		for(int i=0; i<7; i++) {
+			if(i>4) {
+				month+=this.local_date.charAt(i);
+			}
+		}	 
+	}
+
+	public String getMonth() {
+		return month;
 	}
 }
