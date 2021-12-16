@@ -6,7 +6,7 @@ import it.univpm.exam_project.models.Events;
 
 public class GenreFilter {
 
-	public static Vector<Events> genFilter(String genre, Vector<Events> eventstoFilter){
+	public Vector<Events> genFilter(String genre, Vector<Events> eventstoFilter){
 
 		Vector<Events> filteredEvents = new Vector<Events>();
 

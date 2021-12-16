@@ -13,4 +13,8 @@ public interface EventService {
 	public int minEvents(Vector<Events> eventVector);
 	//max events for month
 	public int maxEvents(Vector<Events> eventVector);
+	//numero di eventi totali 
+	public int totEvents(Vector<Events> eventVector);
+	
+	
 }

@@ -50,5 +50,13 @@ public class EventServiceImpl implements EventService{
 		}
 		return app;
 	}
+	
+	public int totEvents(Vector<Events> eventVector) {
+		int app=0;
+		for(int i=0; i<eventVector.size();i++) {
+			app++;
+		}
+		return app;
+	}
 
 }
