@@ -8,11 +8,8 @@ public interface EventService {
 	// number of events for month
 	public int[] numEvents(Vector<Events> eventVector);
 	//average month events
-	public void avgEvents(int[] numEvents);
-	//sort the months from the one with the least events to the one with the most events
-	public int[] sortSelectedEvents(int[] numEvents);
+	public float avgEvents(Vector<Events> eventVector);
 	//min events for month
-	public void minEvents(int[] numEvents);
+	public int minEvents(Vector<Events> eventVector);
 	//max events for month
-	public void maxEvents(int[] numEvents);
 }
