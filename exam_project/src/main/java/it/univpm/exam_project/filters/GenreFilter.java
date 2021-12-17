@@ -12,7 +12,7 @@ public class GenreFilter {
 
 		for(Events event : eventstoFilter) {
 
-			if(genre.equals(event.getGenre()))
+			if(genre.equals(event.getSegment()))
 				filteredEvents.add(event);
 
 		}

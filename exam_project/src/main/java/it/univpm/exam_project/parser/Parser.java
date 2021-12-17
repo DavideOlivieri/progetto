@@ -11,7 +11,9 @@ public class Parser {
 	private Vector<Events> eventsList;
 	
 	public Vector<Events> parse(JSONObject json){
-		eventsList = new Vector<Events>();
+			eventsList = new Vector<Events>();
+			
+			for(int j=0; j<json.size(); j++) {
 			
 			JSONObject embedded1 = (JSONObject) json.get("_embedded");
 
@@ -65,6 +67,7 @@ public class Parser {
 				eventsList.add(e);
 			
 				}
+			}
 		return eventsList;
 	}
 }
