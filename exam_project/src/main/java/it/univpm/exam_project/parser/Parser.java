@@ -59,7 +59,7 @@ public class Parser {
 				
 				JSONObject country = (JSONObject) venuesTemp.get("country");
 				String countryName = (String) country.get("name");
-				String countryCode = (String) country.get("stateCode");
+				String countryCode = (String) country.get("countryCode");
 				
 				Events e = new Events(name, id, url, localDate, localTime, countryCode, cityName,
 									  stateName, countryName, nameGenre, nameSubGenre, nameSegment);

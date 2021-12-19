@@ -23,8 +23,9 @@ public class simpleRestController {
 		return new ResponseEntity<>(EventServiceImpl.getEvents(), HttpStatus.OK);
 	}
 	
+	//Search by genre, returns all events of that kind and the total of events
 	@RequestMapping(value = "/getEventForGenre")
-	public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Sport") String genre) {
+	public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Sports") String genre) {
 		try {
 			Vector<Events> vector = EventServiceImpl.connection_api();
 			JSONObject JSONEvent_genre = EventServiceImpl.FromGenreToJson(genre, vector);
@@ -33,7 +34,18 @@ public class simpleRestController {
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
-
+	}
+	
+	@RequestMapping(value = "/getEventForCountryCode")
+	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="US") String countryCode) {
+		try {
+			Vector<Events> vector = EventServiceImpl.connection_api();
+			JSONObject JSONEvent_country = EventServiceImpl.FromCountryToJson(countryCode, vector);
+			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	

@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Vector;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
@@ -98,49 +99,67 @@ public class EventServiceImpl implements EventService{
 	//dato un genere restituisce le statistiche
 	public JSONObject FromGenreToJson(String genre, Vector<Events> eventVector) {
 		JSONObject respons = new JSONObject();
-		Vector<Events> filteredEvents = new Vector<Events>();
-		int tot=0;
+		Vector<Events> filteredEvents = null;
+
 		GenreFilter filterVector = new GenreFilter();
-		filteredEvents = filterVector.genFilter(genre, eventVector);
-		tot=totEvents(filteredEvents);
-		for(int i=0;i<filteredEvents.size();i++) {
-			respons.put("event_name", filteredEvents.get(i).getName());
-			respons.put("event_id", filteredEvents.get(i).getEvent_id());
-			respons.put("local_date", filteredEvents.get(i).getLocal_date());
-			respons.put("local_time", filteredEvents.get(i).getLocal_time());
-			respons.put("country_code", filteredEvents.get(i).getCountry_code());
-			respons.put("city", filteredEvents.get(i).getCity());
-			respons.put("state", filteredEvents.get(i).getState());
-			respons.put("country_name", filteredEvents.get(i).getCountry_name());
-			respons.put("segment", filteredEvents.get(i).getSegment());
-			respons.put("genre", filteredEvents.get(i).getGenre() );
-			respons.put("subgenre", filteredEvents.get(i).getSubgenre() );
+		filteredEvents=filterVector.genFilter(genre, eventVector);
+		
+		respons.put("tot_event", totEvents(filterVector.genFilter(genre, eventVector)) -1);
+		
+		JSONArray events = new JSONArray();
+
+		for(int i=0;i<filterVector.genFilter(genre, eventVector).size();i++) {
+			JSONObject event = new JSONObject();
+			
+			event.put("event_name", filteredEvents.get(i).getName());
+			event.put("event_id", filteredEvents.get(i).getEvent_id());
+			event.put("local_date", filteredEvents.get(i).getLocal_date());
+			event.put("local_time", filteredEvents.get(i).getLocal_time());
+			event.put("country_code", filteredEvents.get(i).getCountry_code());
+			event.put("city", filteredEvents.get(i).getCity());
+			event.put("state", filteredEvents.get(i).getState());
+			event.put("country_name", filteredEvents.get(i).getCountry_name());
+			event.put("segment", filteredEvents.get(i).getSegment());
+			event.put("genre", filteredEvents.get(i).getGenre() );
+			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
+			
+			events.add(event);
 		}
-		respons.put("Eventi_Totali", tot);
+		
+		respons.put("Events", events);
 		return respons;
 	}
 	//dato un paese restituisce le statistiche
 	public JSONObject FromCountryToJson(String country, Vector<Events> eventVector) {
-		JSONObject respons = new JSONObject();
-		int tot=0;
-		Vector<Events> filteredEvents = new Vector<Events>();
+		JSONObject respons = new JSONObject();;
+
+		Vector<Events> filteredEvents = null;
 		StatesFilter filterVector = new StatesFilter();
 		filteredEvents = filterVector.stateFilter(country, eventVector);
-		tot=totEvents(filteredEvents);
-		for(int i=0;i<eventVector.size();i++) {
-			respons.put("event_name", eventVector.get(i).getName());
-			respons.put("event_id", eventVector.get(i).getEvent_id());
-			respons.put("local_date", eventVector.get(i).getLocal_date());
-			respons.put("local_time", eventVector.get(i).getLocal_time());
-			respons.put("country_code", eventVector.get(i).getCountry_code());
-			respons.put("city", eventVector.get(i).getCity());
-			respons.put("state", eventVector.get(i).getState());
-			respons.put("country_name", eventVector.get(i).getCountry_name());
-			respons.put("segment", eventVector.get(i).getSegment());
-			respons.put("genre", eventVector.get(i).getGenre() );
-			respons.put("subgenre", eventVector.get(i).getSubgenre() );
+		
+		respons.put("tot_event", totEvents(filterVector.stateFilter(country, eventVector)) -1);
+		
+		JSONArray events = new JSONArray();
+
+		for(int i=0;i<filterVector.stateFilter(country, eventVector).size();i++) {
+			JSONObject event = new JSONObject();
+			
+			event.put("event_name", filteredEvents.get(i).getName());
+			event.put("event_id", filteredEvents.get(i).getEvent_id());
+			event.put("local_date", filteredEvents.get(i).getLocal_date());
+			event.put("local_time", filteredEvents.get(i).getLocal_time());
+			event.put("country_code", filteredEvents.get(i).getCountry_code());
+			event.put("city", filteredEvents.get(i).getCity());
+			event.put("state", filteredEvents.get(i).getState());
+			event.put("country_name", filteredEvents.get(i).getCountry_name());
+			event.put("segment", filteredEvents.get(i).getSegment());
+			event.put("genre", filteredEvents.get(i).getGenre() );
+			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
+			
+			events.add(event);
 		}
-		respons.put("Eventi_Totali", tot);
+		
+		respons.put("Events", events);
 		return respons;
 	}
 	
