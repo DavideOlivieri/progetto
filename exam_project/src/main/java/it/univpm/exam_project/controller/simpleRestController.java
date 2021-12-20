@@ -12,18 +12,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
+
+/**
+ * @author JacopoColoccioni
+ *
+ */
+
 @RestController
 public class simpleRestController {
+	
+	/**
+	 * @see it.univpm.exam_project.models.Events
+	 * @see it.univpm.exam_project.services.EventServiceImpl
+	 * 
+	 * Creation of different routes
+	 */
+	
 	
 	@Autowired	
 	EventServiceImpl EventServiceImpl;
 	
+	// Route1  /GetEvents (used to get the metadata)
 	@RequestMapping(value = "/getEvents")
 	public ResponseEntity<Object> getEvents() {
 		return new ResponseEntity<>(EventServiceImpl.getEvents(), HttpStatus.OK);
 	}
 	
-	//Search by genre, returns all events of that kind and the total of events
+	//Route2  /getEventForGenre (Search by genre, returns all events of that kind and the total of events)
 	@RequestMapping(value = "/getEventForGenre")
 	public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Sports") String genre) {
 		try {
@@ -36,6 +51,7 @@ public class simpleRestController {
 		}
 	}
 	
+	//Route3  /getEventForCountryCode (Search by Country, returns all the events of that Country)
 	@RequestMapping(value = "/getEventForCountryCode")
 	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="US") String countryCode) {
 		try {

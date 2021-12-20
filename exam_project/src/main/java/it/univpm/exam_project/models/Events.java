@@ -1,5 +1,12 @@
 package it.univpm.exam_project.models;
 
+/**
+ * @author DavideOlivieri
+ * @author JacopoColoccioni
+ * 
+ * Class that defines events
+ */
+
 public class Events {
 	//parameters
 	private String event_name;

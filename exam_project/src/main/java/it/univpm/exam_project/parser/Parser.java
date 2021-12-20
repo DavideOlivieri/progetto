@@ -7,8 +7,27 @@ import org.json.simple.JSONObject;
 
 import it.univpm.exam_project.models.Events;
 
+/**
+ * 
+ * @author DavideOlivieri
+ * @author JacopoColoccioni
+ * 
+ * Class that takes data from ticketmaster Api jason file
+ */
 public class Parser {
+	
+	/**
+	 * Vector of events
+	 */
 	private Vector<Events> eventsList;
+	
+	/**
+	 * Method that analize the json from           and returns a vector of events
+	 * 
+	 * @param json, provides the json code that is analize in the method
+	 * @return eventsList, vector of events containing the events from the json code
+	 * @see it.univpm.exam_project.models.Events
+	 */
 	
 	public Vector<Events> parse(JSONObject json){
 			eventsList = new Vector<Events>();
