@@ -18,9 +18,18 @@ import it.univpm.exam_project.filters.GenreFilter;
 import it.univpm.exam_project.filters.StatesFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
+
+/**
+ * 
+ * @author Davide Olivieri
+ * @author Jacopo Coloccioni
+ *
+ */
 @Service
 public class EventServiceImpl implements EventService{
-
+    
+	
+	
 	public int[] numEvents(Vector<Events> eventVector) {
 
 		int[] monthEvents = new int[12];
@@ -36,7 +45,11 @@ public class EventServiceImpl implements EventService{
 		}
 		return monthEvents;
 	}
-
+    
+	
+	/**
+	 * Method that return the average of events of all months
+	 */
 	public float avgEvents(Vector<Events> eventVector) {
 		float avgevents=0;
 		for(int i = 0; i<12;i++) {
@@ -45,7 +58,11 @@ public class EventServiceImpl implements EventService{
 		avgevents/=12;
 		return avgevents;
 	}
-
+    
+	
+	/**
+	 * Method that return the minimum of events for each month
+	 */
 	public int minEvents(Vector<Events> eventVector) {
 		int app = 0;
 		for(int i = 0; i<12;i++) {
@@ -56,6 +73,10 @@ public class EventServiceImpl implements EventService{
 		return app;
 	}
 	
+	
+	/**
+	 * Method that return the maximum of events for each month
+	 */
 	public int maxEvents(Vector<Events> eventVector) {
 		int app = 0;
 		for(int i = 0; i<12;i++) {
@@ -66,6 +87,9 @@ public class EventServiceImpl implements EventService{
 		return app;
 	}
 	
+	/**
+	 * Method that returns the total of events
+	 */
 	public int totEvents(Vector<Events> eventVector) {
 		int app=0;
 		for(int i=0; i<=eventVector.size();i++) {
@@ -74,6 +98,11 @@ public class EventServiceImpl implements EventService{
 		return app;
 	}
 	
+	
+	/**
+	 * 
+	 * @return respons
+	 */
 	public JSONObject getEvents() {
 		JSONObject respons = new JSONObject();
 		
@@ -96,7 +125,11 @@ public class EventServiceImpl implements EventService{
 		
 		return respons;
 	}
-	//dato un genere restituisce le statistiche
+	
+	
+	/**
+	 * Given a genre it returns the statistics for it
+	 */
 	public JSONObject FromGenreToJson(String genre, Vector<Events> eventVector) {
 		JSONObject respons = new JSONObject();
 		Vector<Events> filteredEvents = null;
@@ -129,7 +162,15 @@ public class EventServiceImpl implements EventService{
 		respons.put("Events", events);
 		return respons;
 	}
-	//dato un paese restituisce le statistiche
+	
+	
+    /**
+     * Given a country it returns the statistic for it
+     * 
+     * @param country
+     * @param eventVector
+     * @return respons
+     */
 	public JSONObject FromCountryToJson(String country, Vector<Events> eventVector) {
 		JSONObject respons = new JSONObject();;
 
@@ -162,6 +203,8 @@ public class EventServiceImpl implements EventService{
 		respons.put("Events", events);
 		return respons;
 	}
+	
+	
 	
 	public JSONObject getJSONObject(String jsonObject) {
 		JSONObject obj = null;

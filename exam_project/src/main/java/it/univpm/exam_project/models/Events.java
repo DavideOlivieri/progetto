@@ -8,7 +8,9 @@ package it.univpm.exam_project.models;
  */
 
 public class Events {
-	//parameters
+	/**
+	 * parameters
+	 */
 	private String event_name;
 	private String event_id;
 	private String event_url;
@@ -22,7 +24,10 @@ public class Events {
 	private String segment;
 	private String genre;
 	
-	//constructor
+	/**
+	 * constructor
+	 *
+	 */
 	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
 		this.event_name=event_name;
 		this.event_id=event_id;
@@ -39,7 +44,10 @@ public class Events {
 		setMonth();
 	}
 	
-	//getters and setters
+	/**
+	 * Getters and setters
+	 * 
+	 */
 	
 	public String getSegment() {
 		return segment;

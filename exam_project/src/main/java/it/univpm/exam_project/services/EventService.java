@@ -4,6 +4,12 @@ import java.util.Vector;
 
 import it.univpm.exam_project.models.Events;
 
+/**
+ * 
+ * @author DavideOlivieri
+ * @author JacopoColoccioni
+ *
+ */
 public interface EventService {
 	// number of events for month
 	public int[] numEvents(Vector<Events> eventVector);
@@ -15,6 +21,5 @@ public interface EventService {
 	public int maxEvents(Vector<Events> eventVector);
 	//numero di eventi totali 
 	public int totEvents(Vector<Events> eventVector);
-	
 	
 }
