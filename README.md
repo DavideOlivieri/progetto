@@ -1,9 +1,14 @@
 # Project Ticketmaster
 ## Java project made with Spring
 ## Summary:
-- Introduction
+- [Introduction](#id-section1)
+- [Application usage](#id-section2)
+- [Routes](#id-section3)
+
+<div id='id-section1'/>
 
 ## Introduction
+***
 This project is a Sping application that allows you to filter the data of Ticketmaster site, and make statistics of the data.\
 Ticketmaster is a well-known software dedicated to the management and booking of musical, theatrical, film and artistic events, available at https://www.ticketmaster.it/. \
 Through the APIs derived from the TM Developer page, accessible through the Discovery API address, we get the metadata.\
@@ -11,11 +16,40 @@ The program will have to evaluate only the events located in USA and Europe.\
 They are available through our application:
 - filtering of events, foreseen in USA and / or Europe, through the selection of one or more States, followed by the production of statistics relating to the State or States chosen.
 - filtering of events, foreseen in USA and / or Europe, through the selection of one or more genres, followed by the production of statistics relating to the chosen genre or genres.
+
+<div id='id-section2'/>
+
 ## Application usage
+***
 After the application has been started, routes can be called from any browser or from an application such as postman.\
 Example of usecase
 >localhost:8080/<route_name> 
 
 In this case 8080 is the standard port but can be changed.
 
+<div id='id-section3'/>
+
 ## Routes
+***
+### All the routes
+| Routes  | Desciption | Type |
+| :--- | :---: | ---:  |
+| /getEvents | Testo | Get |
+| Testo | Testo | Get |
+
+### Route /getEvents
+```json
+{
+    "country_code": " : country code",
+    "event_id": " : event id",
+    "local_time": " : time(year/month/day)",
+    "city": " : city name",
+    "subgenre": " : subgenre",
+    "segment": " : segment",
+    "country_name": " : country name",
+    "genre": " : genre",
+    "event_name": " : event name",
+    "state": " : state name",
+    "local_date": " : date"
+}
+```
