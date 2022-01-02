@@ -2,8 +2,9 @@
 ## Java project made with Spring
 ## Summary:
 - [Introduction](#id-section1)
-- [Application usage](#id-section2)
-- [Routes](#id-section3)
+- [Application usage](#id-section3)
+- [Routes](#id-section4)
+- [Authors](#id-section5)
 
 <div id='id-section1'/>
 
@@ -17,27 +18,34 @@ They are available through our application:
 - filtering of events, foreseen in USA and / or Europe, through the selection of one or more States, followed by the production of statistics relating to the State or States chosen.
 - filtering of events, foreseen in USA and / or Europe, through the selection of one or more genres, followed by the production of statistics relating to the chosen genre or genres.
 
-<div id='id-section2'/>
+<div id='id-section3'/>
 
 ## Application usage
 ***
 After the application has been started, routes can be called from any browser or from an application such as postman.\
 Example of usecase
->localhost:8080/<route_name> 
+`localhost:8080/<route_name>`
 
 In this case 8080 is the standard port but can be changed.
 
-<div id='id-section3'/>
+<div id='id-section4'/>
 
 ## Routes
 ***
 ### All the routes
 | Routes  | Desciption | Type |
 | :--- | :---: | ---:  |
-| /getEvents | Testo | Get |
-| Testo | Testo | Get |
+| `/getEvents` | Displays the resulting data in JSON format | Get |
+| `/getEventForGenre` | Displays all events of that kind of genre | Get |
+| `/getEventForCountryCode` | displays the events that will take place in the chosen state | Get |
 
 ### Route /getEvents
+***
+This route allows you to view the metadata, that is a description of all the attributes and related data types. This output is shown in JSON format.
+#### Example
+If for example in postman we insert this route : `localhost:8080/getEvents`
+
+The answer to this request will be:
 ```json
 {
     "country_code": " : country code",
@@ -53,3 +61,11 @@ In this case 8080 is the standard port but can be changed.
     "local_date": " : date"
 }
 ```
+
+<div id='id-section5'/>
+
+## Authors
+This project was developed during the Object Oriented Programming course (2021/2022) by:
+
+-[Davide Olivieri](https://github.com/DavideOlivieri) \
+-[Jacopo Coloccioni](https://github.com/JacopoColoccioni)
