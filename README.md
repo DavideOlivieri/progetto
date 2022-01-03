@@ -2,6 +2,7 @@
 ## Java project made with Spring
 ## Summary:
 - [Introduction](#id-section1)
+- [API](id-section2)
 - [Application usage](#id-section3)
 - [Routes](#id-section4)
 - [Authors](#id-section5)
@@ -17,6 +18,12 @@ The program will have to evaluate only the events located in USA and Europe.\
 They are available through our application:
 - filtering of events, foreseen in USA and / or Europe, through the selection of one or more States, followed by the production of statistics relating to the State or States chosen.
 - filtering of events, foreseen in USA and / or Europe, through the selection of one or more genres, followed by the production of statistics relating to the chosen genre or genres.
+
+<div id='id-section1'/>
+
+## API
+***
+
 
 <div id='id-section3'/>
 
