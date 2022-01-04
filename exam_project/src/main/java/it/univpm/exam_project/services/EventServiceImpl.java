@@ -252,7 +252,9 @@ public class EventServiceImpl implements EventService{
 		eventVector = pars.parse(json);
 		return eventVector;
 	}
-	
+	/*
+	 * 
+	 */
 	public Vector<Events> connection_api(){
 		Vector<Events> eventVector = new Vector<Events>();
 		
