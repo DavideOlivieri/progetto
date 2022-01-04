@@ -239,22 +239,24 @@ public class EventServiceImpl implements EventService{
 		return obj;
 	}
 	
-	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
-	/*
+	//private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
+	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json";
+	private static String apiKey="ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
+	
 	public static Vector<Events> connection_country(String countryCode){
 		EventServiceImpl service = new EventServiceImpl();
 		Vector<Events> eventVector = new Vector<Events>();
-		String url = apiUrl+"&countryCode="+countryCode;
+		String url = apiUrl+"?countryCode="+countryCode+"&apiKey="+apiKey;
 		JSONObject json = service.getJSONObject(url);
 		Parser pars = new Parser();		
 		eventVector = pars.parse(json);
 		return eventVector;
 	}
-	*/
+	
 	public Vector<Events> connection_api(){
 		Vector<Events> eventVector = new Vector<Events>();
 		
-		JSONObject json = getJSONObject(apiUrl);
+		JSONObject json = getJSONObject(apiUrl+"?apikey="+apiKey);
 		Parser pars = new Parser();		
 		eventVector = pars.parse(json);
 
