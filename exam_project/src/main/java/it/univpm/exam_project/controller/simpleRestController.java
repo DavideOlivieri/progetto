@@ -53,9 +53,10 @@ public class simpleRestController {
 	
 	//Route3  /getEventForCountryCode (Search by Country, returns all the events of that Country)
 	@RequestMapping(value = "/getEventForCountryCode")
-	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="GB") String countryCode) {
+	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="US") String countryCode) {
 		try {
-			Vector<Events> vector = EventServiceImpl.connection_country(countryCode);
+			//<Events> vector = EventServiceImpl.connection_country(countryCode);
+			Vector<Events> vector = EventServiceImpl.connection_api();
 			JSONObject JSONEvent_country = EventServiceImpl.FromCountryToJson(countryCode, vector);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			

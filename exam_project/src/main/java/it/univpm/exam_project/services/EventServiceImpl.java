@@ -171,18 +171,16 @@ public class EventServiceImpl implements EventService{
      * @param eventVector
      * @return respons
      */
-	public JSONObject FromCountryToJson(String country, Vector<Events> eventVector) {
+	public JSONObject FromCountryToJson(String countryCode, Vector<Events> eventVector) {
 		JSONObject respons = new JSONObject();;
 
 		Vector<Events> filteredEvents = null;
 		StatesFilter filterVector = new StatesFilter();
-		filteredEvents = filterVector.stateFilter(country, eventVector);
-		
-		respons.put("tot_event", totEvents(filterVector.stateFilter(country, eventVector)) -1);
+		filteredEvents = filterVector.stateFilter(countryCode, eventVector);
 		
 		JSONArray events = new JSONArray();
 
-		for(int i=0;i<filterVector.stateFilter(country, eventVector).size();i++) {
+		for(int i=0;i<filterVector.stateFilter(countryCode, eventVector).size();i++) {
 			JSONObject event = new JSONObject();
 			
 			event.put("event_name", filteredEvents.get(i).getName());
@@ -206,11 +204,11 @@ public class EventServiceImpl implements EventService{
 	
 	
 	
-	public JSONObject getJSONObject(String jsonObject) {
+	public JSONObject getJSONObject(String url) {
 		JSONObject obj = null;
 
 		try {
-			URLConnection openConnection = new URL(jsonObject).openConnection();
+			URLConnection openConnection = new URL(url).openConnection();
 			InputStream in = openConnection.getInputStream();
 
 			String data = "";
@@ -243,23 +241,26 @@ public class EventServiceImpl implements EventService{
 	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json";
 	private static String apiKey="ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
 	
-	public static Vector<Events> connection_country(String countryCode){
-		EventServiceImpl service = new EventServiceImpl();
+	/*public Vector<Events> connection_country(String countryCode){
+		
 		Vector<Events> eventVector = new Vector<Events>();
-		String url = apiUrl+"?countryCode="+countryCode+"&apiKey="+apiKey;
-		JSONObject json = service.getJSONObject(url);
+		String url = apiUrl+"?countryCode="+countryCode+"&apikey="+apiKey;
+		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();		
 		eventVector = pars.parse(json);
 		return eventVector;
 	}
+	*/
 	/*
 	 * 
 	 */
 	public Vector<Events> connection_api(){
+		
 		Vector<Events> eventVector = new Vector<Events>();
 		
+		Parser pars = new Parser();	
 		JSONObject json = getJSONObject(apiUrl+"?apikey="+apiKey);
-		Parser pars = new Parser();		
+	
 		eventVector = pars.parse(json);
 
 		return eventVector;

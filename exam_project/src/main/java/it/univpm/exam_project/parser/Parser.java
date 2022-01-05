@@ -30,7 +30,7 @@ public class Parser {
 	 */
 	
 	public Vector<Events> parse(JSONObject json){
-			eventsList = new Vector<Events>();
+			Vector<Events> eventsList = new Vector<Events>();
 			
 			for(int j=0; j<json.size(); j++) {
 			
