@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.univpm.exam_project.filters.GenreFilter;
+import it.univpm.exam_project.filters.SegmentFilter;
+import it.univpm.exam_project.filters.StatesFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
 
@@ -43,7 +46,13 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment) {
 		try {
 			Vector<Events> vector = EventServiceImpl.connection_segment(segment);
-			JSONObject JSONEvent_segment = EventServiceImpl.FromSegmentToJson(segment, vector);
+			
+			Vector<Events> filteredEvents = null;
+
+			SegmentFilter filterVector = new SegmentFilter();
+			filteredEvents=filterVector.SegFilter(segment, vector);
+			
+			JSONObject JSONEvent_segment = EventServiceImpl.ToJson(filteredEvents);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -56,8 +65,14 @@ public class simpleRestController {
 		public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
 			try {
 				Vector<Events> vector = EventServiceImpl.connection_genre(genre);
-				JSONObject JSONEvent_genre = EventServiceImpl.FromGenreToJson(genre, vector);
-				return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK);  ////
+				
+				Vector<Events> filteredEvents = null;
+
+				GenreFilter filterVector = new GenreFilter();
+				filteredEvents=filterVector.genFilter(genre, vector);
+				
+				JSONObject JSONEvent_genre = EventServiceImpl.ToJson(filteredEvents);
+				return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK); 
 				
 			} catch(Exception e) {
 				return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
@@ -69,7 +84,36 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode) {
 		try {
 			Vector<Events> vector = EventServiceImpl.connection_country(countryCode);
-			JSONObject JSONEvent_country = EventServiceImpl.FromCountryToJson(countryCode, vector);
+			
+			Vector<Events> filteredEvents = null;
+			StatesFilter filterVector = new StatesFilter();
+			filteredEvents = filterVector.stateFilter(countryCode, vector);
+			
+			JSONObject JSONEvent_country = EventServiceImpl.ToJson( filteredEvents);
+			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value = "/cmpUsCa")
+	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
+		try {
+			Vector<Events> vectorUS = EventServiceImpl.connection_country("US");
+			Vector<Events> vectorCA = EventServiceImpl.connection_country("CA");
+			
+			Vector<Events> filteredEventsUS = null;
+			Vector<Events> filteredEventsCA = null;
+			StatesFilter filterVector = new StatesFilter();
+			filteredEventsUS = filterVector.stateFilter("US", vectorUS);
+			filteredEventsCA = filterVector.stateFilter("CA", vectorCA);
+			
+			GenreFilter filterVectorGen = new GenreFilter();
+			filteredEventsUS = filterVectorGen.genFilter(genre, filteredEventsUS);
+			filteredEventsCA = filterVectorGen.genFilter(genre, filteredEventsCA);
+			
+			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( filteredEventsUS, filteredEventsCA);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -77,11 +121,6 @@ public class simpleRestController {
 		}
 	}
 	/*
-	@RequestMapping(value = "/cmpUsCa")
-	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre") String genre) {
-		
-	}
-	
 	@RequestMapping(value = "/getStats")
 	public ResponseEntity<Object> getStats(@RequestParam(name="genre") String genre, @RequestParam(name="state") String state) {
 		

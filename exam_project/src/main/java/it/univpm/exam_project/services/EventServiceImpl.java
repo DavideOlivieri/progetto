@@ -81,11 +81,11 @@ public class EventServiceImpl implements EventService{
 	 * Method that return the maximum of events for each month
 	 */
 	public int maxEvents(Vector<Events> eventVector) {
-		int app = 0;
+		int tot = 0;
 		int j=0;
 		for(int i = 0; i<12;i++) {
-			if(numEvents(eventVector)[i] >= app) {
-				app = numEvents(eventVector)[i];
+			if(numEvents(eventVector)[i] >= tot) {
+				tot = numEvents(eventVector)[i];
 				j=i;
 			}
 		}
@@ -96,11 +96,12 @@ public class EventServiceImpl implements EventService{
 	 * Method that returns the total of events
 	 */
 	public int totEvents(Vector<Events> eventVector) {
-		int app=0;
+		int tot=0;
 		for(int i=0; i<=eventVector.size();i++) {
-			app++;
+			tot++;
 		}
-		return app;
+		
+		return tot;
 	}
 	
 	
@@ -122,31 +123,21 @@ public class EventServiceImpl implements EventService{
 		respons.put("segment", " : segment");
 		respons.put("genre", " : genre");
 		respons.put("subgenre", " : subgenre");
-		/*respons.put("monthEvents", " : ");
-		respons.put("avgEvents", "");
-		respons.put("minEvents", "");
-		respons.put("maxEvents", "");
-		respons.put("totEvents", "");*/
 		
 		return respons;
 	}
-	
 	
 	/**
 	 * Given a segment it returns the statistics for it
 	 */
-	public JSONObject FromSegmentToJson(String segment, Vector<Events> eventVector) {
+	public JSONObject ToJson(Vector<Events> filteredEvents) {
 		JSONObject respons = new JSONObject();
-		Vector<Events> filteredEvents = null;
-
-		SegmentFilter filterVector = new SegmentFilter();
-		filteredEvents=filterVector.SegFilter(segment, eventVector);
 		
 		respons.put("tot_event", totEvents(filteredEvents) -1);
 		
 		JSONArray events = new JSONArray();
 
-		for(int i=0;i<filterVector.SegFilter(segment, eventVector).size();i++) {
+		for(int i=0;i<filteredEvents.size();i++) {
 			JSONObject event = new JSONObject();
 			
 			event.put("event_name", filteredEvents.get(i).getName());
@@ -168,41 +159,20 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 	
-	
-	public JSONObject FromGenreToJson(String genre, Vector<Events> eventVector) {
+	public JSONObject StatsToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
 		JSONObject respons = new JSONObject();
-		Vector<Events> filteredEvents = null;
-
-		GenreFilter filterVector = new GenreFilter();
-		filteredEvents=filterVector.genFilter(genre, eventVector);
-		
-		respons.put("tot_event", totEvents(filteredEvents) -1);
-		
-		JSONArray events = new JSONArray();
-
-		for(int i=0;i<filterVector.genFilter(genre, eventVector).size();i++) {
-			JSONObject event = new JSONObject();
 			
-			event.put("event_name", filteredEvents.get(i).getName());
-			event.put("event_id", filteredEvents.get(i).getEvent_id());
-			event.put("local_date", filteredEvents.get(i).getLocal_date());
-			event.put("local_time", filteredEvents.get(i).getLocal_time());
-			event.put("country_code", filteredEvents.get(i).getCountry_code());
-			event.put("city", filteredEvents.get(i).getCity());
-			event.put("state", filteredEvents.get(i).getState());
-			event.put("country_name", filteredEvents.get(i).getCountry_name());
-			event.put("segment", filteredEvents.get(i).getSegment());
-			event.put("genre", filteredEvents.get(i).getGenre() );
-			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
-			
-			events.add(event);
-		}
-		
-		respons.put("Events", events);
+		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
+		respons.put("The total of events in Canada is", totEvents(filteredEventsCA)-1);
+		respons.put("The month with the most events in US is", maxEvents(filteredEventsUS));
+		respons.put("The month with the most events in Canada is", maxEvents(filteredEventsCA));
+		respons.put("The month with the fewest events in US is", minEvents(filteredEventsUS));
+		respons.put("The month with the fewest events in Canada is", minEvents(filteredEventsCA));
+		respons.put("The average monthly events in the US", avgEvents(filteredEventsUS));
+		respons.put("The average monthly events in the Canada", avgEvents(filteredEventsCA));
+
 		return respons;
 	}
-	
-	
 	
     /**
      * Given a country it returns the statistic for it
@@ -211,39 +181,6 @@ public class EventServiceImpl implements EventService{
      * @param eventVector
      * @return respons
      */
-	public JSONObject FromCountryToJson(String countryCode, Vector<Events> eventVector) {
-		JSONObject respons = new JSONObject();;
-
-		Vector<Events> filteredEvents = null;
-		StatesFilter filterVector = new StatesFilter();
-		filteredEvents = filterVector.stateFilter(countryCode, eventVector);
-		
-		respons.put("tot_event", totEvents(filteredEvents) -1);
-		
-		JSONArray events = new JSONArray();
-
-		for(int i=0;i<filterVector.stateFilter(countryCode, eventVector).size();i++) {
-			JSONObject event = new JSONObject();
-			
-			event.put("event_name", filteredEvents.get(i).getName());
-			event.put("event_id", filteredEvents.get(i).getEvent_id());
-			event.put("local_date", filteredEvents.get(i).getLocal_date());
-			event.put("local_time", filteredEvents.get(i).getLocal_time());
-			event.put("country_code", filteredEvents.get(i).getCountry_code());
-			event.put("city", filteredEvents.get(i).getCity());
-			event.put("state", filteredEvents.get(i).getState());
-			event.put("country_name", filteredEvents.get(i).getCountry_name());
-			event.put("segment", filteredEvents.get(i).getSegment());
-			event.put("genre", filteredEvents.get(i).getGenre() );
-			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
-			
-			events.add(event);
-		}
-		
-		respons.put("Events", events);
-		return respons;
-	}
-	
 	
 	
 	public JSONObject getJSONObject(String url) {
