@@ -75,13 +75,14 @@ public class Parser {
 				
 				JSONObject state = (JSONObject) venuesTemp.get("state");
 				String stateName = (String) state.get("name");
+			    String stateCode = (String) stateName.get("stateCode");
 				
 				JSONObject country = (JSONObject) venuesTemp.get("country");
 				String countryName = (String) country.get("name");
 				String countryCode = (String) country.get("countryCode");
 				
 				Events e = new Events(name, id, url, localDate, localTime, countryCode, cityName,
-									  stateName, countryName, nameGenre, nameSubGenre, nameSegment);
+									  stateName, stateCode, countryName, nameGenre, nameSubGenre, nameSegment);
 
 				eventsList.add(e);
 			

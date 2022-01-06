@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import it.univpm.exam_project.filters.GenreFilter;
 import it.univpm.exam_project.filters.SegmentFilter;
-import it.univpm.exam_project.filters.StatesFilter;
+import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
 

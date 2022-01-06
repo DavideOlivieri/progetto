@@ -10,24 +10,24 @@ import it.univpm.exam_project.models.Events;
  * Class that filters all events by Country
  */
 
-public class StatesFilter {
-
+public class CountryFilter {
+	
 	/**
-	 * Method that filters all events by State
+	 * Method that filters all events by Country
 	 * 
-	 * @param stateCode, the countryCode for which to filter events
+	 * @param countryCode, the countryCode for which to filter events
 	 * @param eventstoFilter, all events to be filtered
-	 * @return filteredStates, events filtered for the chosen State
+	 * @return filteredStates, events filtered for the chosen Country
 	 * @see it.univpm.exam_project.models.Events
 	 */
  
-	public Vector<Events> countryFilter(String stateCode, Vector<Events> eventstoFilter){
+	public Vector<Events> countryFilter(String countryCode, Vector<Events> eventstoFilter){
 
 		Vector<Events> filteredStates = new Vector<Events>();
 
 		for(Events event : eventstoFilter) {
 
-			if(stateCode.equals(event.getState_code()))
+			if(countryCode.equals(event.getCountry_code()))
 				filteredStates.add(event);
 
 		}

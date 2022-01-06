@@ -18,6 +18,7 @@ public class Events {
 	private String local_date;
 	private String local_time;
 	private String country_code;
+	private String state_code;
 	private String city;
 	private String state;
 	private String country_name;
@@ -28,13 +29,14 @@ public class Events {
 	 * constructor
 	 *
 	 */
-	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
+	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String state_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
 		this.event_name=event_name;
 		this.event_id=event_id;
 		this.event_url=event_url;
 		this.local_date=local_date;
 		this.local_time=local_time;
 		this.country_code=country_code;
+		this.state_code=state_code;
 		this.city=city;
 		this.state=state;
 		this.country_name=country_name;
@@ -157,5 +159,13 @@ public class Events {
 
 	public String getMonth() {
 		return month;
+	}
+
+	public String getState_code() {
+		return state_code;
+	}
+
+	public void setState_code(String state_code) {
+		this.state_code = state_code;
 	}
 }

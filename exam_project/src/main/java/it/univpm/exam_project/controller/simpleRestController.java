@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.exam_project.filters.GenreFilter;
 import it.univpm.exam_project.filters.SegmentFilter;
-import it.univpm.exam_project.filters.StatesFilter;
+import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
 
@@ -86,8 +86,8 @@ public class simpleRestController {
 			Vector<Events> vector = EventServiceImpl.connection_country(countryCode);
 			
 			Vector<Events> filteredEvents = null;
-			StatesFilter filterVector = new StatesFilter();
-			filteredEvents = filterVector.stateFilter(countryCode, vector);
+			CountryFilter filterVector = new CountryFilter();
+			filteredEvents = filterVector.countryFilter(countryCode, vector);
 			
 			JSONObject JSONEvent_country = EventServiceImpl.ToJson( filteredEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
@@ -105,9 +105,9 @@ public class simpleRestController {
 			
 			Vector<Events> filteredEventsUS = null;
 			Vector<Events> filteredEventsCA = null;
-			StatesFilter filterVector = new StatesFilter();
-			filteredEventsUS = filterVector.stateFilter("US", vectorUS);
-			filteredEventsCA = filterVector.stateFilter("CA", vectorCA);
+			CountryFilter filterVector = new CountryFilter();
+			filteredEventsUS = filterVector.countryFilter("US", vectorUS);
+			filteredEventsCA = filterVector.countryFilter("CA", vectorCA);
 			
 			GenreFilter filterVectorGen = new GenreFilter();
 			filteredEventsUS = filterVectorGen.genFilter(genre, filteredEventsUS);
