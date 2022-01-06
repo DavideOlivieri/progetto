@@ -243,13 +243,13 @@ public class EventServiceImpl implements EventService{
 	 *
 	  private static String apiKey="ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
 	*/
-	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC&countryCode=";
-	private static String apiUrl1="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC&genre=";
+	private static String apiUrl_country="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC&countryCode=";
+	private static String apiUrl_genre="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC&segmentName=";
 	 
 	public Vector<Events> connection_country(String countryCode){
 		
 		Vector<Events> eventVector = new Vector<Events>();
-		String url = apiUrl+countryCode;
+		String url = apiUrl_country+countryCode;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();		
 		eventVector = pars.parse(json);
@@ -257,12 +257,11 @@ public class EventServiceImpl implements EventService{
 		return eventVector;
 	}
 	
-	 
 	
-	public Vector<Events> connection_api(String genre){
+	public Vector<Events> connection_genre(String genre){
 		
 		Vector<Events> eventVector = new Vector<Events>();
-		String url = apiUrl1+genre;
+		String url = apiUrl_genre+genre;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();
 		eventVector = pars.parse(json);

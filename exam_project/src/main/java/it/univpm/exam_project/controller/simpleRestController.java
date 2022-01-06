@@ -42,8 +42,7 @@ public class simpleRestController {
 	@RequestMapping(value = "/getEventForGenre")
 	public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Sports") String genre) {
 		try {
-			Vector<Events> vector = EventServiceImpl.connection_api(genre);
-			//Vector<Events> vector = EventServiceImpl.connection_country(genre);
+			Vector<Events> vector = EventServiceImpl.connection_genre(genre);
 			JSONObject JSONEvent_genre = EventServiceImpl.FromGenreToJson(genre, vector);
 			return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK);
 			
@@ -57,7 +56,6 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode) {
 		try {
 			Vector<Events> vector = EventServiceImpl.connection_country(countryCode);
-			//Vector<Events> vector = EventServiceImpl.connection_api(countryCode);
 			JSONObject JSONEvent_country = EventServiceImpl.FromCountryToJson(countryCode, vector);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
