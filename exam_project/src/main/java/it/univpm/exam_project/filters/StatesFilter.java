@@ -21,7 +21,7 @@ public class StatesFilter {
 	 * @see it.univpm.exam_project.models.Events
 	 */
  
-	public Vector<Events> countryFilter(String stateCode, Vector<Events> eventstoFilter){
+	public Vector<Events> stateFilter(String stateCode, Vector<Events> eventstoFilter){
 
 		Vector<Events> filteredStates = new Vector<Events>();
 

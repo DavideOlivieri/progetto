@@ -75,7 +75,7 @@ public class Parser {
 				
 				JSONObject state = (JSONObject) venuesTemp.get("state");
 				String stateName = (String) state.get("name");
-			    String stateCode = (String) stateName.get("stateCode");
+			    String stateCode = (String) state.get("stateCode");
 				
 				JSONObject country = (JSONObject) venuesTemp.get("country");
 				String countryName = (String) country.get("name");

@@ -119,6 +119,7 @@ public class EventServiceImpl implements EventService{
 		respons.put("country_code"," : country code");
 		respons.put("city"," : city name");
 		respons.put("state"," : state name");
+		respons.put("state_code"," : state code");
 		respons.put("country_name"," : country name");
 		respons.put("segment", " : segment");
 		respons.put("genre", " : genre");
@@ -147,6 +148,7 @@ public class EventServiceImpl implements EventService{
 			event.put("country_code", filteredEvents.get(i).getCountry_code());
 			event.put("city", filteredEvents.get(i).getCity());
 			event.put("state", filteredEvents.get(i).getState());
+			event.put("state_code", filteredEvents.get(i).getState_code());
 			event.put("country_name", filteredEvents.get(i).getCountry_name());
 			event.put("segment", filteredEvents.get(i).getSegment());
 			event.put("genre", filteredEvents.get(i).getGenre() );

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.exam_project.filters.GenreFilter;
 import it.univpm.exam_project.filters.SegmentFilter;
+import it.univpm.exam_project.filters.StatesFilter;
 import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
@@ -120,16 +121,16 @@ public class simpleRestController {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
 	}
-	/*
+	
 	@RequestMapping(value = "/getStats")
-	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Basketball") String genre, @RequestParam(name="state", defaultValue="Arizona") String state) {
+	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Basketball") String genre, @RequestParam(name="state_code", defaultValue="Arizona") String state_code) {
 		try {
 			Vector<Events> vector = EventServiceImpl.connection_genre(genre);
 			
 			Vector<Events> filteredEvents = null;	
 			
-			StateFilter filterVectorState = new StateFilter();
-			filteredEvents = filterVectorState.stateFilter(state, filteredEvents);
+			StatesFilter filterVectorState = new StatesFilter();
+			filteredEvents = filterVectorState.stateFilter(state_code, vector);
 			
 			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( filteredEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
@@ -139,7 +140,7 @@ public class simpleRestController {
 	}
 	
 	}
-	*/
+	
 	
 	
 }
