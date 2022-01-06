@@ -7,27 +7,27 @@ import it.univpm.exam_project.models.Events;
 /**
  * @author DavideOlivieri
  * 
- * Class that filters all events by genre
+ * Class that filters all events by segment
  */
 
-public class GenreFilter {
-	
+public class SegmentFilter {
+
 	/**
-	 * Method that filters all events by genre
+	 * Method that filters all events by segment
 	 * 
-	 * @param genre, the genre for which to filter events
+	 * @param segment, the segment for which to filter events
 	 * @param eventstoFilter, all events to be filtered
-	 * @return filteredEvents, events filtered for the chosen genre
+	 * @return filteredEvents, events filtered for the chosen segment
 	 * @see it.univpm.exam_project.models.Events
 	 */
 	
-	public Vector<Events> genFilter(String genre, Vector<Events> eventstoFilter){
+	public Vector<Events> SegFilter(String segment, Vector<Events> eventstoFilter){
 
 		Vector<Events> filteredEvents = new Vector<Events>();
 
 		for(Events event : eventstoFilter) {
 
-			if(genre.equals(event.getGenre()))
+			if(segment.equals(event.getSegment()))
 				filteredEvents.add(event);
 
 		}

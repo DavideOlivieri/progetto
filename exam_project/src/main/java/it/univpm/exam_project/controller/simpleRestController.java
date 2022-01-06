@@ -38,20 +38,33 @@ public class simpleRestController {
 		return new ResponseEntity<>(EventServiceImpl.getEvents(), HttpStatus.OK);
 	}
 	
-	//Route2  /getEventForGenre (Search by genre, returns all events of that kind and the total of events)
-	@RequestMapping(value = "/getEventForGenre")
-	public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Sports") String genre) {
+	//Route2  /getEventForSegment (Search by segment, returns all events of that kind and the total of events)
+	@RequestMapping(value = "/getEventForSegment")
+	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment) {
 		try {
-			Vector<Events> vector = EventServiceImpl.connection_genre(genre);
-			JSONObject JSONEvent_genre = EventServiceImpl.FromGenreToJson(genre, vector);
-			return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK);
+			Vector<Events> vector = EventServiceImpl.connection_segment(segment);
+			JSONObject JSONEvent_segment = EventServiceImpl.FromSegmentToJson(segment, vector);
+			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
 			
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	//Route3  /getEventForCountryCode (Search by Country, returns all the events of that Country)
+	//Route 3  /getEventForGenre (Search by genre, returns all events of that kind and the total of events)
+		@RequestMapping(value = "/getEventForGenre")
+		public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
+			try {
+				Vector<Events> vector = EventServiceImpl.connection_genre(genre);
+				JSONObject JSONEvent_genre = EventServiceImpl.FromGenreToJson(genre, vector);
+				return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK);  ////
+				
+			} catch(Exception e) {
+				return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+			}
+		}
+	
+	//Route 4 /getEventForCountryCode (Search by Country, returns all the events of that Country)
 	@RequestMapping(value = "/getEventForCountryCode")
 	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode) {
 		try {
@@ -63,7 +76,7 @@ public class simpleRestController {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	/*
 	@RequestMapping(value = "/cmpUsCa")
 	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre") String genre) {
 		
@@ -73,7 +86,7 @@ public class simpleRestController {
 	public ResponseEntity<Object> getStats(@RequestParam(name="genre") String genre, @RequestParam(name="state") String state) {
 		
 	}
-	
+	*/
 	
 	
 }

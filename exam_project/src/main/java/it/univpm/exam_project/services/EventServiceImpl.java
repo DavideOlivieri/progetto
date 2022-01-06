@@ -15,6 +15,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import it.univpm.exam_project.filters.GenreFilter;
+import it.univpm.exam_project.filters.SegmentFilter;
 import it.univpm.exam_project.filters.StatesFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
@@ -132,8 +133,42 @@ public class EventServiceImpl implements EventService{
 	
 	
 	/**
-	 * Given a genre it returns the statistics for it
+	 * Given a segment it returns the statistics for it
 	 */
+	public JSONObject FromSegmentToJson(String segment, Vector<Events> eventVector) {
+		JSONObject respons = new JSONObject();
+		Vector<Events> filteredEvents = null;
+
+		SegmentFilter filterVector = new SegmentFilter();
+		filteredEvents=filterVector.SegFilter(segment, eventVector);
+		
+		respons.put("tot_event", totEvents(filteredEvents) -1);
+		
+		JSONArray events = new JSONArray();
+
+		for(int i=0;i<filterVector.SegFilter(segment, eventVector).size();i++) {
+			JSONObject event = new JSONObject();
+			
+			event.put("event_name", filteredEvents.get(i).getName());
+			event.put("event_id", filteredEvents.get(i).getEvent_id());
+			event.put("local_date", filteredEvents.get(i).getLocal_date());
+			event.put("local_time", filteredEvents.get(i).getLocal_time());
+			event.put("country_code", filteredEvents.get(i).getCountry_code());
+			event.put("city", filteredEvents.get(i).getCity());
+			event.put("state", filteredEvents.get(i).getState());
+			event.put("country_name", filteredEvents.get(i).getCountry_name());
+			event.put("segment", filteredEvents.get(i).getSegment());
+			event.put("genre", filteredEvents.get(i).getGenre() );
+			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
+			
+			events.add(event);
+		}
+		
+		respons.put("Events", events);
+		return respons;
+	}
+	
+	
 	public JSONObject FromGenreToJson(String genre, Vector<Events> eventVector) {
 		JSONObject respons = new JSONObject();
 		Vector<Events> filteredEvents = null;
@@ -166,6 +201,7 @@ public class EventServiceImpl implements EventService{
 		respons.put("Events", events);
 		return respons;
 	}
+	
 	
 	
     /**
@@ -243,19 +279,14 @@ public class EventServiceImpl implements EventService{
 		return obj;
 	}
 	
-	//private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
-	/*
-	 * private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json";
-	 *
-	  private static String apiKey="ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
-	*/
-	private static String apiUrl_country="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC&countryCode=";
-	private static String apiUrl_genre="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC&segmentName=";
+	
+	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
+	
 	 
 	public Vector<Events> connection_country(String countryCode){
 		
 		Vector<Events> eventVector = new Vector<Events>();
-		String url = apiUrl_country+countryCode;
+		String url = apiUrl+"&countryCode="+countryCode;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();		
 		eventVector = pars.parse(json);
@@ -264,10 +295,22 @@ public class EventServiceImpl implements EventService{
 	}
 	
 	
-	public Vector<Events> connection_genre(String genre){
+	public Vector<Events> connection_segment(String segment){
 		
 		Vector<Events> eventVector = new Vector<Events>();
-		String url = apiUrl_genre+genre;
+		String url = apiUrl+"&segmentName="+segment;
+		JSONObject json = getJSONObject(url);
+		Parser pars = new Parser();
+		eventVector = pars.parse(json);
+
+		return eventVector;
+	}
+
+	
+	public Vector<Events> connection_genre(String genre){
+
+		Vector<Events> eventVector = new Vector<Events>();
+		String url = apiUrl+"&classificationName="+genre;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();
 		eventVector = pars.parse(json);
