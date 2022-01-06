@@ -113,7 +113,7 @@ public class simpleRestController {
 			filteredEventsUS = filterVectorGen.genFilter(genre, filteredEventsUS);
 			filteredEventsCA = filterVectorGen.genFilter(genre, filteredEventsCA);
 			
-			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( filteredEventsUS, filteredEventsCA);
+			JSONObject JSONEvent_country = EventServiceImpl.CmpToJson( filteredEventsUS, filteredEventsCA);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -122,8 +122,22 @@ public class simpleRestController {
 	}
 	/*
 	@RequestMapping(value = "/getStats")
-	public ResponseEntity<Object> getStats(@RequestParam(name="genre") String genre, @RequestParam(name="state") String state) {
-		
+	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Basketball") String genre, @RequestParam(name="state", defaultValue="Arizona") String state) {
+		try {
+			Vector<Events> vector = EventServiceImpl.connection_genre(genre);
+			
+			Vector<Events> filteredEvents = null;	
+			
+			StateFilter filterVectorState = new StateFilter();
+			filteredEvents = filterVectorState.stateFilter(state, filteredEvents);
+			
+			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( filteredEvents);
+			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+	}
+	
 	}
 	*/
 	

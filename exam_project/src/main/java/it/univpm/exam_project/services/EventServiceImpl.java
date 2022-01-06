@@ -159,7 +159,7 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 	
-	public JSONObject StatsToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
+	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
 		JSONObject respons = new JSONObject();
 			
 		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
@@ -170,6 +170,21 @@ public class EventServiceImpl implements EventService{
 		respons.put("The month with the fewest events in Canada is", minEvents(filteredEventsCA));
 		respons.put("The average monthly events in the US", avgEvents(filteredEventsUS));
 		respons.put("The average monthly events in the Canada", avgEvents(filteredEventsCA));
+
+		return respons;
+	}
+	
+	public JSONObject StatsToJson(Vector<Events> filteredEventsUS) {
+		JSONObject respons = new JSONObject();
+			
+		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
+		
+		respons.put("The month with the most events in US is", maxEvents(filteredEventsUS));
+		
+		respons.put("The month with the fewest events in US is", minEvents(filteredEventsUS));
+		
+		respons.put("The average monthly events in the US", avgEvents(filteredEventsUS));
+		
 
 		return respons;
 	}
