@@ -123,14 +123,17 @@ public class simpleRestController {
 	}
 	
 	@RequestMapping(value = "/getStats")
-	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Basketball") String genre, @RequestParam(name="state_code", defaultValue="Arizona") String state_code) {
+	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Basketball") String genre, @RequestParam(name="state_code", defaultValue="AZ") String state_code) {
 		try {
 			Vector<Events> vector = EventServiceImpl.connection_genre(genre);
 			
 			Vector<Events> filteredEvents = null;	
 			
+			GenreFilter filterVectorGen = new GenreFilter();
+			filteredEvents = filterVectorGen.genFilter(genre, vector);
+			
 			StatesFilter filterVectorState = new StatesFilter();
-			filteredEvents = filterVectorState.stateFilter(state_code, vector);
+			filteredEvents = filterVectorState.stateFilter(state_code, filteredEvents);
 			
 			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( filteredEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);

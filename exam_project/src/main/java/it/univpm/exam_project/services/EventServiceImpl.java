@@ -176,16 +176,16 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 	
-	public JSONObject StatsToJson(Vector<Events> filteredEventsUS) {
+	public JSONObject StatsToJson(Vector<Events> filteredEvents) {
 		JSONObject respons = new JSONObject();
 			
-		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
+		respons.put("The total of events in US is", totEvents(filteredEvents)-1);
 		
-		respons.put("The month with the most events in US is", maxEvents(filteredEventsUS));
+		respons.put("The month with the most events in US is", maxEvents(filteredEvents));
 		
-		respons.put("The month with the fewest events in US is", minEvents(filteredEventsUS));
+		respons.put("The month with the fewest events in US is", minEvents(filteredEvents));
 		
-		respons.put("The average monthly events in the US", avgEvents(filteredEventsUS));
+		respons.put("The average monthly events in the US", avgEvents(filteredEvents));
 		
 
 		return respons;
