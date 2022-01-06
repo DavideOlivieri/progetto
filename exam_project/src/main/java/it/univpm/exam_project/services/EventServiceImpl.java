@@ -137,7 +137,7 @@ public class EventServiceImpl implements EventService{
 		GenreFilter filterVector = new GenreFilter();
 		filteredEvents=filterVector.genFilter(genre, eventVector);
 		
-		respons.put("tot_event", totEvents(filterVector.genFilter(genre, eventVector)) -1);
+		respons.put("tot_event", totEvents(filteredEvents) -1);
 		
 		JSONArray events = new JSONArray();
 
@@ -177,6 +177,8 @@ public class EventServiceImpl implements EventService{
 		Vector<Events> filteredEvents = null;
 		StatesFilter filterVector = new StatesFilter();
 		filteredEvents = filterVector.stateFilter(countryCode, eventVector);
+		
+		respons.put("tot_event", totEvents(filteredEvents) -1);
 		
 		JSONArray events = new JSONArray();
 
