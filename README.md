@@ -43,8 +43,9 @@ In this case 8080 is the standard port but can be changed.
 | Routes  | Desciption | Type |
 | :--- | :---: | ---:  |
 | `/getEvents` | Displays the resulting data in JSON format | Get |
-| `/getEventForGenre` | Displays all events of that kind of genre | Get |
-| `/getEventForCountryCode` | displays the events that will take place in the chosen state | Get |
+| `/getEventsForSegment` | Displays all events of that kind of segment | Get |
+| `/getEventsForGenre` | Displays all events of that kind of genre | Get |
+| `/getEventsForCountryCode` | Displays the events that will take place in the chosen state | Get |
 
 ### Route /getEvents
 ***
@@ -67,6 +68,17 @@ The answer to this request will be:
     "state": " : state name",
     "local_date": " : date"
 }
+```
+### Route /getEventsForSegment
+***
+This route allows you to view the metadata by segment. Segment groups specific genres. 
+
+In this application we can search for these segments:
+```json
+[
+ "Sports"
+ "Music"
+]
 ```
 
 <div id='id-section5'/>
