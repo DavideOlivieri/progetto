@@ -65,12 +65,14 @@ public class EventServiceImpl implements EventService{
 	 */
 	public int minEvents(Vector<Events> eventVector) {
 		int app = 0;
+		int j=0;
 		for(int i = 0; i<12;i++) {
 			if(numEvents(eventVector)[i] <= app) {
 				app = numEvents(eventVector)[i];
+				j=i;
 			}
 		}
-		return app;
+		return j;
 	}
 	
 	
@@ -79,12 +81,14 @@ public class EventServiceImpl implements EventService{
 	 */
 	public int maxEvents(Vector<Events> eventVector) {
 		int app = 0;
+		int j=0;
 		for(int i = 0; i<12;i++) {
 			if(numEvents(eventVector)[i] >= app) {
 				app = numEvents(eventVector)[i];
+				j=i;
 			}
 		}
-		return app;
+		return j;
 	}
 	
 	/**

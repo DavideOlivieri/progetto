@@ -64,5 +64,16 @@ public class simpleRestController {
 		}
 	}
 	
+	@RequestMapping(value = "/cmpUsCa")
+	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre") String genre) {
+		
+	}
+	
+	@RequestMapping(value = "/getStats")
+	public ResponseEntity<Object> getStats(@RequestParam(name="genre") String genre, @RequestParam(name="state") String state) {
+		
+	}
+	
+	
 	
 }
