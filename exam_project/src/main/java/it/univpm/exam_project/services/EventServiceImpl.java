@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDate;
 import java.util.Vector;
 
 import org.json.simple.JSONArray;
@@ -31,22 +32,22 @@ public class EventServiceImpl implements EventService{
     
 	
 	
+
 	public int[] numEvents(Vector<Events> eventVector) {
 
 		int[] monthEvents = new int[12];
+		Events currentEvents;
 		for(int i = 0; i<eventVector.size();i++) {
-			Events currentEvents = eventVector.get(i);
+			currentEvents = eventVector.get(i);
 
 			for(int j = 1; j <= 12; j++) {
-				String j_string = Integer.toString(j);
-				if(currentEvents.getMonth().equals(j_string)) {
+				if(currentEvents.getMonth()==j) {
 					monthEvents[j]++;
 				}
 			}
 		}
 		return monthEvents;
-	}
-    
+	} 
 	
 	/**
 	 * Method that return the average of events of all months
@@ -65,7 +66,7 @@ public class EventServiceImpl implements EventService{
 	 * Method that return the minimum of events for each month
 	 */
 	public int minEvents(Vector<Events> eventVector) {
-		int app = 0;
+		int app = 10000;
 		int j=0;
 		for(int i = 0; i<12;i++) {
 			if(numEvents(eventVector)[i] <= app) {
@@ -163,7 +164,7 @@ public class EventServiceImpl implements EventService{
 	
 	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
 		JSONObject respons = new JSONObject();
-			
+		
 		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
 		respons.put("The total of events in Canada is", totEvents(filteredEventsCA)-1);
 		respons.put("The month with the most events in US is", maxEvents(filteredEventsUS));
@@ -292,4 +293,8 @@ public class EventServiceImpl implements EventService{
 		return vector;
 	}
 
+	public static LocalDate dateConverter(String localDate) {
+		LocalDate locD = LocalDate.parse((CharSequence)localDate);
+		return locD;
+	}
 }

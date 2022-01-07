@@ -46,6 +46,7 @@ public class Parser {
 				String localDate = (String) start.get("localDate");
 				String localTime = (String) start.get("localTime");
 				
+				
 				JSONArray classifications = (JSONArray) currentEvent.get("classifications");
 				
 				JSONObject classificationsTemp = (JSONObject) classifications.get(0);

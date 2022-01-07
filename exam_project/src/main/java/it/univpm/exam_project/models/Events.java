@@ -1,5 +1,6 @@
 package it.univpm.exam_project.models;
 
+
 /**
  * @author DavideOlivieri
  * @author JacopoColoccioni
@@ -14,7 +15,7 @@ public class Events {
 	private String event_name;
 	private String event_id;
 	private String event_url;
-	private String month;
+	private int month;
 	private String local_date;
 	private String local_time;
 	private String country_code;
@@ -29,11 +30,11 @@ public class Events {
 	 * constructor
 	 *
 	 */
-	public Events(String event_name, String event_id, String event_url, String local_date, String local_time, String country_code, String state_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
+	public Events(String event_name, String event_id, String event_url, String localDate, String local_time, String country_code, String state_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
 		this.event_name=event_name;
 		this.event_id=event_id;
 		this.event_url=event_url;
-		this.local_date=local_date;
+		this.local_date=localDate;
 		this.local_time=local_time;
 		this.country_code=country_code;
 		this.state_code=state_code;
@@ -43,9 +44,11 @@ public class Events {
 		this.genre=genre;
 		this.subgenre=subgenre;
 		this.segment=segment;
-		setMonth();
+		String str[] = localDate.split("-");
+		setMonth(Integer.parseInt(str[1]));
 	}
-	
+
+
 	/**
 	 * Getters and setters
 	 * 
@@ -148,18 +151,6 @@ public class Events {
 	public void setCountry_name(String country_name) {
 		this.country_name = country_name;
 	}
-	
-	public void setMonth() {
-		for(int i=0; i<7; i++) {
-			if(i>4) {
-				month+=this.local_date.charAt(i);
-			}
-		}	 
-	}
-
-	public String getMonth() {
-		return month;
-	}
 
 	public String getState_code() {
 		return state_code;
@@ -167,5 +158,15 @@ public class Events {
 
 	public void setState_code(String state_code) {
 		this.state_code = state_code;
+	}
+
+
+	public int getMonth() {
+		return month;
+	}
+
+
+	public void setMonth(int i) {
+		this.month = i;
 	}
 }
