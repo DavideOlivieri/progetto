@@ -14,10 +14,10 @@
 This project is a Sping application that allows you to filter the data of Ticketmaster site, and make statistics of the data.\
 Ticketmaster is a well-known software dedicated to the management and booking of musical, theatrical, film and artistic events, available at https://www.ticketmaster.it/. \
 Through the APIs derived from the TM Developer page, accessible through the Discovery API address, we get the metadata.\
-The program will have to evaluate only the events located in USA and Europe.\
+The program will have to evaluate only the events located in USA and Canada. \
 They are available through our application:
-- filtering of events, foreseen in USA and / or Europe, through the selection of one or more States, followed by the production of statistics relating to the State or States chosen.
-- filtering of events, foreseen in USA and / or Europe, through the selection of one or more genres, followed by the production of statistics relating to the chosen genre or genres.
+- filtering of events, foreseen in USA and / or Canada, through the selection of one or more States, followed by the production of statistics relating to the State or States chosen.
+- filtering of events, foreseen in USA and / or Canada, through the selection of one or more genres, followed by the production of statistics relating to the chosen genre or genres.
 
 <div id='id-section1'/>
 
@@ -71,15 +71,55 @@ The answer to this request will be:
 ```
 ### Route /getEventsForSegment
 ***
-This route allows you to view the metadata by segment. Segment groups specific genres. 
+This route allows to view the metadata by segment. Segment groups specific genres. 
 
 In this application we can search for these segments:
 ```json
 [
+ "Arta & Theatre"
  "Sports"
  "Music"
 ]
 ```
+### Route /getEventForGenre
+***
+This route allows to view metatadata by genre of the events.
+In thi application we can serch for these segment:
+```json
+[
+   "SPORTS"
+   "Baseball",
+   "Basketball",
+   "Boxing",
+   "Hckey",
+  "MUSIC"
+   "Classical",
+  "ART & THEATRE"
+   "Comedy",
+
+]
+```
+#### Example
+```json
+{
+ "country_code": "US", 
+ "event_id": "Z7r9jZ1AdFf84",
+ "local_time": "19:00:00",
+ "city": "Nevada",
+ "subgenre": "NHL",
+ "segment": "Sports",
+ "country_name": "United States Of America",
+ "genre": "Hockey"
+ "event_name": "Vegas Golden Knights vs. New York Rangers",
+ "state": "NV",
+ "state_code": "Las Vegas",
+ "local_date": "2022-01-06"
+}
+```
+### Route /getEventForCountryCode
+
+
+
 
 <div id='id-section5'/>
 
