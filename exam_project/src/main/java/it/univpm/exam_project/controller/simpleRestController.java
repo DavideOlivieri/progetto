@@ -129,7 +129,7 @@ public class simpleRestController {
 			StatesFilter filterVectorState = new StatesFilter();
 			vector = filterVectorState.stateFilter(state_code, vector);
 			
-			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code);
+			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code, genre);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
