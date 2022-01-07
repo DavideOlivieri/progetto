@@ -176,16 +176,16 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 	
-	public JSONObject StatsToJson(Vector<Events> filteredEvents) {
+	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre) {
 		JSONObject respons = new JSONObject();
 			
-		respons.put("The total of events in US is", totEvents(filteredEvents)-1);
+		respons.put("The total of events of "+ genre+" in "+state_code+" is", totEvents(filteredEvents)-1);
 		
-		respons.put("The month with the most events in US is", maxEvents(filteredEvents));
+		respons.put("The month with the most events of "+ genre+" in "+state_code+" is", maxEvents(filteredEvents));
 		
-		respons.put("The month with the fewest events in US is", minEvents(filteredEvents));
+		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
 		
-		respons.put("The average monthly events in the US", avgEvents(filteredEvents));
+		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));
 		
 
 		return respons;
@@ -238,8 +238,8 @@ public class EventServiceImpl implements EventService{
 	
 	 
 	public Vector<Events> connection_country(String countryCode){
-		
 		Vector<Events> eventVector = new Vector<Events>();
+		
 		String url = apiUrl+"&countryCode="+countryCode;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();		
@@ -250,8 +250,8 @@ public class EventServiceImpl implements EventService{
 	
 	
 	public Vector<Events> connection_segment(String segment){
-		
 		Vector<Events> eventVector = new Vector<Events>();
+		
 		String url = apiUrl+"&segmentName="+segment;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();
@@ -262,14 +262,34 @@ public class EventServiceImpl implements EventService{
 
 	
 	public Vector<Events> connection_genre(String genre){
-
 		Vector<Events> eventVector = new Vector<Events>();
+		
 		String url = apiUrl+"&classificationName="+genre;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();
 		eventVector = pars.parse(json);
 
 		return eventVector;
+	}
+	
+	public Vector<Events> connection_state(String state_code){
+		Vector<Events> eventVector = new Vector<Events>();
+		
+		String url = apiUrl+"&stateCode="+state_code;
+		JSONObject json = getJSONObject(url);
+		Parser pars = new Parser();
+		eventVector = pars.parse(json);
+
+		return eventVector;
+	}
+	
+	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2){
+		Vector<Events> vector = new Vector<Events>();
+		
+		vector.addAll(vector1);
+		vector.addAll(vector2);
+		
+		return vector;
 	}
 
 }

@@ -17,11 +17,6 @@ import it.univpm.exam_project.models.Events;
 public class Parser {
 	
 	/**
-	 * Vector of events
-	 */
-	private Vector<Events> eventsList;
-	
-	/**
 	 * Method that analize the json from           and returns a vector of events
 	 * 
 	 * @param json, provides the json code that is analize in the method
