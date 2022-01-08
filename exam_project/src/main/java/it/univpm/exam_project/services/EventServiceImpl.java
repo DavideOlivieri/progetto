@@ -54,8 +54,9 @@ public class EventServiceImpl implements EventService{
 	 */
 	public float avgEvents(Vector<Events> eventVector) {
 		float avgevents=0;
+		int[] ev=numEvents(eventVector);
 		for(int i = 0; i<12;i++) {
-			avgevents += numEvents(eventVector)[i];			
+			avgevents += ev[i];			
 		}
 		avgevents/=12;
 		return avgevents;
@@ -68,13 +69,14 @@ public class EventServiceImpl implements EventService{
 	public int minEvents(Vector<Events> eventVector) {
 		int app = 10000;
 		int j=0;
+		int[] ev=numEvents(eventVector);
 		for(int i = 0; i<12;i++) {
-			if(numEvents(eventVector)[i] <= app) {
-				app = numEvents(eventVector)[i];
+			if(ev[i] < app) {
+				app = ev[i];
 				j=i;
 			}
 		}
-		return j;
+		return j+1;
 	}
 	
 	
@@ -84,13 +86,14 @@ public class EventServiceImpl implements EventService{
 	public int maxEvents(Vector<Events> eventVector) {
 		int tot = 0;
 		int j=0;
+		int[] ev=numEvents(eventVector);
 		for(int i = 0; i<12;i++) {
-			if(numEvents(eventVector)[i] >= tot) {
-				tot = numEvents(eventVector)[i];
+			if(ev[i] > tot) {
+				tot =  ev[i];
 				j=i;
 			}
 		}
-		return j;
+		return j+1;
 	}
 	
 	/**
