@@ -93,7 +93,7 @@ public class simpleRestController {
 		}
 	}
 	
-	@RequestMapping(value = "/cmpUsCa")
+	@RequestMapping(value = "/compareUSCA")
 	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
 		try {
 			Vector<Events> vectorUS = EventServiceImpl.connection_country("US");
