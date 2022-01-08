@@ -46,6 +46,8 @@ In this case 8080 is the standard port but can be changed.
 | `/getEventsForSegment` | Displays all events of that kind of segment | Get |
 | `/getEventsForGenre` | Displays all events of that kind of genre | Get |
 | `/getEventsForCountryCode` | Displays the events that will take place in the chosen state | Get |
+| `/compareUSCA` | Compare the total / maximum / minimum of events between US and CA | Get |
+| `/getStats` | | Get |
 
 ### Route /getEvents
 ***
@@ -76,7 +78,7 @@ This route allows to view the metadata by segment. Segment groups specific genre
 In this application we can search for these segments:
 ```json
 [
- "Arta & Theatre"
+ "Arts & Theatre"
  "Sports"
  "Music"
 ]
@@ -117,9 +119,39 @@ In thi application we can serch for these segment:
 }
 ```
 ### Route /getEventForCountryCode
+***
+This route allows to view metadata by CountryCode of the events.
+Here are some examples of country codes to choose:
+| Country | countryCode |
+| :--- | :---: | 
+| United State | US|
+| Canada | CA |
+| France | FR |
+| Italy | IT |
+| Germany | DE |
 
+#### Example
+Example of a route for /getEventForCountryCode with Cananda
+>localhost:8080/getEventForCountryCode?countryCode=CA
 
-
+Response:
+```json
+       {
+            "country_code": "CA",
+            "event_id": "G5vZZpzHpp3z6",
+            "local_time": "18:00:00",
+            "city": "Ontario",
+            "subgenre": "NBA",
+            "segment": "Sports",
+            "country_name": "Canada",
+            "genre": "Basketball",
+            "event_name": "Toronto Raptors vs. New Orleans Pelicans",
+            "state": "ON",
+            "state_code": "Toronto",
+            "local_date": "2022-01-09"
+        },
+        "..."
+```
 
 <div id='id-section5'/>
 
