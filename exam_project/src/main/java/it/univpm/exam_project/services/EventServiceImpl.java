@@ -42,7 +42,7 @@ public class EventServiceImpl implements EventService{
 
 			for(int j = 1; j <= 12; j++) {
 				if(currentEvents.getMonth()==j) {
-					monthEvents[j]++;
+					monthEvents[j-1]++;
 				}
 			}
 		}
@@ -182,6 +182,29 @@ public class EventServiceImpl implements EventService{
 	
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre) {
 		JSONObject respons = new JSONObject();
+		
+		JSONArray events = new JSONArray();
+
+		for(int i=0;i<filteredEvents.size();i++) {
+			JSONObject event = new JSONObject();
+			
+			event.put("event_name", filteredEvents.get(i).getName());
+			event.put("event_id", filteredEvents.get(i).getEvent_id());
+			event.put("local_date", filteredEvents.get(i).getLocal_date());
+			event.put("local_time", filteredEvents.get(i).getLocal_time());
+			event.put("country_code", filteredEvents.get(i).getCountry_code());
+			event.put("city", filteredEvents.get(i).getCity());
+			event.put("state", filteredEvents.get(i).getState());
+			event.put("state_code", filteredEvents.get(i).getState_code());
+			event.put("country_name", filteredEvents.get(i).getCountry_name());
+			event.put("segment", filteredEvents.get(i).getSegment());
+			event.put("genre", filteredEvents.get(i).getGenre() );
+			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
+			
+			events.add(event);
+		}
+		
+		respons.put("Events", events);
 			
 		respons.put("The total of events of "+ genre+" in "+state_code+" is", totEvents(filteredEvents)-1);
 		

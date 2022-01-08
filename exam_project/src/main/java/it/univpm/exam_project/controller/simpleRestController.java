@@ -120,15 +120,15 @@ public class simpleRestController {
 		try {
 			Vector<Events> vectorGen = EventServiceImpl.connection_genre(genre);
 			Vector<Events> vectorState = EventServiceImpl.connection_state(state_code);
-			
-			Vector<Events> vector = EventServiceImpl.concateneted(vectorGen, vectorState);	
-			
+
 			GenreFilter filterVectorGen = new GenreFilter();
-			vector = filterVectorGen.genFilter(genre, vector);
+			vectorState = filterVectorGen.genFilter(genre, vectorState);
 			
 			StatesFilter filterVectorState = new StatesFilter();
-			vector = filterVectorState.stateFilter(state_code, vector);
+			vectorGen = filterVectorState.stateFilter(state_code, vectorGen);
 			
+			Vector<Events> vector = EventServiceImpl.concateneted(vectorGen, vectorState);
+	
 			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code, genre);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
