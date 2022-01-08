@@ -153,6 +153,12 @@ Response:
         "..."
 ```
 
+### Route /compareUSCA
+***
+This route displays the total, maximum and minimum of events that will take place in US and Canada.
+
+
+
 <div id='id-section5'/>
 
 ## Authors
