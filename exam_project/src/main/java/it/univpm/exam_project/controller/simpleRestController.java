@@ -115,6 +115,9 @@ public class simpleRestController {
 		}
 	}
 	
+	/*
+	 * 
+	 */
 	@RequestMapping(value = "/getStats")
 	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Hockey") String genre, @RequestParam(name="genre", required= false) String genre2, @RequestParam(name="state_code", defaultValue="CA") String state_code, @RequestParam(name="state_code", required=false)String state_code2) {
 		try {
