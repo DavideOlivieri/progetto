@@ -2,7 +2,7 @@
 ## Java project made with Spring
 ## Summary:
 - [Introduction](#id-section1)
-- [API](id-section2)
+- [API Ticketmaster](#id-section2)
 - [Application usage](#id-section3)
 - [Routes](#id-section4)
 - [Authors](#id-section5)
@@ -18,11 +18,13 @@ The program will have to evaluate only the events located in USA and Canada. \
 They are available through our application:
 - filtering of events, foreseen in USA and / or Canada, through the selection of one or more States, followed by the production of statistics relating to the State or States chosen.
 - filtering of events, foreseen in USA and / or Canada, through the selection of one or more genres, followed by the production of statistics relating to the chosen genre or genres.
+                
+<div id='id-section2'/>
 
-<div id='id-section1'/>
-
-## API
+## API Ticketmaster
 ***
+To get access to the Ticketmaster API, we made an account on the TM Developer website ( https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#search-events- v2 ) and then we were given the route to be used together with a personal apikey.
+> apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC
 
 
 <div id='id-section3'/>
@@ -87,20 +89,13 @@ In this application we can search for these segments:
 ***
 This route allows to view metatadata by genre of the events.
 In thi application we can serch for these segment:
-```json
-[
-   "SPORTS"
-   "Baseball",
-   "Basketball",
-   "Boxing",
-   "Hckey",
-  "MUSIC"
-   "Classical",
-  "ART & THEATRE"
-   "Comedy",
 
-]
-```
+>SPORTS | Baseball, Basketball, Boxing, Hockey \
+>MUSIC | Classical  \
+>ART & THEATRE | Comedy 
+   
+
+   Comedy
 #### Example
 ```json
 {
@@ -155,7 +150,10 @@ Response:
 
 ### Route /compareUSCA
 ***
+In this route, a comparison is made between the number of events that will take place in the United States and those in Canada.\
+A comparison will also be made between the genres of events that will take place in the two states
 This route displays the total, maximum and minimum of events that will take place in US and Canada.
+
 
 
 
