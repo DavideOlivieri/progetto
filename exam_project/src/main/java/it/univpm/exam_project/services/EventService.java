@@ -16,9 +16,9 @@ public interface EventService {
 	//average month events
 	public float avgEvents(Vector<Events> eventVector);
 	//min events for month
-	public int minEvents(Vector<Events> eventVector);
+	public String minEvents(Vector<Events> eventVector);
 	//max events for month
-	public int maxEvents(Vector<Events> eventVector);
+	public String maxEvents(Vector<Events> eventVector);
 	//numero di eventi totali 
 	public int totEvents(Vector<Events> eventVector);
 	

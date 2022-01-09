@@ -66,9 +66,10 @@ public class EventServiceImpl implements EventService{
 	/**
 	 * Method that return the minimum of events for each month
 	 */
-	public int minEvents(Vector<Events> eventVector) {
+	public String minEvents(Vector<Events> eventVector) {
 		int app = 10000;
 		int j=0;
+		String month;
 		int[] ev=numEvents(eventVector);
 		for(int i = 0; i<12;i++) {
 			if(ev[i] < app) {
@@ -76,16 +77,19 @@ public class EventServiceImpl implements EventService{
 				j=i;
 			}
 		}
-		return j+1;
+		month=convertMonth(j+1);
+		return month;
 	}
-	
+
+
 	
 	/**
 	 * Method that return the maximum of events for each month
 	 */
-	public int maxEvents(Vector<Events> eventVector) {
+	public String maxEvents(Vector<Events> eventVector) {
 		int tot = 0;
 		int j=0;
+		String month;
 		int[] ev=numEvents(eventVector);
 		for(int i = 0; i<12;i++) {
 			if(ev[i] > tot) {
@@ -93,7 +97,8 @@ public class EventServiceImpl implements EventService{
 				j=i;
 			}
 		}
-		return j+1;
+		month=convertMonth(j+1);
+		return month;
 	}
 	
 	/**
@@ -323,4 +328,37 @@ public class EventServiceImpl implements EventService{
 		LocalDate locD = LocalDate.parse((CharSequence)localDate);
 		return locD;
 	}
+	
+	private String convertMonth(int i) {
+		if(i==1)
+			return "January";
+		if(i==2)
+			return "February";
+		if(i==3)
+			return "March";
+		if(i==4)
+			return "April";
+		if(i==5)
+			return "May";
+		if(i==6)
+			return "June";
+		if(i==7)
+			return "July";
+		if(i==8)
+			return "August";
+		if(i==9)
+			return "September";
+		if(i==10)
+			return "October";
+		if(i==11)
+			return "November";
+		if(i==12)
+			return "December";
+		return "Error month";
+		
+	}
+	
+	
+	
+	
 }
