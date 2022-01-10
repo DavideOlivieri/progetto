@@ -1,6 +1,9 @@
 package it.univpm.exam_project.services;
 
+import java.time.LocalDate;
 import java.util.Vector;
+
+import org.json.simple.JSONObject;
 
 import it.univpm.exam_project.models.Events;
 
@@ -11,15 +14,21 @@ import it.univpm.exam_project.models.Events;
  *
  */
 public interface EventService {
-	// number of events for month
-	public int[] numEvents(Vector<Events> eventVector);
-	//average month events
-	public float avgEvents(Vector<Events> eventVector);
-	//min events for month
-	public String minEvents(Vector<Events> eventVector);
-	//max events for month
-	public String maxEvents(Vector<Events> eventVector);
-	//numero di eventi totali 
-	public int totEvents(Vector<Events> eventVector);
+	
+	public JSONObject getJSONObject(String url);
+	
+	public Vector<Events> connection_country(String countryCode);
+	
+	public Vector<Events> connection_segment(String segment);
+	
+	public Vector<Events> connection_genre(String genre);
+	
+	public Vector<Events> connection_state(String state_code);
+	
+	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2);
+	
+	public LocalDate dateConverter(String localDate);
+	
+	public String convertMonth(int i);
 	
 }
