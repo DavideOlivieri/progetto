@@ -34,4 +34,17 @@ public class StatesFilter {
 		return filteredStates;
 	}
 
+	public Vector<Events> stateFilter2(String stateCode, String stateCode2, Vector<Events> eventstoFilter){
+
+		Vector<Events> filteredStates = new Vector<Events>();
+ 
+		for(Events event : eventstoFilter) {
+
+			if(stateCode.equals(event.getState_code()) || stateCode2.equals(event.getState_code()) )
+				filteredStates.add(event);
+
+		}
+		return filteredStates;
+	}
+
 }
