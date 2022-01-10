@@ -119,29 +119,22 @@ public class simpleRestController {
 	 * 
 	 */
 	@RequestMapping(value = "/getStats")
-	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Hockey") String genre, @RequestParam(name="genre", required= false) String genre2, @RequestParam(name="state_code", defaultValue="CA") String state_code, @RequestParam(name="state_code", required=false)String state_code2) {
+	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Hockey") String genre,
+										   @RequestParam(name="genre2", defaultValue="Basketball") String genre2,
+										   @RequestParam(name="state_code", defaultValue="CA") String state_code,
+										   @RequestParam(name="state_code2", defaultValue="AZ")String state_code2) {
 		try {
-			GenreFilter filterVectorGen = new GenreFilter();
 			StatesFilter filterVectorState = new StatesFilter();
 			
-			Vector<Events> vectorGen = EventServiceImpl.connection_genre(genre);
-			Vector<Events> vectorState = EventServiceImpl.connection_state(state_code);
-			/*
-			if(genre2!=null) {
-				Vector<Events> vectorGen2 = EventServiceImpl.connection_genre(genre2);
-			}
-			if(state_code2!=null) {
-				Vector<Events> vectorState2 = EventServiceImpl.connection_state(state_code2);
-			}
-			*/
-
-			vectorState = filterVectorGen.genFilter(genre, vectorState);
+			Vector<Events> vectorGen1 = EventServiceImpl.connection_genre(genre);
+			Vector<Events> vectorGen2 = EventServiceImpl.connection_genre(genre2);
 			
-			vectorGen = filterVectorState.stateFilter(state_code, vectorGen);
+			vectorGen1 = filterVectorState.stateFilter(state_code, state_code2, vectorGen1);
+			vectorGen2 = filterVectorState.stateFilter(state_code, state_code2, vectorGen2);
 			
-			Vector<Events> vector = EventServiceImpl.concateneted(vectorGen, vectorState);
+			Vector<Events> vector = EventServiceImpl.concateneted(vectorGen1, vectorGen2);
 	
-			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code, genre);
+			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code, genre, state_code2, genre2);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {

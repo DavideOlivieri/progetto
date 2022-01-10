@@ -77,8 +77,8 @@ public class Parser {
 				String countryName = (String) country.get("name");
 				String countryCode = (String) country.get("countryCode");
 				
-				Events e = new Events(name, id, url, localDate, localTime, countryCode, cityName,
-									  stateName, stateCode, countryName, nameGenre, nameSubGenre, nameSegment);
+				Events e = new Events(name, id, url, localDate, localTime, countryCode, stateCode, cityName,
+									  stateName, countryName, nameGenre, nameSubGenre, nameSegment);
 
 				eventsList.add(e);
 			

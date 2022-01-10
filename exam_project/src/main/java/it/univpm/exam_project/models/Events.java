@@ -30,7 +30,9 @@ public class Events {
 	 * constructor
 	 *
 	 */
-	public Events(String event_name, String event_id, String event_url, String localDate, String local_time, String country_code, String state_code, String city, String state, String country_name, String genre, String subgenre, String segment) {
+	public Events(String event_name, String event_id, String event_url, String localDate, 
+			      String local_time, String country_code, String state_code, String city, 
+			      String state, String country_name, String genre, String subgenre, String segment) {
 		this.event_name=event_name;
 		this.event_id=event_id;
 		this.event_url=event_url;

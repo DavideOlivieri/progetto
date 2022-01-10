@@ -34,7 +34,7 @@ public class StatesFilter {
 		return filteredStates;
 	}
 
-	public Vector<Events> stateFilter2(String stateCode, String stateCode2, Vector<Events> eventstoFilter){
+	public Vector<Events> stateFilter(String stateCode, String stateCode2, Vector<Events> eventstoFilter){
 
 		Vector<Events> filteredStates = new Vector<Events>();
  
