@@ -16,7 +16,6 @@ import it.univpm.exam_project.filters.StatesFilter;
 import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
-import it.univpm.exam_project.services.EventToJsonImpl;
 
 /**
  * @author JacopoColoccioni
@@ -35,26 +34,24 @@ public class simpleRestController {
 	
 	
 	@Autowired	
-	EventServiceImpl EventServiceImpl;
-	@Autowired	
-	EventToJsonImpl EventToJson;
+	EventServiceImpl EventService;
 	
 	// Route1  /GetEvents (used to get the metadata)
 	@RequestMapping(value = "/getEvents")
 	public ResponseEntity<Object> getEvents() {
-		return new ResponseEntity<>(EventToJson.getEvents(), HttpStatus.OK);
+		return new ResponseEntity<>(EventService.getEvents(), HttpStatus.OK);
 	}
 	
 	//Route2  /getEventForSegment (Search by segment, returns all events of that kind and the total of events)
 	@RequestMapping(value = "/getEventForSegment")
 	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment) {
 		try {
-			Vector<Events> vector = EventServiceImpl.connection_segment(segment);
+			Vector<Events> vector = EventService.connection_segment(segment);
 
 			SegmentFilter filterVector = new SegmentFilter();
 			vector=filterVector.SegFilter(segment, vector);
 			
-			JSONObject JSONEvent_segment = EventToJson.ToJson(vector);
+			JSONObject JSONEvent_segment = EventService.ToJson(vector);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -66,12 +63,12 @@ public class simpleRestController {
 		@RequestMapping(value = "/getEventForGenre")
 		public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
 			try {
-				Vector<Events> vector = EventServiceImpl.connection_genre(genre);
+				Vector<Events> vector = EventService.connection_genre(genre);
 
 				GenreFilter filterVector = new GenreFilter();
 				vector=filterVector.genFilter(genre, vector);
 				
-				JSONObject JSONEvent_genre = EventToJson.ToJson(vector);
+				JSONObject JSONEvent_genre = EventService.ToJson(vector);
 				return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK); 
 				
 			} catch(Exception e) {
@@ -83,12 +80,12 @@ public class simpleRestController {
 	@RequestMapping(value = "/getEventForCountryCode")
 	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode) {
 		try {
-			Vector<Events> vector = EventServiceImpl.connection_country(countryCode);
+			Vector<Events> vector = EventService.connection_country(countryCode);
 			
 			CountryFilter filterVector = new CountryFilter();
 			vector = filterVector.countryFilter(countryCode, vector);
 			
-			JSONObject JSONEvent_country = EventToJson.ToJson( vector);
+			JSONObject JSONEvent_country = EventService.ToJson( vector);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -99,8 +96,8 @@ public class simpleRestController {
 	@RequestMapping(value = "/compareUSCA")
 	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", required=false) String genre) {
 		try {
-			Vector<Events> vectorUS = EventServiceImpl.connection_country("US");
-			Vector<Events> vectorCA = EventServiceImpl.connection_country("CA");
+			Vector<Events> vectorUS = EventService.connection_country("US");
+			Vector<Events> vectorCA = EventService.connection_country("CA");
 			
 			CountryFilter filterVector = new CountryFilter();
 			vectorUS = filterVector.countryFilter("US", vectorUS);
@@ -110,7 +107,7 @@ public class simpleRestController {
 				vectorUS = filterVectorGen.genFilter(genre, vectorUS);
 				vectorCA = filterVectorGen.genFilter(genre, vectorCA);
 			}
-			JSONObject JSONEvent_country = EventToJson.CmpToJson( vectorUS, vectorCA);
+			JSONObject JSONEvent_country = EventService.CmpToJson( vectorUS, vectorCA);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -135,10 +132,10 @@ public class simpleRestController {
 			else 
 				seeEvents=true;
 	
-			Vector<Events> vectorGen1 = EventServiceImpl.connection_genre(genre);
+			Vector<Events> vectorGen1 = EventService.connection_genre(genre);
 			Vector<Events> vectorGen2=null;
 			if(genre2!=null)
-				vectorGen2 = EventServiceImpl.connection_genre(genre2);
+				vectorGen2 = EventService.connection_genre(genre2);
 			if(state_code2!=null) {
 				vectorGen1 = filterVectorState.stateFilter(state_code, state_code2, vectorGen1);
 				if(genre2!=null)
@@ -152,19 +149,19 @@ public class simpleRestController {
 			
 			Vector<Events> vector=null;
 			if(genre2!=null)
-				vector = EventServiceImpl.concateneted(vectorGen1, vectorGen2);
+				vector = EventService.concateneted(vectorGen1, vectorGen2);
 			else
 				vector = vectorGen1;
 	
 			JSONObject JSONEvent_country = null;
 			if(state_code2==null && genre2==null)
-				JSONEvent_country = EventToJson.StatsToJson( vector, state_code, genre, seeEvents);
+				JSONEvent_country = EventService.StatsToJson( vector, state_code, genre, seeEvents);
 			else if(state_code2==null)
-				JSONEvent_country = EventToJson.StatsToJson_genre( vector, state_code, genre, genre2, seeEvents );
+				JSONEvent_country = EventService.StatsToJson_genre( vector, state_code, genre, genre2, seeEvents );
 			else if(genre2==null)
-				JSONEvent_country = EventToJson.StatsToJson_state( vector, state_code, genre, state_code2, seeEvents);
+				JSONEvent_country = EventService.StatsToJson_state( vector, state_code, genre, state_code2, seeEvents);
 			else
-				JSONEvent_country = EventToJson.StatsToJson( vector, state_code, genre, state_code2, genre2, seeEvents);
+				JSONEvent_country = EventService.StatsToJson( vector, state_code, genre, state_code2, genre2, seeEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
