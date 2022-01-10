@@ -120,21 +120,48 @@ public class simpleRestController {
 	 */
 	@RequestMapping(value = "/getStats")
 	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Hockey") String genre,
-										   @RequestParam(name="genre2", defaultValue="Basketball") String genre2,
+										   @RequestParam(name="genre2", required=false) String genre2,
 										   @RequestParam(name="state_code", defaultValue="CA") String state_code,
-										   @RequestParam(name="state_code2", defaultValue="AZ")String state_code2) {
+										   @RequestParam(name="state_code2", required=false)String state_code2,
+										   @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {
 			StatesFilter filterVectorState = new StatesFilter();
-			
-			Vector<Events> vectorGen1 = EventServiceImpl.connection_genre(genre);
-			Vector<Events> vectorGen2 = EventServiceImpl.connection_genre(genre2);
-			
-			vectorGen1 = filterVectorState.stateFilter(state_code, state_code2, vectorGen1);
-			vectorGen2 = filterVectorState.stateFilter(state_code, state_code2, vectorGen2);
-			
-			Vector<Events> vector = EventServiceImpl.concateneted(vectorGen1, vectorGen2);
+			boolean seeEvents=false;
+			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
+				seeEvents=false;
+			else 
+				seeEvents=true;
 	
-			JSONObject JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code, genre, state_code2, genre2);
+			Vector<Events> vectorGen1 = EventServiceImpl.connection_genre(genre);
+			Vector<Events> vectorGen2=null;
+			if(genre2!=null)
+				vectorGen2 = EventServiceImpl.connection_genre(genre2);
+			if(state_code2!=null) {
+				vectorGen1 = filterVectorState.stateFilter(state_code, state_code2, vectorGen1);
+				if(genre2!=null)
+					vectorGen2 = filterVectorState.stateFilter(state_code, state_code2, vectorGen2);
+			}
+			else {
+				vectorGen1 = filterVectorState.stateFilter(state_code, vectorGen1);
+				if(genre2!=null)
+					vectorGen2 = filterVectorState.stateFilter(state_code, vectorGen2);
+			}
+			
+			Vector<Events> vector=null;
+			if(genre2!=null)
+				vector = EventServiceImpl.concateneted(vectorGen1, vectorGen2);
+			else
+				vector = vectorGen1;
+	
+			JSONObject JSONEvent_country = null;
+			if(state_code2==null && genre2==null)
+				JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code, genre, seeEvents);
+			else if(state_code2==null)
+				JSONEvent_country = EventServiceImpl.StatsToJson_genre( vector, state_code, genre, genre2, seeEvents );
+			else if(genre2==null)
+				JSONEvent_country = EventServiceImpl.StatsToJson_state( vector, state_code, genre, state_code2, seeEvents);
+			else
+				JSONEvent_country = EventServiceImpl.StatsToJson( vector, state_code, genre, state_code2, genre2, seeEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
