@@ -1,6 +1,7 @@
 package it.univpm.exam_project.services;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -161,7 +162,25 @@ public class EventServiceImpl implements EventService{
 		
 	}
 	
-	
+	@SuppressWarnings({ "null", "resource" })
+	public static String[] readGen(String txt) throws IOException {
+		String[] gen=null;
+		FileReader f=new FileReader(txt);
+
+	    BufferedReader b=new BufferedReader(f);
+
+	    String s;
+	    int i=0;
+	    while(true) {
+	      s=b.readLine();
+	    
+	      if(s==null)
+	        break;
+	      gen[i]=s;
+	      i++;
+	    }
+		return gen;
+	}
 	
 	
 }

@@ -1,5 +1,6 @@
 package it.univpm.exam_project.services;
 
+import java.io.IOException;
 import java.util.Vector;
 
 import org.json.simple.JSONArray;
@@ -80,7 +81,7 @@ public class EventToJsonImpl implements EventToJson{
 	}
 
 	@Override
-	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, boolean seeEvents) {
+	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 		
@@ -94,6 +95,8 @@ public class EventToJsonImpl implements EventToJson{
 		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", service.minEvents(filteredEvents));
 		
 		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", service.avgEvents(filteredEvents));
+		
+		respons=service.genEvents(filteredEvents, EventServiceImpl.readGen("generi.txt"));
 		
 
 		return respons;
@@ -161,7 +164,7 @@ public class EventToJsonImpl implements EventToJson{
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, String state_code2,
 			String genre2, boolean seeEvents) {
 		// TODO Auto-generated method stub
-JSONObject respons = new JSONObject();
+		JSONObject respons = new JSONObject();
 		
 		if(seeEvents==true)
 			respons=ToJson(filteredEvents);
@@ -202,5 +205,4 @@ respons.put("The total of events of "+ genre2+" in "+state_code2+" is", service.
 		return respons;
 	}
 	
-
 }

@@ -2,6 +2,8 @@ package it.univpm.exam_project.services;
 
 import java.util.Vector;
 
+import org.json.simple.JSONObject;
+
 import it.univpm.exam_project.models.Events;
 
 public class EventStatsImpl implements EventStats {
@@ -87,5 +89,24 @@ public class EventStatsImpl implements EventStats {
 		
 		return tot;
 	}
+	
+	public JSONObject genEvents(Vector<Events> eventVector, String[] genre) {
+
+		JSONObject respons = new JSONObject();
+		int k=0;
+		Events currentEvents;
+		for(int j = 0; j < genre.length; j++) {
+			
+			for(int i = 0; i<eventVector.size();i++) {
+				
+				currentEvents = eventVector.get(i);
+				if(currentEvents.getGenre().equals(genre[j])) {
+					k++;
+				}
+			}
+			respons.put("Events number of "+ genre[j]+" ",k );
+		}
+		return respons;
+	} 
 
 }
