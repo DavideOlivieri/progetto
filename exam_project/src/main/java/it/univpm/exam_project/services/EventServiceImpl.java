@@ -182,9 +182,7 @@ public class EventServiceImpl implements EventService{
 		return generiVect;
 	}
 
-	public int[] numEvents(Vector<Events> eventVector) {
-
-		int[] monthEvents = new int[12];
+	public void numEvents(Vector<Events> eventVector, int[]monthEvents) {
 		Events currentEvents;
 		for(int i = 0; i<eventVector.size();i++) {
 			currentEvents = eventVector.get(i);
@@ -195,7 +193,7 @@ public class EventServiceImpl implements EventService{
 				}
 			}
 		}
-		return monthEvents;
+		
 	} 
 	
 	/**
@@ -203,7 +201,8 @@ public class EventServiceImpl implements EventService{
 	 */
 	public float avgEvents(Vector<Events> eventVector) {
 		float avgevents=0;
-		int[] ev=numEvents(eventVector);
+		int[] ev = new int[12];
+		numEvents(eventVector, ev);
 		for(int i = 0; i<12;i++) {
 			avgevents += ev[i];			
 		}
@@ -219,7 +218,8 @@ public class EventServiceImpl implements EventService{
 		int app = 10000;
 		int j=0;
 		String month;
-		int[] ev=numEvents(eventVector);
+		int[] ev = new int[12];
+		numEvents(eventVector, ev);
 		for(int i = 0; i<12;i++) {
 			if(ev[i] < app) {
 				app = ev[i];
@@ -239,7 +239,8 @@ public class EventServiceImpl implements EventService{
 		int tot = 0;
 		int j=0;
 		String month;
-		int[] ev=numEvents(eventVector);
+		int[] ev = new int[12];
+		numEvents(eventVector, ev);
 		for(int i = 0; i<12;i++) {
 			if(ev[i] > tot) {
 				tot =  ev[i];
@@ -373,7 +374,7 @@ public class EventServiceImpl implements EventService{
 		
 		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
 		
-		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));		
+		respons.put("The average monthly events of "+ genre+" in "+state_code+" is", avgEvents(filteredEvents));		
 
 	}
 	
