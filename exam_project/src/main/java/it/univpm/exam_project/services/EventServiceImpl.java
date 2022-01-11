@@ -170,8 +170,8 @@ public class EventServiceImpl implements EventService{
 		
 		try {
 			
-			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("C:/Users/davio/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
-			// Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader"C:/Users/coloc/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
+			//Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("C:/Users/davio/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
+			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("C:/Users/coloc/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
 			while (fileGeneri.hasNext())
 				generiVect.add(fileGeneri.nextLine());
 			
@@ -277,7 +277,8 @@ public class EventServiceImpl implements EventService{
 				k++;
 			}
 		}
-		respons.put("Events number of "+ currentGenre +" ",k );
+		if(k!=0)
+			respons.put("Events number of "+ currentGenre +" ",k );
 		return respons;
 	} 
 	
@@ -301,13 +302,9 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
-	
 	public JSONObject ToJson(Vector<Events> filteredEvents) {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
-		JSONArray eventsForGenre = new JSONArray();
-		Vector<String> vectorGen = null;
-		vectorGen=EventServiceImpl.readGen();
 		
 		JSONArray events = new JSONArray();
 
@@ -331,6 +328,18 @@ public class EventServiceImpl implements EventService{
 		}
 		
 		respons.put("Events", events);
+		
+		return respons;
+	}
+	
+	public JSONObject GrouppedToJson(Vector<Events> filteredEvents, boolean condition) {
+		// TODO Auto-generated method stub
+		JSONObject respons = new JSONObject();
+		JSONArray eventsForGenre = new JSONArray();
+		Vector<String> vectorGen = null;
+		vectorGen=EventServiceImpl.readGen();
+		if(condition==true)
+			respons = ToJson(filteredEvents);
 		
 		for(int i=0;i<vectorGen.size();i++) {
 			eventsForGenre.add(genEvents(filteredEvents, vectorGen, i));
@@ -373,6 +382,23 @@ public class EventServiceImpl implements EventService{
 		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
 		
 		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));		
+
+		return respons;
+	}
+	
+	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code) throws IOException {
+		// TODO Auto-generated method stub
+		JSONObject respons = new JSONObject();
+		
+		respons.put("The total of events in "+state_code+" is", totEvents(filteredEvents)-1);
+		
+		respons.put("The month with the most events in "+state_code+" is", maxEvents(filteredEvents));
+		
+		respons.put("The month with the fewest events in "+state_code+" is", minEvents(filteredEvents));
+		
+		respons.put("The average monthly events in "+state_code+" is", avgEvents(filteredEvents));		
+		
+		respons = GrouppedToJson(filteredEvents, false);
 
 		return respons;
 	}

@@ -45,14 +45,20 @@ public class simpleRestController {
 	
 	//Route2  /getEventForSegment (Search by segment, returns all events of that kind and the total of events)
 	@RequestMapping(value = "/getEventForSegment")
-	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment) {
+	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
+													  @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {
+			boolean seeEvents=false;
+			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
+				seeEvents=false;
+			else 
+				seeEvents=true;
 			Vector<Events> vector = EventService.connection_segment(segment);
 
 			SegmentFilter filterVector = new SegmentFilter();
 			vector=filterVector.SegFilter(segment, vector);
 			
-			JSONObject JSONEvent_segment = EventService.ToJson(vector);
+			JSONObject JSONEvent_segment = EventService.GrouppedToJson(vector, seeEvents);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -79,14 +85,20 @@ public class simpleRestController {
 	
 	//Route 4 /getEventForCountryCode (Search by Country, returns all the events of that Country)
 	@RequestMapping(value = "/getEventForCountryCode")
-	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode) {
-		try {
+	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode,
+														  @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
+		try {			
+			boolean seeEvents=false;
+			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
+				seeEvents=false;
+			else 
+				seeEvents=true;
 			Vector<Events> vector = EventService.connection_country(countryCode);
 			
 			CountryFilter filterVector = new CountryFilter();
 			vector = filterVector.countryFilter(countryCode, vector);
 			
-			JSONObject JSONEvent_country = EventService.ToJson(vector);
+			JSONObject JSONEvent_country = EventService.GrouppedToJson(vector, seeEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -169,6 +181,25 @@ public class simpleRestController {
 			}catch(IOException e) {
 				return new ResponseEntity<>("Error1", HttpStatus.BAD_REQUEST);
 			}
+		} catch(Exception e) {
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	@RequestMapping(value = "/getStatsforState")
+	public ResponseEntity<Object> getStatsforState(@RequestParam(name="state_code", defaultValue="CA") String state_code) {
+		try {
+			
+				StatesFilter filterVectorState = new StatesFilter();
+				Vector<Events> vectorState = EventService.connection_state(state_code);
+				vectorState = filterVectorState.stateFilter(state_code, vectorState);
+
+				JSONObject JSONEvent_country = null;
+
+				JSONEvent_country = EventService.StatsToJson(vectorState, state_code);
+				return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
+				
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
