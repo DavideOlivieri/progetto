@@ -170,8 +170,8 @@ public class EventServiceImpl implements EventService{
 		
 		try {
 			
-			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("C:/Users/coloc/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
-			
+			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("C:/Users/davio/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
+			// Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader"C:/Users/coloc/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
 			while (fileGeneri.hasNext())
 				generiVect.add(fileGeneri.nextLine());
 			
