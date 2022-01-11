@@ -1,32 +1,6 @@
-<<<<<<< HEAD
 Baseball
 Basketball
 Boxing
 Hockey
 Classical
 Comedy
-=======
-Accounting/General
-Action/Adventure
-Actor
-Alternative
-Animation
-Aquarium
-Aquatic Park
-Aquatics
-Arthouse
-Artist
-Athlete
-Audio Tour
-Audio/Visual
-Award Show
-Badminton
-Ballads/Romantic
-Bandy
-Baseball
-Basketball
-Biathlon
-Blues
-Boxing
-Hockey
->>>>>>> 6b879fb107aff76bc082b1528c3726c44a740e88
