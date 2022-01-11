@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import it.univpm.exam_project.filters.GenreFilter;
 import it.univpm.exam_project.filters.SegmentFilter;
 import it.univpm.exam_project.filters.StatesFilter;
+import it.univpm.exam_project.exception.InvalidInputException;
+import it.univpm.exam_project.exception.SegmentNotFoundException;
 import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
@@ -44,15 +46,29 @@ public class simpleRestController {
 	}
 	
 	//Route2  /getEventForSegment (Search by segment, returns all events of that kind and the total of events)
+	/**
+	 * 
+	 * @param segment
+	 * @param condition
+	 * @return
+	 * @throws SegmentNotFoundException
+	 */
 	@RequestMapping(value = "/getEventForSegment")
 	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
-													  @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
+													  @RequestParam(name="seeEvents", defaultValue= "no")String condition) throws SegmentNotFoundException{
 		try {
 			boolean seeEvents=false;
+			try {
 			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
 				seeEvents=false;
-			else 
+			else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("s")||condition.equals("true"))
 				seeEvents=true;
+			else 
+				throw new InvalidInputException();
+				
+			} catch(InvalidInputException e) {
+				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
+			}
 			Vector<Events> vector = EventService.connection_segment(segment);
 
 			SegmentFilter filterVector = new SegmentFilter();
@@ -61,7 +77,9 @@ public class simpleRestController {
 			JSONObject JSONEvent_segment = new JSONObject();
 			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_segment);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
-			
+		
+		} catch(SegmentNotFoundException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
@@ -141,15 +159,17 @@ public class simpleRestController {
 										   @RequestParam(name="genre2", required=false) String genre2,
 										   @RequestParam(name="state_code", defaultValue="CA") String state_code,
 										   @RequestParam(name="state_code2", required=false)String state_code2,
-										   @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
+										   @RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
 			try {
+			
 				StatesFilter filterVectorState = new StatesFilter();
 				boolean seeEvents=false;
-				if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
-					seeEvents=false;
-				else 
-					seeEvents=true;
+				
+					if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
+						seeEvents=false;
+					else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("s")||condition.equals("S")||condition.equals("true")||condition.equals("Yes"))
+						seeEvents=true;
 
 				Vector<Events> vectorGen11 = EventService.connection_genre(genre);
 				Vector<Events> vectorGen22= null;
@@ -176,8 +196,7 @@ public class simpleRestController {
 					JSONEvent_country = EventService.StatsToJson_state( vectorGen11, vectorGen12, state_code, genre, state_code2, seeEvents);
 				else
 					JSONEvent_country = EventService.StatsToJson( vectorGen11, vectorGen21, vectorGen12, vectorGen22, state_code, genre, state_code2, genre2, seeEvents);
-				return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
-				
+				return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);	
 			}catch(IOException e) {
 				return new ResponseEntity<>("Error1", HttpStatus.BAD_REQUEST);
 			}

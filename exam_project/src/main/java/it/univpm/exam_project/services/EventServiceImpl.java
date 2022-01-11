@@ -15,8 +15,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import it.univpm.exam_project.exception.SegmentNotFoundException;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
 
@@ -87,17 +90,17 @@ public class EventServiceImpl implements EventService{
 	}
 	
 	
-	public Vector<Events> connection_segment(String segment){
+	public Vector<Events> connection_segment(String segment) throws SegmentNotFoundException{
 		Vector<Events> eventVector = new Vector<Events>();
-		
 		String url = apiUrl+"&segmentName="+segment;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();
 		eventVector = pars.parse(json);
-
+		
+		if(eventVector==null)
+			throw new SegmentNotFoundException();
 		return eventVector;
 	}
-
 	
 	public Vector<Events> connection_genre(String genre){
 		Vector<Events> eventVector = new Vector<Events>();
