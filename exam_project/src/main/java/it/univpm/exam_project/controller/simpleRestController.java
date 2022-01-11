@@ -85,7 +85,7 @@ public class simpleRestController {
 			CountryFilter filterVector = new CountryFilter();
 			vector = filterVector.countryFilter(countryCode, vector);
 			
-			JSONObject JSONEvent_country = EventService.ToJson( vector);
+			JSONObject JSONEvent_country = EventService.ToJson(vector);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {

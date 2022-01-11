@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDate;
+import java.util.Scanner;
 import java.util.Vector;
 
 import org.json.simple.JSONArray;
@@ -163,24 +164,23 @@ public class EventServiceImpl implements EventService{
 		
 	}
 	
-	@SuppressWarnings({ "null", "resource" })
-	public static String[] readGen(String txt) throws IOException {
-		String[] gen=null;
-		FileReader f=new FileReader(txt);
-
-	    BufferedReader b=new BufferedReader(f);
-
-	    String s;
-	    int i=0;
-	    while(true) {
-	      s=b.readLine();
-	    
-	      if(s==null)
-	        break;
-	      gen[i]=s;
-	      i++;
-	    }
-		return gen;
+	public static Vector<String> readGen() {
+		
+		Vector<String> generiVect = new Vector<String>();
+		
+		try {
+			
+			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("generi.txt")));
+			
+			while (fileGeneri.hasNext())
+				generiVect.add(fileGeneri.nextLine());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return generiVect;
+		
 	}
 
 	public int[] numEvents(Vector<Events> eventVector) {
@@ -263,25 +263,46 @@ public class EventServiceImpl implements EventService{
 		return tot;
 	}
 	
-	public JSONObject genEvents(Vector<Events> eventVector, String[] genre) {
+	public JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre, int j) {
 
 		JSONObject respons = new JSONObject();
 		int k=0;
 		Events currentEvents;
-		for(int j = 0; j < genre.length; j++) {
+		String currentGenre;
 			
+		currentGenre= genre.get(j);
+		for(int i = 0; i<eventVector.size();i++) {
+				
+			currentEvents = eventVector.get(i);
+			if(currentEvents.getGenre().equals(currentGenre)) {
+				k++;
+			}
+		}
+		respons.put("Events number of "+ currentGenre +" ",k );
+		return respons;
+	} 
+	/*
+	public JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
+
+		JSONObject respons = new JSONObject();
+		int k=0;
+		Events currentEvents;
+		String currentGenre;
+		for(int j = 0; j < genre.size(); j++) {
+			
+			currentGenre= genre.get(j);
 			for(int i = 0; i<eventVector.size();i++) {
 				
 				currentEvents = eventVector.get(i);
-				if(currentEvents.getGenre().equals(genre[j])) {
+				if(currentEvents.getGenre().equals(currentGenre)) {
 					k++;
 				}
 			}
-			respons.put("Events number of "+ genre[j]+" ",k );
+			respons.put("Events number of "+ genre.get(j)+" ",k );
 		}
 		return respons;
 	} 
-
+	*/
 	
 	public JSONObject getEvents() {
 		// TODO Auto-generated method stub
@@ -337,6 +358,10 @@ public class EventServiceImpl implements EventService{
 	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
+		JSONArray eventsUS = new JSONArray();
+		JSONArray eventsCA = new JSONArray();
+		Vector<String> vectorGen = null;
+		vectorGen=EventServiceImpl.readGen();
 		
 		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
 		respons.put("The total of events in Canada is", totEvents(filteredEventsCA)-1);
@@ -346,6 +371,18 @@ public class EventServiceImpl implements EventService{
 		respons.put("The month with the fewest events in Canada is", minEvents(filteredEventsCA));
 		respons.put("The average monthly events in the US", avgEvents(filteredEventsUS));
 		respons.put("The average monthly events in the Canada", avgEvents(filteredEventsCA));
+		
+		for(int i=0;i<vectorGen.size();i++) {
+			eventsUS.add(genEvents(filteredEventsUS, vectorGen, i));
+		}
+		
+		respons.put("Events in US", eventsUS);
+		
+		for(int i=0;i<vectorGen.size();i++) {
+			eventsCA.add(genEvents(filteredEventsUS, vectorGen, i));
+		}
+		
+		respons.put("Events in CA", eventsCA);
 
 		return respons;
 	}
@@ -366,12 +403,9 @@ public class EventServiceImpl implements EventService{
 		
 		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));
 		
-		//respons=genEvents(filteredEvents, EventServiceImpl.readGen("generi.txt"));
-		
 
 		return respons;
 	}
-
 	
 	public JSONObject StatsToJson_state(Vector<Events> filteredEvents, String state_code, String genre,
 			String state_code2, boolean seeEvents) {
