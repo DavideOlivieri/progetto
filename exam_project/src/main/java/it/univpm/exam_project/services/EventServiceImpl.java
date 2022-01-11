@@ -170,7 +170,7 @@ public class EventServiceImpl implements EventService{
 		
 		try {
 			
-			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("generi.txt")));
+			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("C:/Users/coloc/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
 			
 			while (fileGeneri.hasNext())
 				generiVect.add(fileGeneri.nextLine());
@@ -305,6 +305,9 @@ public class EventServiceImpl implements EventService{
 	public JSONObject ToJson(Vector<Events> filteredEvents) {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
+		JSONArray eventsForGenre = new JSONArray();
+		Vector<String> vectorGen = null;
+		vectorGen=EventServiceImpl.readGen();
 		
 		JSONArray events = new JSONArray();
 
@@ -328,6 +331,13 @@ public class EventServiceImpl implements EventService{
 		}
 		
 		respons.put("Events", events);
+		
+		for(int i=0;i<vectorGen.size();i++) {
+			eventsForGenre.add(genEvents(filteredEvents, vectorGen, i));
+		}
+		
+		respons.put("Events grouped by genre", eventsForGenre);
+		
 		return respons;
 	}
 
@@ -335,10 +345,6 @@ public class EventServiceImpl implements EventService{
 	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
-		JSONArray eventsUS = new JSONArray();
-		JSONArray eventsCA = new JSONArray();
-		Vector<String> vectorGen = null;
-		vectorGen=EventServiceImpl.readGen();
 		
 		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
 		respons.put("The total of events in Canada is", totEvents(filteredEventsCA)-1);
@@ -348,18 +354,6 @@ public class EventServiceImpl implements EventService{
 		respons.put("The month with the fewest events in Canada is", minEvents(filteredEventsCA));
 		respons.put("The average monthly events in the US", avgEvents(filteredEventsUS));
 		respons.put("The average monthly events in the Canada", avgEvents(filteredEventsCA));
-		
-		for(int i=0;i<vectorGen.size();i++) {
-			eventsUS.add(genEvents(filteredEventsUS, vectorGen, i));
-		}
-		
-		respons.put("Events in US", eventsUS);
-		
-		for(int i=0;i<vectorGen.size();i++) {
-			eventsCA.add(genEvents(filteredEventsUS, vectorGen, i));
-		}
-		
-		respons.put("Events in CA", eventsCA);
 
 		return respons;
 	}
