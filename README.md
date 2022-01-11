@@ -16,8 +16,9 @@ Ticketmaster is a well-known software dedicated to the management and booking of
 Through the APIs derived from the TM Developer page, accessible through the Discovery API address, we get the metadata.\
 The program will have to evaluate only the events located in USA and Canada. \
 They are available through our application:
-- filtering of events, foreseen in USA and / or Canada, through the selection of one or more States, followed by the production of statistics relating to the State or States chosen.
-- filtering of events, foreseen in USA and / or Canada, through the selection of one or more genres, followed by the production of statistics relating to the chosen genre or genres.
+- filtering of events, foreseen in USA and / or Canada, through the selection of one or two States, followed by the production of statistics relating to the State or States chosen.
+- filtering of events, foreseen in USA and / or Canada, through the selection of one or two genres, followed by the production of statistics relating to the chosen genre or genres.
+
                 
 <div id='id-section2'/>
 
@@ -49,7 +50,7 @@ In this case 8080 is the standard port but can be changed.
 | `/getEventsForGenre` | Displays all events of that kind of genre | Get |
 | `/getEventsForCountryCode` | Displays the events that will take place in the chosen state | Get |
 | `/compareUSCA` | Compare the total / maximum / minimum of events between US and CA | Get |
-| `/getStats` | | Get |
+| `/getStats` | Displays the statistics chosen a state and a genre | Get |
 
 ### Route /getEvents
 ***
@@ -151,10 +152,26 @@ Response:
 ### Route /compareUSCA
 ***
 In this route, a comparison is made between the number of events that will take place in the United States and those in Canada.\
-A comparison will also be made between the genres of events that will take place in the two states
+A comparison will also be made between the genres of events that will take place in the two states.
 This route displays the total, maximum and minimum of events that will take place in US and Canada.
 
+###Route /getStats
+***
+In this route you can enter 1 or 2 state code and 1 or 2 genres.
 
+You can choose from many states, these are some of the well known in the United States and Canada:
+| United States | Canada |
+| :--- | :---: | 
+| AL - Alabama | AB - Alberta|
+| AK - Alaska | BC - Colombie-Britannique|
+| AZ - Arizona | NB - Nouveau-Brunswick |
+| CA -  California | NL - Terre-Neuve-et-Labrador |
+| CO - Colorado | NS - Nouvelle-Écosse|
+| IN - Indiana | ON - Ontario |
+| LA - Louisiana | PE - Île-du-Prince-Édouard |
+| NY - New York | QC - Québec |
+| TX - Texas | SK - 	Saskatchewan |
+| UT - Utah | NT - Territoires du Nord-Ouest | 
 
 
 <div id='id-section5'/>
