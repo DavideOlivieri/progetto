@@ -58,7 +58,8 @@ public class simpleRestController {
 			SegmentFilter filterVector = new SegmentFilter();
 			vector=filterVector.SegFilter(segment, vector);
 			
-			JSONObject JSONEvent_segment = EventService.GrouppedToJson(vector, seeEvents);
+			JSONObject JSONEvent_segment = new JSONObject();
+			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_segment);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -75,7 +76,9 @@ public class simpleRestController {
 				GenreFilter filterVector = new GenreFilter();
 				vector=filterVector.genFilter(genre, vector);
 				
-				JSONObject JSONEvent_genre = EventService.ToJson(vector);
+				JSONObject JSONEvent_genre = new JSONObject();
+				
+				EventService.ToJson(vector,JSONEvent_genre);
 				return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK); 
 				
 			} catch(Exception e) {
@@ -98,7 +101,9 @@ public class simpleRestController {
 			CountryFilter filterVector = new CountryFilter();
 			vector = filterVector.countryFilter(countryCode, vector);
 			
-			JSONObject JSONEvent_country = EventService.GrouppedToJson(vector, seeEvents);
+			JSONObject JSONEvent_country = new JSONObject();
+			
+			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_country);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 			
 		} catch(Exception e) {
@@ -146,36 +151,31 @@ public class simpleRestController {
 				else 
 					seeEvents=true;
 
-				Vector<Events> vectorGen1 = EventService.connection_genre(genre);
-				Vector<Events> vectorGen2=null;
-				if(genre2!=null)
-					vectorGen2 = EventService.connection_genre(genre2);
-				if(state_code2!=null) {
-					vectorGen1 = filterVectorState.stateFilter(state_code, state_code2, vectorGen1);
-					if(genre2!=null)
-						vectorGen2 = filterVectorState.stateFilter(state_code, state_code2, vectorGen2);
+				Vector<Events> vectorGen11 = EventService.connection_genre(genre);
+				Vector<Events> vectorGen22= null;
+				Vector<Events> vectorGen12 = EventService.connection_genre(genre);
+				Vector<Events> vectorGen21= null;
+				
+				vectorGen11 = filterVectorState.stateFilter(state_code, vectorGen11);
+				if(genre2!=null) {
+					vectorGen21 = EventService.connection_genre(genre2);
+					vectorGen21 = filterVectorState.stateFilter(state_code, vectorGen21);
+					if(state_code2!=null) {
+						vectorGen22 = EventService.connection_genre(genre);
+						vectorGen12 = filterVectorState.stateFilter(state_code2, vectorGen12);
+						vectorGen22 = filterVectorState.stateFilter(state_code2, vectorGen22);
+					}
 				}
-				else {
-					vectorGen1 = filterVectorState.stateFilter(state_code, vectorGen1);
-					if(genre2!=null)
-						vectorGen2 = filterVectorState.stateFilter(state_code, vectorGen2);
-				}
-
-				Vector<Events> vector=null;
-				if(genre2!=null)
-					vector = EventService.concateneted(vectorGen1, vectorGen2);
-				else
-					vector = vectorGen1;
 
 				JSONObject JSONEvent_country = null;
 				if(state_code2==null && genre2==null)
-					JSONEvent_country = EventService.StatsToJson( vector, state_code, genre, seeEvents);
+					JSONEvent_country = EventService.StatsToJson( vectorGen11, state_code, genre, seeEvents);
 				else if(state_code2==null)
-					JSONEvent_country = EventService.StatsToJson_genre( vector, state_code, genre, genre2, seeEvents );
+					JSONEvent_country = EventService.StatsToJson_genre( vectorGen11, vectorGen21, state_code, genre, genre2, seeEvents );
 				else if(genre2==null)
-					JSONEvent_country = EventService.StatsToJson_state( vector, state_code, genre, state_code2, seeEvents);
+					JSONEvent_country = EventService.StatsToJson_state( vectorGen11, vectorGen12, state_code, genre, state_code2, seeEvents);
 				else
-					JSONEvent_country = EventService.StatsToJson( vector, state_code, genre, state_code2, genre2, seeEvents);
+					JSONEvent_country = EventService.StatsToJson( vectorGen11, vectorGen21, vectorGen12, vectorGen22, state_code, genre, state_code2, genre2, seeEvents);
 				return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 				
 			}catch(IOException e) {

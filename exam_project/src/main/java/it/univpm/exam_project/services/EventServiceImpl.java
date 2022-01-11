@@ -302,9 +302,8 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
-	public JSONObject ToJson(Vector<Events> filteredEvents) {
+	public void ToJson(Vector<Events> filteredEvents, JSONObject respons) {
 		// TODO Auto-generated method stub
-		JSONObject respons = new JSONObject();
 		
 		JSONArray events = new JSONArray();
 
@@ -329,17 +328,15 @@ public class EventServiceImpl implements EventService{
 		
 		respons.put("Events", events);
 		
-		return respons;
 	}
 	
-	public JSONObject GrouppedToJson(Vector<Events> filteredEvents, boolean condition) {
+	public void GrouppedToJson(Vector<Events> filteredEvents, boolean condition, JSONObject respons) {
 		// TODO Auto-generated method stub
-		JSONObject respons = new JSONObject();
 		JSONArray eventsForGenre = new JSONArray();
 		Vector<String> vectorGen = null;
 		vectorGen=EventServiceImpl.readGen();
 		if(condition==true)
-			respons = ToJson(filteredEvents);
+			ToJson(filteredEvents, respons);
 		
 		for(int i=0;i<vectorGen.size();i++) {
 			eventsForGenre.add(genEvents(filteredEvents, vectorGen, i));
@@ -347,7 +344,6 @@ public class EventServiceImpl implements EventService{
 		
 		respons.put("Events grouped by genre", eventsForGenre);
 		
-		return respons;
 	}
 
 	
@@ -366,14 +362,10 @@ public class EventServiceImpl implements EventService{
 
 		return respons;
 	}
-
 	
-	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, boolean seeEvents) throws IOException {
+	
+	public void StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, JSONObject respons) throws IOException {
 		// TODO Auto-generated method stub
-		JSONObject respons = new JSONObject();
-		
-		if(seeEvents==true)
-			respons=ToJson(filteredEvents);
 		
 		respons.put("The total of events of "+ genre+" in "+state_code+" is", totEvents(filteredEvents)-1);
 		
@@ -382,6 +374,19 @@ public class EventServiceImpl implements EventService{
 		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
 		
 		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));		
+
+	}
+	
+
+	
+	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, boolean seeEvents) throws IOException {
+		// TODO Auto-generated method stub
+		JSONObject respons = new JSONObject();
+		
+		if(seeEvents==true)
+			ToJson(filteredEvents, respons);
+		
+		StatsToJson(filteredEvents, state_code, genre, respons);
 
 		return respons;
 	}
@@ -398,108 +403,72 @@ public class EventServiceImpl implements EventService{
 		
 		respons.put("The average monthly events in "+state_code+" is", avgEvents(filteredEvents));		
 		
-		respons = GrouppedToJson(filteredEvents, false);
+		GrouppedToJson(filteredEvents, false, respons);
 
 		return respons;
 	}
 	
-	public JSONObject StatsToJson_state(Vector<Events> filteredEvents, String state_code, String genre,
-			String state_code2, boolean seeEvents) {
+	public JSONObject StatsToJson_state(Vector<Events> filteredEvents1,Vector<Events> filteredEvents2, String state_code, String genre,
+			String state_code2, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 		
 		if(seeEvents==true)
-			respons=ToJson(filteredEvents);
+			ToJson(filteredEvents1, respons);
+		if(seeEvents==true)
+			ToJson(filteredEvents2, respons);
 			
-		respons.put("The total of events of "+ genre+" in "+state_code+" is", totEvents(filteredEvents)-1);
 		
-		respons.put("The month with the most events of "+ genre+" in "+state_code+" is", maxEvents(filteredEvents));
+		StatsToJson(filteredEvents1, state_code, genre, respons);
 		
-		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
-		
-		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));
-		
-		respons.put("The total of events of "+ genre+" in "+state_code2+" is", totEvents(filteredEvents)-1);
-		
-		respons.put("The month with the most events of "+ genre+" in "+state_code2+" is", maxEvents(filteredEvents));
-		
-		respons.put("The month with the fewest events of "+ genre+" in "+state_code2+" is", minEvents(filteredEvents));
-		
-		respons.put("The average monthly events of "+ genre+"in "+state_code2+" is", avgEvents(filteredEvents));
-		
+		StatsToJson(filteredEvents2, state_code2, genre, respons);
 
 		return respons;
 	}
 
 	
-	public JSONObject StatsToJson_genre(Vector<Events> filteredEvents, String state_code, String genre, String genre2,
-			boolean seeEvents) {
+	public JSONObject StatsToJson_genre(Vector<Events> filteredEvents1,Vector<Events> filteredEvents2, String state_code, String genre, String genre2,
+			boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 		
 		if(seeEvents==true)
-			respons=ToJson(filteredEvents);
+			ToJson(filteredEvents1, respons);
+		if(seeEvents==true)
+			ToJson(filteredEvents2, respons);
 			
-		respons.put("The total of events of "+ genre+" in "+state_code+" is", totEvents(filteredEvents)-1);
 		
-		respons.put("The month with the most events of "+ genre+" in "+state_code+" is", maxEvents(filteredEvents));
+		StatsToJson(filteredEvents1, state_code, genre, respons);
 		
-		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
-		
-		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));
-		
-		respons.put("The total of events of "+ genre2+" in "+state_code+" is", totEvents(filteredEvents)-1);
-		
-		respons.put("The month with the most events of "+ genre2+" in "+state_code+" is", maxEvents(filteredEvents));
-		
-		respons.put("The month with the fewest events of "+ genre2+" in "+state_code+" is", minEvents(filteredEvents));
-		
-		respons.put("The average monthly events of "+ genre2+"in "+state_code+" is", avgEvents(filteredEvents));
+		StatsToJson(filteredEvents2, state_code, genre2, respons);
 		
 
 		return respons;
 	}
 
 
-	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, String state_code2,
-			String genre2, boolean seeEvents) {
+	public JSONObject StatsToJson(Vector<Events> filteredEvents1, Vector<Events> filteredEvents2,Vector<Events> filteredEvents3,Vector<Events> filteredEvents4,String state_code, String genre, String state_code2,
+			String genre2, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 
 		if(seeEvents==true)
-			respons=ToJson(filteredEvents);
-
-		respons.put("The total of events of "+ genre+" in "+state_code+" is", totEvents(filteredEvents)-1);
-
-		respons.put("The month with the most events of "+ genre+" in "+state_code+" is", maxEvents(filteredEvents));
-
-		respons.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
-
-		respons.put("The average monthly events of "+ genre+"in "+state_code+" is", avgEvents(filteredEvents));
-
-		respons.put("The total of events of "+ genre2+" in "+state_code+" is", totEvents(filteredEvents)-1);
-
-		respons.put("The month with the most events of "+ genre2+" in "+state_code+" is", maxEvents(filteredEvents));
-
-		respons.put("The month with the fewest events of "+ genre2+" in "+state_code+" is", minEvents(filteredEvents));
-
-		respons.put("The average monthly events of "+ genre2+"in "+state_code+" is", avgEvents(filteredEvents));
-
-		respons.put("The total of events of "+ genre+" in "+state_code2+" is", totEvents(filteredEvents)-1);
-
-		respons.put("The month with the most events of "+ genre+" in "+state_code2+" is", maxEvents(filteredEvents));
-
-		respons.put("The month with the fewest events of "+ genre+" in "+state_code2+" is", minEvents(filteredEvents));
-
-		respons.put("The average monthly events of "+ genre+"in "+state_code2+" is", avgEvents(filteredEvents));
-
-		respons.put("The total of events of "+ genre2+" in "+state_code2+" is", totEvents(filteredEvents)-1);
-
-		respons.put("The month with the most events of "+ genre2+" in "+state_code2+" is", maxEvents(filteredEvents));
-
-		respons.put("The month with the fewest events of "+ genre2+" in "+state_code2+" is", minEvents(filteredEvents));
-
-		respons.put("The average monthly events of "+ genre2+"in "+state_code2+" is", avgEvents(filteredEvents));
+			ToJson(filteredEvents1, respons);
+		if(seeEvents==true)
+			ToJson(filteredEvents2, respons);
+		if(seeEvents==true)
+			ToJson(filteredEvents3, respons);
+		if(seeEvents==true)
+			ToJson(filteredEvents4, respons);
+			
+		
+		StatsToJson(filteredEvents1, state_code, genre, respons);
+		
+		StatsToJson(filteredEvents2, state_code, genre2, respons);
+		
+		StatsToJson(filteredEvents3, state_code2, genre, respons);
+		
+		StatsToJson(filteredEvents4, state_code2, genre2, respons);
 
 
 		return respons;
