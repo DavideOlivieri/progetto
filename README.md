@@ -155,11 +155,17 @@ In this route, a comparison is made between the number of events that will take 
 A comparison will also be made between the genres of events that will take place in the two states.
 This route displays the total, maximum and minimum of events that will take place in US and Canada.
 
-###Route /getStats
+### Route /getStats
 ***
-In this route you can enter 1 or 2 state code and 1 or 2 genres.
+In this route you can enter 1 or 2 state code and 1 or 2 genres. \
+Parameters to be entered: 
+> state_code = param \
+> state_code2 = param \
+> genre = paramn \
+> genre2 = param 
 
 You can choose from many states, these are some of the well known in the United States and Canada:
+
 | United States | Canada |
 | :--- | :---: | 
 | AL - Alabama | AB - Alberta|
@@ -173,7 +179,16 @@ You can choose from many states, these are some of the well known in the United 
 | TX - Texas | SK - 	Saskatchewan |
 | UT - Utah | NT - Territoires du Nord-Ouest | 
 
-
+This is an example with the default parameters (genre = Hockey, state_code = CA) \
+Response:
+```json
+{
+    "The total of events of Hockey in CA is": 6,
+    "The month with the fewest events of Hockey in CA is": "February",
+    "The month with the most events of Hockey in CA is": "January",
+    "The average monthly events of Hockey in CA is": 0.5
+}
+```
 <div id='id-section5'/>
 
 ## Authors
