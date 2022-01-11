@@ -32,14 +32,7 @@ import it.univpm.exam_project.parser.Parser;
 @Service
 public class EventServiceImpl implements EventService{
 	
-    /**
-     * Given a country it returns the statistic for it
-     * 
-     * @param country
-     * @param eventVector
-     * @return respons
-     */
-	
+    
 	
 	public JSONObject getJSONObject(String url) {
 		JSONObject obj = null;
