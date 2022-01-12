@@ -215,12 +215,13 @@ public class simpleRestController {
 				Vector<Events> vectorGen21= null;
 
 				vectorGen11 = filterVectorState.stateFilter(state_code, vectorGen11);
+				if(state_code2!=null)
+				vectorGen12 = filterVectorState.stateFilter(state_code2, vectorGen12);
 				if(genre2!=null) {
 					vectorGen21 = EventService.connection_genre(genre2);
 					vectorGen21 = filterVectorState.stateFilter(state_code, vectorGen21);
 					if(state_code2!=null) {
 						vectorGen22 = EventService.connection_genre(genre2);
-						vectorGen12 = filterVectorState.stateFilter(state_code2, vectorGen12);
 						vectorGen22 = filterVectorState.stateFilter(state_code2, vectorGen22);
 					}
 				}
