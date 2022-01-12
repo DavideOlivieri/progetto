@@ -122,7 +122,7 @@ public class simpleRestController {
 	 * 
 	 * @param countryCode
 	 * @param condition
-	 * @return JSONObject containing all the events for the choosen countrycode
+	 * @return JSONObject containing all the events for the chosen countrycode
 	 */
 	@RequestMapping(value = "/getEventForCountryCode")
 	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode,
