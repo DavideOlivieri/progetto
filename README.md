@@ -193,7 +193,8 @@ Response:
 
 ### Route /getStatsforState
 ***
-This route Sows the number of events for genre for a specific genre. \
+This route shows some statistics for the chosen State like, the total of events, the average monthly events, the month with the most events and the month with the fewest events.
+It also allows to see the number of events for a specific genre. \
 Parameter to be entered:
 
 > state_code
@@ -201,7 +202,36 @@ Parameter to be entered:
 #### Example
 This is an example with the default parameter (state_code = CA )
 
-
+```json
+{
+    "The month with the most events in CA is": "January",
+    "The month with the fewest events in CA is": "May",
+    "The total of events in CA is": 60,
+    "The average monthly events in CA is": 5.0,
+    "Events grouped by genre": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {
+            "Events number of Basketball ": 30
+        },
+        {},
+        {
+            "Events number of Hockey ": 6
+        },
+        {},
+        {
+            "Events number of Rock ": 6
+        },
+        {},
+        {}
+    ]
+}
+```
 
 <div id='id-section5'/>
 
