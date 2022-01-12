@@ -15,9 +15,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+
 import org.springframework.stereotype.Service;
 
-import it.univpm.exam_project.exception.SegmentNotFoundException;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
 
@@ -41,8 +41,9 @@ public class EventServiceImpl implements EventService{
 
 		try {
 			URLConnection openConnection = new URL(url).openConnection();
+		
 			InputStream in = openConnection.getInputStream();
-
+			
 			String data = "";
 			String line = "";
 			try {
@@ -56,8 +57,7 @@ public class EventServiceImpl implements EventService{
 				in.close();
 			}
 			obj = (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
-
-
+			
 		} catch (IOException | ParseException e) {
 			//e.printStackTrace();
 			System.out.println("ERROR: I/O error or parse error");
@@ -85,20 +85,17 @@ public class EventServiceImpl implements EventService{
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();		
 		eventVector = pars.parse(json);
-
 		return eventVector;
 	}
 
 
-	public Vector<Events> connection_segment(String segment) throws SegmentNotFoundException{
+	public Vector<Events> connection_segment(String segment){
 		Vector<Events> eventVector = new Vector<Events>();
 		String url = apiUrl+"&segmentName="+segment;
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();
 		eventVector = pars.parse(json);
-
-		if(eventVector==null)
-			throw new SegmentNotFoundException();
+		
 		return eventVector;
 	}
 
@@ -109,7 +106,7 @@ public class EventServiceImpl implements EventService{
 		JSONObject json = getJSONObject(url);
 		Parser pars = new Parser();
 		eventVector = pars.parse(json);
-
+		
 		return eventVector;
 	}
 

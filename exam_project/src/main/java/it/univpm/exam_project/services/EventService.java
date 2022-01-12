@@ -5,7 +5,6 @@ import java.util.Vector;
 
 import org.json.simple.JSONObject;
 
-import it.univpm.exam_project.exception.SegmentNotFoundException;
 import it.univpm.exam_project.models.Events;
 
 /**
@@ -20,7 +19,7 @@ public interface EventService {
 	
 	public Vector<Events> connection_country(String countryCode);
 	
-	public Vector<Events> connection_segment(String segment) throws SegmentNotFoundException;
+	public Vector<Events> connection_segment(String segment);
 	
 	public Vector<Events> connection_genre(String genre);
 	

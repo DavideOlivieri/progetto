@@ -1,14 +1,14 @@
 package it.univpm.exam_project.exception;
 
-public class GenreNotFoundException extends Exception{
+public class FileNotFoundException extends Exception{
 
-private String msg = "Error: Genre not found";
+private String msg = "Error: File not found";
 	
-	public GenreNotFoundException() {
+	public FileNotFoundException() {
 		super();
 	}
 	
-	public GenreNotFoundException(String msg) {
+	public FileNotFoundException(String msg) {
 		super(msg);
 		this.msg=msg;
 	}
@@ -27,4 +27,3 @@ private String msg = "Error: Genre not found";
 	}
 
 }
-

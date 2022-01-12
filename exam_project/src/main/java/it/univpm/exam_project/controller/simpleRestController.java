@@ -15,7 +15,6 @@ import it.univpm.exam_project.filters.GenreFilter;
 import it.univpm.exam_project.filters.SegmentFilter;
 import it.univpm.exam_project.filters.StatesFilter;
 import it.univpm.exam_project.exception.InvalidInputException;
-import it.univpm.exam_project.exception.SegmentNotFoundException;
 import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
@@ -62,7 +61,7 @@ public class simpleRestController {
 	 */
 	@RequestMapping(value = "/getEventForSegment")
 	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
-			@RequestParam(name="seeEvents", defaultValue= "no")String condition) throws SegmentNotFoundException{
+			@RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
 			boolean seeEvents=false;
 			try {
@@ -85,8 +84,6 @@ public class simpleRestController {
 			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_segment);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
 
-		} catch(SegmentNotFoundException e) {
-			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
@@ -112,7 +109,7 @@ public class simpleRestController {
 
 			EventService.ToJson(vector,JSONEvent_genre);
 			return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK); 
-
+	
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
@@ -145,7 +142,7 @@ public class simpleRestController {
 
 			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_country);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
-
+		
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
