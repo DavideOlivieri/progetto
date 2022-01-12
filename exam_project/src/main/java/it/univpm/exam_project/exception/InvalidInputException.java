@@ -2,6 +2,10 @@ package it.univpm.exam_project.exception;
 
 public class InvalidInputException extends Exception{
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 private String msg = "Error: Input invalid";
 	
 	public InvalidInputException() {
