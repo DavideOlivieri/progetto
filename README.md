@@ -51,6 +51,7 @@ In this case 8080 is the standard port but can be changed.
 | `/getEventsForCountryCode` | Displays the events that will take place in the chosen state | Get |
 | `/compareUSCA` | Compare the total / maximum / minimum of events between US and CA | Get |
 | `/getStats` | Displays the statistics chosen a state and a genre | Get |
+| `/getStatsforState` | Displays the events for genre for a specific State | Get |
 
 ### Route /getEvents
 ***
@@ -79,24 +80,22 @@ The answer to this request will be:
 This route allows to view the metadata by segment. Segment groups specific genres. 
 
 In this application we can search for these segments:
-```json
-[
- "Arts & Theatre"
- "Sports"
- "Music"
-]
-```
+
+> Sports
+> Music
+> Arts & Theatre
+
+
 ### Route /getEventForGenre
 ***
 This route allows to view metatadata by genre of the events.
 In thi application we can serch for these segment:
 
->SPORTS | Baseball, Basketball, Boxing, Hockey \
->MUSIC | Classical  \
->ART & THEATRE | Comedy 
+>Sports | Baseball, Basketball, Boxing, Hockey \
+>Music | Classical  \
+>Art & Theatre | Comedy 
    
 
-   Comedy
 #### Example
 ```json
 {
@@ -162,7 +161,8 @@ Parameters to be entered:
 > state_code = param \
 > state_code2 = param \
 > genre = paramn \
-> genre2 = param 
+> genre2 = param \
+> seeEvents = if value is "Yes" shows all the events and not only the stats.
 
 You can choose from many states, these are some of the well known in the United States and Canada:
 
@@ -179,6 +179,7 @@ You can choose from many states, these are some of the well known in the United 
 | TX - Texas | SK - 	Saskatchewan |
 | UT - Utah | NT - Territoires du Nord-Ouest | 
 
+#### Example
 This is an example with the default parameters (genre = Hockey, state_code = CA) \
 Response:
 ```json
@@ -189,6 +190,19 @@ Response:
     "The average monthly events of Hockey in CA is": 0.5
 }
 ```
+
+### Route /getStatsforState
+***
+This route Sows the number of events for genre for a specific genre. \
+Parameter to be entered:
+
+> state_code
+
+#### Example
+This is an example with the default parameter (state_code = CA )
+
+
+
 <div id='id-section5'/>
 
 ## Authors
