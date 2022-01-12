@@ -2,37 +2,38 @@ package it.univpm.exam_project.models;
 
 
 /**
+ * Class that contains all the parameters chosen to describe the events
+ * 
  * @author DavideOlivieri
  * @author JacopoColoccioni
  * 
- * Class that defines events
  */
 
 public class Events {
 	/**
-	 * parameters
+	 * Parameters
 	 */
-	private String event_name;
-	private String event_id;
-	private String event_url;
-	private int month;
-	private String local_date;
-	private String local_time;
-	private String country_code;
-	private String state_code;
-	private String city;
-	private String state;
-	private String country_name;
-	private String segment;
-	private String genre;
-	
+	private String event_name;           // name of the event
+	private String event_id;             // event identification number
+	private String event_url;            // event url
+	private int month;                   // month in which the event will take place
+	private String local_date;           // date on which the event will take place
+	private String local_time;           // exact time of the start of the event
+	private String country_code;         // Country code where the event will take place
+	private String state_code;           // State code where the event will take place
+	private String city;                 // name of the City where the event will take place
+	private String state;                // name of the State where the event will take place
+	private String country_name;         // name of the Country where the event will take place
+	private String segment;              // segment of the event (Grouping of genres)
+	private String genre;                // genre of the event
+
 	/**
-	 * constructor
+	 * Constructor
 	 *
 	 */
 	public Events(String event_name, String event_id, String event_url, String localDate, 
-			      String local_time, String country_code, String state_code, String city, 
-			      String state, String country_name, String genre, String subgenre, String segment) {
+			String local_time, String country_code, String state_code, String city, 
+			String state, String country_name, String genre, String subgenre, String segment) {
 		this.event_name=event_name;
 		this.event_id=event_id;
 		this.event_url=event_url;
@@ -55,7 +56,7 @@ public class Events {
 	 * Getters and setters
 	 * 
 	 */
-	
+
 	public String getSegment() {
 		return segment;
 	}
@@ -81,7 +82,7 @@ public class Events {
 	}
 
 	private String subgenre;
-	
+
 	public String getName() {
 		return event_name;
 	}

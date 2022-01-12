@@ -11,16 +11,16 @@ import it.univpm.exam_project.models.Events;
  */
 
 public class CountryFilter {
-	
+
 	/**
 	 * Method that filters all events by Country
 	 * 
-	 * @param countryCode, the countryCode for which to filter events
-	 * @param eventstoFilter, all events to be filtered
-	 * @return filteredStates, events filtered for the chosen Country
+	 * @param countryCode, the countryCode for which to filter events.
+	 * @param eventstoFilter, Vector that contains all events to be filtered.
+	 * @return filteredStates, events filtered for the chosen Country.
 	 * @see it.univpm.exam_project.models.Events
 	 */
- 
+
 	public Vector<Events> countryFilter(String countryCode, Vector<Events> eventstoFilter){
 
 		Vector<Events> filteredStates = new Vector<Events>();
