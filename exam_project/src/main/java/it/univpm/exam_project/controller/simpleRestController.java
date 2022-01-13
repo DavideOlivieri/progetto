@@ -63,18 +63,7 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
-			boolean seeEvents=false;
-			try {
-				if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
-					seeEvents=false;
-				else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("s")||condition.equals("true"))
-					seeEvents=true;
-				else 
-					throw new InvalidInputException();
-
-			} catch(InvalidInputException e) {
-				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
-			}
+			boolean seeEvents = EventService.setCnd(condition);
 			Vector<Events> vector = EventService.connection_segment(segment);
 
 			SegmentFilter filterVector = new SegmentFilter();
@@ -83,7 +72,8 @@ public class simpleRestController {
 			JSONObject JSONEvent_segment = new JSONObject();
 			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_segment);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
-
+		} catch(InvalidInputException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
@@ -128,11 +118,7 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {			
-			boolean seeEvents=false;
-			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
-				seeEvents=false;
-			else 
-				seeEvents=true;
+			boolean seeEvents = EventService.setCnd(condition);
 			Vector<Events> vector = EventService.connection_country(countryCode);
 
 			CountryFilter filterVector = new CountryFilter();
@@ -142,7 +128,8 @@ public class simpleRestController {
 
 			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_country);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
-		
+		} catch(InvalidInputException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
@@ -199,12 +186,7 @@ public class simpleRestController {
 			try {
 
 				StatesFilter filterVectorState = new StatesFilter();
-				boolean seeEvents=false;
-
-				if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
-					seeEvents=false;
-				else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("s")||condition.equals("S")||condition.equals("true")||condition.equals("Yes"))
-					seeEvents=true;
+				boolean seeEvents = EventService.setCnd(condition);
 
 				Vector<Events> vectorGen11 = EventService.connection_genre(genre);
 				Vector<Events> vectorGen22= null;
@@ -233,6 +215,8 @@ public class simpleRestController {
 				else
 					JSONEvent_country = EventService.StatsToJson( vectorGen11, vectorGen21, vectorGen12, vectorGen22, state_code, genre, state_code2, genre2, seeEvents);
 				return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);	
+			} catch(InvalidInputException e) {
+				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 			}catch(IOException e) {
 				return new ResponseEntity<>("Error1", HttpStatus.BAD_REQUEST);
 			}
@@ -254,18 +238,7 @@ public class simpleRestController {
 	public ResponseEntity<Object> getStatsforState(@RequestParam(name="state_code", defaultValue="CA") String state_code,
 			                                       @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {
-			boolean seeEvents=false;
-			try {
-				if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
-					seeEvents=false;
-				else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("s")||condition.equals("true"))
-					seeEvents=true;
-				else 
-					throw new InvalidInputException();
-
-			} catch(InvalidInputException e) {
-				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
-			}
+			boolean seeEvents = EventService.setCnd(condition);
 
 			StatesFilter filterVectorState = new StatesFilter();
 			Vector<Events> vectorState = EventService.connection_state(state_code);
@@ -275,7 +248,9 @@ public class simpleRestController {
 
 			JSONEvent_country = EventService.StatsToJson(vectorState, state_code, seeEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
-
+			
+		} catch(InvalidInputException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}

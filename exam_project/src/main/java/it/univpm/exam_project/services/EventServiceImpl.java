@@ -15,9 +15,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import it.univpm.exam_project.exception.InvalidInputException;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
 
@@ -181,6 +183,17 @@ public class EventServiceImpl implements EventService{
 			return "December";
 		return "Error month";
 
+	}
+	
+	public boolean setCnd(String condition) throws InvalidInputException {
+		boolean tf=false;
+			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
+				tf=false;
+			else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("s")||condition.equals("true"))
+				tf=true;
+			else 
+				throw new InvalidInputException();
+		return tf;
 	}
 
 	public static Vector<String> readGen() {
