@@ -5,7 +5,8 @@
 - [API Ticketmaster](#id-section2)
 - [Application usage](#id-section3)
 - [Routes](#id-section4)
-- [Authors](#id-section5)
+- [Exception](#id-section5)
+- [Authors](#id-section6)
 
 <div id='id-section1'/>
 
@@ -81,20 +82,20 @@ This route allows to view the metadata by segment. Segment groups specific genre
 
 In this application we can search for these segments:
 
-> Sports
-> Music
-> Arts & Theatre
+> Sports \
+> Music \
+> Arts & Theatre \
+> Miscellaneous
 
-
-### Route /getEventForGenre
+### Route /getEventsForGenre
 ***
 This route allows to view metatadata by genre of the events.
 In thi application we can serch for these segment:
 
 >Sports | Baseball, Basketball, Boxing, Hockey \
->Music | Classical  \
->Art & Theatre | Comedy 
-   
+>Music | Classical, Hip-Hop/Rap, Blues, Dance/Electronic \
+>Art & Theatre | Comedy \
+>Miscellaneous | Blues, Hobby/Special Interest Expos
 
 #### Example
 ```json
@@ -113,17 +114,21 @@ In thi application we can serch for these segment:
  "local_date": "2022-01-06"
 }
 ```
-### Route /getEventForCountryCode
+### Route /getEventsForCountryCode
 ***
 This route allows to view metadata by CountryCode of the events.
 Here are some examples of country codes to choose:
 | Country | countryCode |
 | :--- | :---: | 
-| United State | US|
+| United State | US |
 | Canada | CA |
 | France | FR |
 | Italy | IT |
 | Germany | DE |
+| Poland | PL |
+Optional parameter to be entered:
+
+> countryCode = param, if you want to search for another state. 
 
 #### Example
 Example of a route for /getEventForCountryCode with Cananda
@@ -131,21 +136,7 @@ Example of a route for /getEventForCountryCode with Cananda
 
 Response:
 ```json
-       {
-            "country_code": "CA",
-            "event_id": "G5vZZpzHpp3z6",
-            "local_time": "18:00:00",
-            "city": "Ontario",
-            "subgenre": "NBA",
-            "segment": "Sports",
-            "country_name": "Canada",
-            "genre": "Basketball",
-            "event_name": "Toronto Raptors vs. New Orleans Pelicans",
-            "state": "ON",
-            "state_code": "Toronto",
-            "local_date": "2022-01-09"
-        },
-        "..."
+      
 ```
 
 ### Route /compareUSCA
@@ -179,15 +170,18 @@ You can choose from many states, these are some of the well known in the United 
 | TX - Texas | SK - 	Saskatchewan |
 | UT - Utah | NT - Territoires du Nord-Ouest | 
 
+On this site you can find all states for the United States ( https://en.wikipedia.org/wiki/ISO_3166-2:US ) \
+On this site you can find all states for Canada ( https://en.wikipedia.org/wiki/ISO_3166-2:CA ) \
+
 #### Example
 This is an example with the default parameters (genre = Hockey, state_code = CA) \
 Response:
 ```json
 {
-    "The total of events of Hockey in CA is": 6,
-    "The month with the fewest events of Hockey in CA is": "February",
-    "The month with the most events of Hockey in CA is": "January",
-    "The average monthly events of Hockey in CA is": 0.5
+    "The total of events of Hockey in CA is": 12,
+    "The average monthly events of Hockey in CA is": 1.0,
+    "The month with the fewest events of Hockey in CA is": "April, May, June, July, August, September, October, November, December",
+    "The month with the most events of Hockey in CA is": "January"
 }
 ```
 
@@ -195,9 +189,10 @@ Response:
 ***
 This route shows some statistics for the chosen State like, the total of events, the average monthly events, the month with the most events and the month with the fewest events.
 It also allows to see the number of events for a specific genre. \
-Parameter to be entered:
+Optional parameter to be entered:
 
-> state_code
+> state_code = param, if you want to search for another state \
+> seeEvents = yes/no, if value is "yes" shows all the events and not only the stats.
 
 #### Example
 This is an example with the default parameter (state_code = CA )
@@ -205,35 +200,28 @@ This is an example with the default parameter (state_code = CA )
 ```json
 {
     "The month with the most events in CA is": "January",
-    "The month with the fewest events in CA is": "May",
+    "The month/s with the fewest events in CA is": "May, June, July, August, September, October, November, December",
     "The total of events in CA is": 60,
     "The average monthly events in CA is": 5.0,
     "Events grouped by genre": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
         {
-            "Events number of Basketball ": 30
-        },
-        {},
-        {
-            "Events number of Hockey ": 6
-        },
-        {},
-        {
-            "Events number of Rock ": 6
-        },
-        {},
-        {}
+            "Events number of Baseball ": 3,
+            "Events number of Basketball ": 24,
+            "Events number of Hockey ": 9,
+            "Events number of Fairs & Festivals ": 3,
+            "Events number of Rock ": 6,
+            "Events number of Football ": 6,
+            "Events number of Ice Shows ": 9
+        }
     ]
 }
 ```
-
 <div id='id-section5'/>
+
+## Exception
+
+
+<div id='id-section6'/>
 
 ## Authors
 This project was developed during the Object Oriented Programming course (2021/2022) by:
