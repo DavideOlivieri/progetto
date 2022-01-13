@@ -226,7 +226,7 @@ public class EventServiceImpl implements EventService{
 
 		try {
 
-			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/genres.txt.txt")));
+			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/genres.txt")));
 			while (fileGeneri.hasNext())
 				generiVect.add(fileGeneri.nextLine());
 
@@ -236,8 +236,29 @@ public class EventServiceImpl implements EventService{
 
 		return generiVect;
 	}
-	
-	
+
+	/**
+	 * This method is used to create a vector containing all the states that are read from the genres.txt file
+	 * 
+	 * @return stateVect
+	 */
+	public static Vector<String> readState() {
+
+		Vector<String> stateVect = new Vector<String>();
+
+		try {
+
+			Scanner fileState = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/states.txt")));
+			while (fileState.hasNext())
+				stateVect.add(fileState.nextLine());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return stateVect;
+	}
+
 	
 	//   **************************************************************************************************
 	//                        METHODS USED TO MAKE STATISTICS      
