@@ -303,24 +303,25 @@ public class EventServiceImpl implements EventService{
 
 		return tot;
 	}
-
-	public JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre, int j) {
+	
+	public JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
 
 		JSONObject respons = new JSONObject();
 		int k=0;
 		Events currentEvents;
 		String currentGenre;
+		for(int j=0; j<genre.size();j++) {
+			currentGenre= genre.get(j);
+			for(int i = 0; i<eventVector.size();i++) {
 
-		currentGenre= genre.get(j);
-		for(int i = 0; i<eventVector.size();i++) {
-
-			currentEvents = eventVector.get(i);
-			if(currentEvents.getGenre().equals(currentGenre)) {
-				k++;
+				currentEvents = eventVector.get(i);
+				if(currentEvents.getGenre().equals(currentGenre)) {
+					k++;
+				}
 			}
+			if(k!=0)
+				respons.put("Events number of "+ currentGenre +" ",k );
 		}
-		if(k!=0)
-			respons.put("Events number of "+ currentGenre +" ",k );
 		return respons;
 	} 
 
@@ -384,11 +385,8 @@ public class EventServiceImpl implements EventService{
 		vectorGen=EventServiceImpl.readGen();
 		if(condition==true)
 			ToJson(filteredEvents, respons);
-
-		for(int i=0;i<vectorGen.size();i++) {
-			eventsForGenre.add(genEvents(filteredEvents, vectorGen, i));
-		}
-
+		
+		eventsForGenre.add(genEvents(filteredEvents, vectorGen));
 		respons.put("Events grouped by genre", eventsForGenre);
 
 	}
