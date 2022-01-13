@@ -37,7 +37,9 @@ public class EventServiceImpl implements EventService{
 	//                     CONNECTION TO GET METADATA FROM API
 	//   **************************************************************************************************
 
-
+   /**
+    * 
+    */
 	public JSONObject getJSONObject(String url) {
 		JSONObject obj = null;
 
@@ -76,10 +78,17 @@ public class EventServiceImpl implements EventService{
 //	                    ALL DIFFERENT CONNECTIONS TO OBTAIN SPECIFIC DATA
 //  ***************************************************************************************************************************
 
-	
+	// apiurl + personal apikey
 	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
 
-
+	/**
+	 * This method makes a call to the API, passing the countrycode along with the url. 
+	 * Then a JSONObject is created through which the data is taken,
+	 * then through the parser the events are inserted into an event vector which is finally returned
+	 * 
+	 * @param countryCode
+	 * @return eventVector
+	 */
 	public Vector<Events> connection_country(String countryCode){
 		Vector<Events> eventVector = new Vector<Events>();
 
@@ -90,7 +99,14 @@ public class EventServiceImpl implements EventService{
 		return eventVector;
 	}
 
-
+	/**
+	 * This method makes a call to the API, passing the segment along with the url. 
+	 * Then a JSONObject is created through which the data is taken,
+	 * then through the parser the events are inserted into an event vector which is finally returned
+	 * 
+	 * @param segment
+	 * @return eventVector
+	 */
 	public Vector<Events> connection_segment(String segment){
 		Vector<Events> eventVector = new Vector<Events>();
 		String url = apiUrl+"&segmentName="+segment;
@@ -101,6 +117,14 @@ public class EventServiceImpl implements EventService{
 		return eventVector;
 	}
 
+	/**
+	 * This method makes a call to the API, passing the genre along with the url. 
+	 * Then a JSONObject is created through which the data is taken,
+	 * then through the parser the events are inserted into an event vector which is finally returned
+	 * 
+	 * @param genre
+	 * @return eventVector
+	 */
 	public Vector<Events> connection_genre(String genre){
 		Vector<Events> eventVector = new Vector<Events>();
 
@@ -112,6 +136,14 @@ public class EventServiceImpl implements EventService{
 		return eventVector;
 	}
 
+	/**
+	 * This method makes a call to the API, passing the statecode along with the url. 
+	 * Then a JSONObject is created through which the data is taken,
+	 * then through the parser the events are inserted into an event vector which is finally returned
+	 * 
+	 * @param state_code
+	 * @return eventVector
+	 */
 	public Vector<Events> connection_state(String state_code){
 		Vector<Events> eventVector = new Vector<Events>();
 
@@ -122,24 +154,6 @@ public class EventServiceImpl implements EventService{
 
 		return eventVector;
 	}
-
-
-	/*
-	 * public Vector<Events> connection_compare(){
-	 * Vector<Events> compareVector = new Vector<Events>();
-	 * try {
-	 *		
-	 *		Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("C:/Users/davio/OneDrive/Documenti/GitHub/progetto/exam_project/src/main/java/it/univpm/exam_project/Canada.txt")));
-	 * while (fileGeneri.hasNext())
-	 *			connection_compare.add(fileGeneri.nextLine());
-	 *
-	 *	} catch (IOException e) {
-	 *		e.printStackTrace();
-	 *	}
-	 * 
-	 * }
-	 */
-
 
 
 	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2){
@@ -156,6 +170,11 @@ public class EventServiceImpl implements EventService{
 		return locD;
 	}
 
+	/**
+	 * This method is used to convert months from an int to a String.
+	 * 
+	 * @param i
+	 */
 	public String convertMonth(int i) {
 		if(i==1)
 			return "January";
@@ -196,13 +215,18 @@ public class EventServiceImpl implements EventService{
 		return tf;
 	}
 
+	/**
+	 * This method is used to create a vector containing all the genres that are read from the genres.txt file
+	 * 
+	 * @return generiVect
+	 */
 	public static Vector<String> readGen() {
 
 		Vector<String> generiVect = new Vector<String>();
 
 		try {
 
-			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/generi.txt.txt")));
+			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/genres.txt.txt")));
 			while (fileGeneri.hasNext())
 				generiVect.add(fileGeneri.nextLine());
 
@@ -351,6 +375,12 @@ public class EventServiceImpl implements EventService{
 	//                        ALL VARIOUS TYPES OF JSON USED      
 	//   **************************************************************************************************
 	
+	/**
+	 * This method return a JSONObject with with the explanation of the data
+	 * that we will receive as a response in the various routes
+	 * 
+	 * @return respons
+	 */
 	public JSONObject getEvents() {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
@@ -399,6 +429,13 @@ public class EventServiceImpl implements EventService{
 
 	}
 
+	/**
+	 * This method 
+	 * 
+	 * @param filteredEvents
+	 * @param condition
+	 * @param respons
+	 */
 	public void GrouppedToJson(Vector<Events> filteredEvents, boolean condition, JSONObject respons) {
 		// TODO Auto-generated method stub
 		JSONArray eventsForGenre = new JSONArray();
@@ -430,7 +467,15 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
-
+    /**
+     * This method generates statistics for a particular genre and State
+     * 
+     * @param filteredEvents
+     * @param state_code
+     * @param genre
+     * @param respons
+     * @throws IOException
+     */
 	public void StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, JSONObject respons) throws IOException {
 		// TODO Auto-generated method stub
 
@@ -444,6 +489,14 @@ public class EventServiceImpl implements EventService{
 
 	}
 
+	/**
+	 * 
+	 * @param filteredEvents
+	 * @param state_code
+	 * @param respons
+	 * @return
+	 * @throws IOException
+	 */
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, JSONObject respons ) throws IOException {
 		// TODO Auto-generated method stub
 

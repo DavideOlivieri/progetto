@@ -59,8 +59,8 @@ public class simpleRestController {
 	 * @return
 	 * @throws SegmentNotFoundException
 	 */
-	@RequestMapping(value = "/getEventForSegment")
-	public ResponseEntity<Object> getEventfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
+	@RequestMapping(value = "/getEventsForSegment")
+	public ResponseEntity<Object> getEventsfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
 			boolean seeEvents = EventService.setCnd(condition);
@@ -87,8 +87,8 @@ public class simpleRestController {
 	 * @param genre
 	 * @return JSONObject containing all the events for the choosen genre.
 	 */
-	@RequestMapping(value = "/getEventForGenre")
-	public ResponseEntity<Object> getEventfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
+	@RequestMapping(value = "/getEventsForGenre")
+	public ResponseEntity<Object> getEventsfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
 		try {
 			Vector<Events> vector = EventService.connection_genre(genre);
 
@@ -114,8 +114,8 @@ public class simpleRestController {
 	 * @param condition
 	 * @return JSONObject containing all the events for the chosen countrycode
 	 */
-	@RequestMapping(value = "/getEventForCountryCode")
-	public ResponseEntity<Object> getEventfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode,
+	@RequestMapping(value = "/getEventsForCountryCode")
+	public ResponseEntity<Object> getEventsfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {			
 			boolean seeEvents = EventService.setCnd(condition);

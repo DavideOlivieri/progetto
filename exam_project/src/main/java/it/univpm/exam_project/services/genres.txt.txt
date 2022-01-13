@@ -1,0 +1,218 @@
+Accounting/General
+Action/Adventure
+Actor
+Added Value Vouchers
+Alternative
+Amusement Park
+Animation
+Aquarium
+Aquatic Park
+Aquatics
+Arthouse
+Artist
+Athlete
+Athletic Races
+Audio Tour
+Audio/Visual
+Award Show
+Badminton
+Ballads/Romantic
+Band
+Bandy
+Baseball
+Basketball
+Biathlon
+Blues
+Body Building
+Boxing
+CD
+Campsite
+Casino/Gaming
+Ceremony
+Chanson Francaise
+Character
+Charity/Benefit
+Children's Festival
+Children's Music
+Children's Theatre
+Choir
+Choreographer
+Chorus
+Circus & Specialty Acts
+Classical
+Clothing
+Club
+Club Access
+Comedian
+Comedy
+Community/Civic
+Community/Cultural
+Competition
+Concert
+Concession Voucher
+Conductor
+Convention
+Country
+Cricket
+Cruise
+Cultural
+Curling
+Cycling
+Dance
+Dance/Electronic
+Dancer
+Demo
+Designer
+Dinner Packages
+Director
+Documentary
+Donation
+Drama
+Driver
+Ensemble
+Equestrian
+Especiales
+Espectaculo
+Exchange
+Exhibit
+Expo
+Extreme
+Fairs & Festivals
+Family
+Fan Experiences
+Fashion
+FastLane Access
+Festival
+Field Hockey
+Fine Art
+Fitness
+Floorball
+Folk
+Food & Drink
+Football
+Foreign
+Gift Card
+Gift Certificate
+Golf
+Graduation/Commencement
+Group
+Guide
+Gymnastics
+Handball
+Health/Wellness
+Hip-Hop/Rap
+Hobby/Special Interest Expos
+Hockey
+Holiday
+Horror
+Hotel Package
+Ice Rink
+Ice Shows
+Ice Skating
+In-Store Pickup
+Individual
+Indoor Soccer
+International Online Order
+Jazz
+Lacrosse
+Latin
+Lawn Chair Rental
+League
+Lecture/Seminar
+Lockers
+Magazine Mail Merchandise
+Magic & Illusion
+Magician
+Martial Arts
+Meal Package
+Medieval/Renaissance
+Membership
+Merch 3rd Party Delivered
+Merchandise
+Merchandise Voucher
+Metal
+Miscellaneous
+Miscellaneous Theatre
+Motorsports/Racing
+Mucisian
+Multimedia
+Museum
+Music
+Netball
+New Age
+Nonticket
+Opera
+Orchestra
+Other
+Other (inc. RV, oversized)
+Parade
+Parking
+Party/Gala
+Performance Art
+Performer
+Pop
+Premier
+Priority Mail
+Psychics/Mediums/Hypnotists
+Puppetry
+Quartet
+RB
+Race
+Reggae
+Religious
+Reserved Lawn Access
+Rock
+Rodeo
+Roller Derby
+Roller Hockey
+Room Package
+Rugby
+Science Fiction
+Sightseeing/Facility
+Singer/Vocalist
+Ski Jumping
+Skiing
+Soccer
+Softball
+Speaker
+Special Entry
+Special Interest/Hobby
+Spectacular
+Squash
+Student Festival
+Subscription
+Surfing
+Swap Meet/Market
+Swimming
+TM Gift Card
+TM Gift Certificate
+TVN
+Table Tennis
+Team
+Tennis
+Test Event
+Theatre
+Ticketfast Order
+Toros
+Tour
+Touring Show/Production
+Track & Field
+Transportation
+Tribute Band
+Troupe
+UPS
+Undefined
+Upsell
+Urban
+VIP Club Access
+Variety
+Virtual
+Volleyball
+Voucher
+Waterpolo
+World
+Wrestling
+Writer
+Zoo
+eSports
+iTunes Download
