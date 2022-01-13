@@ -251,8 +251,21 @@ public class simpleRestController {
 	 * @return JSONObject : Statistics for a given state
 	 */
 	@RequestMapping(value = "/getStatsforState")
-	public ResponseEntity<Object> getStatsforState(@RequestParam(name="state_code", defaultValue="CA") String state_code) {
+	public ResponseEntity<Object> getStatsforState(@RequestParam(name="state_code", defaultValue="CA") String state_code,
+			                                       @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {
+			boolean seeEvents=false;
+			try {
+				if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
+					seeEvents=false;
+				else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("s")||condition.equals("true"))
+					seeEvents=true;
+				else 
+					throw new InvalidInputException();
+
+			} catch(InvalidInputException e) {
+				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
+			}
 
 			StatesFilter filterVectorState = new StatesFilter();
 			Vector<Events> vectorState = EventService.connection_state(state_code);
@@ -260,7 +273,7 @@ public class simpleRestController {
 
 			JSONObject JSONEvent_country = null;
 
-			JSONEvent_country = EventService.StatsToJson(vectorState, state_code);
+			JSONEvent_country = EventService.StatsToJson(vectorState, state_code, seeEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 
 		} catch(Exception e) {

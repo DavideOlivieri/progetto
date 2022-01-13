@@ -251,8 +251,8 @@ public class EventServiceImpl implements EventService{
      */
 	public String minEvents(Vector<Events> eventVector) {
 		int app = 10000;
+		String month="";
 		int j=0;
-		String month;
 		int[] ev = new int[12];
 		numEvents(eventVector, ev);
 		for(int i = 0; i<12;i++) {
@@ -260,8 +260,17 @@ public class EventServiceImpl implements EventService{
 				app = ev[i];
 				j=i;
 			}
+	
 		}
-		month=convertMonth(j+1);
+		month+=convertMonth(j+1);
+		
+		for(int k = j+1; k<12; k++) {
+			if(ev[k] == app) {
+					month+=", "+convertMonth(k+1);
+			}
+	
+		}
+		
 		return month;
 	}
 
@@ -307,13 +316,12 @@ public class EventServiceImpl implements EventService{
 	public JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
 
 		JSONObject respons = new JSONObject();
-		int k=0;
 		Events currentEvents;
 		String currentGenre;
 		for(int j=0; j<genre.size();j++) {
+			int k=0;
 			currentGenre= genre.get(j);
 			for(int i = 0; i<eventVector.size();i++) {
-
 				currentEvents = eventVector.get(i);
 				if(currentEvents.getGenre().equals(currentGenre)) {
 					k++;
@@ -387,6 +395,7 @@ public class EventServiceImpl implements EventService{
 			ToJson(filteredEvents, respons);
 		
 		eventsForGenre.add(genEvents(filteredEvents, vectorGen));
+		
 		respons.put("Events grouped by genre", eventsForGenre);
 
 	}
@@ -422,7 +431,34 @@ public class EventServiceImpl implements EventService{
 
 	}
 
+	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, JSONObject respons ) throws IOException {
+		// TODO Auto-generated method stub
 
+		respons.put("The total of events in "+state_code+" is", totEvents(filteredEvents)-1);
+
+		respons.put("The month with the most events in "+state_code+" is", maxEvents(filteredEvents));
+
+		respons.put("The month with the fewest events in "+state_code+" is", minEvents(filteredEvents));
+
+		respons.put("The average monthly events in "+state_code+" is", avgEvents(filteredEvents));		
+		
+		GrouppedToJson(filteredEvents, false, respons);
+
+		return respons;
+	}
+
+	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, boolean seeEvents) throws IOException {
+		// TODO Auto-generated method stub
+		JSONObject respons = new JSONObject();
+
+		if(seeEvents==true)
+			ToJson(filteredEvents, respons);
+
+		StatsToJson(filteredEvents, state_code, respons);
+
+		return respons;
+	}
+	
 
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
@@ -432,23 +468,6 @@ public class EventServiceImpl implements EventService{
 			ToJson(filteredEvents, respons);
 
 		StatsToJson(filteredEvents, state_code, genre, respons);
-
-		return respons;
-	}
-
-	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code) throws IOException {
-		// TODO Auto-generated method stub
-		JSONObject respons = new JSONObject();
-
-		respons.put("The total of events in "+state_code+" is", totEvents(filteredEvents)-1);
-
-		respons.put("The month with the most events in "+state_code+" is", maxEvents(filteredEvents));
-
-		respons.put("The month with the fewest events in "+state_code+" is", minEvents(filteredEvents));
-
-		respons.put("The average monthly events in "+state_code+" is", avgEvents(filteredEvents));		
-
-		GrouppedToJson(filteredEvents, false, respons);
 
 		return respons;
 	}
