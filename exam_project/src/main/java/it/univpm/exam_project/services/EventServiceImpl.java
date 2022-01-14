@@ -115,6 +115,23 @@ public class EventServiceImpl implements EventService{
 		return eventVector;
 	}
 
+	
+	
+	
+	
+	  public Vector<Events> connection_compare(String url){
+		   Vector<Events> vector = new Vector<Events>();
+		   JSONObject json = getJSONObject(url);
+		     Parser pars = new Parser();
+	          vector = pars.parse(json);
+	              return vector;
+		  }
+	  
+	  
+	  
+	  
+	  
+	  
 	/**
 	 * This method makes a call to the API, passing the genre along with the url. 
 	 * Then a JSONObject is created through which the data is taken,
