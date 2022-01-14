@@ -36,7 +36,11 @@ public class EventServiceImpl implements EventService{
 	//   **************************************************************************************************
 
    /**
+    * This method takes as input the url string of the API,
+    * opens the connection and takes the API data that will be placed in the JSONObject obj.
     * 
+    * @param url
+    * @return obj
     */
 	public JSONObject getJSONObject(String url) {
 		JSONObject obj = null;
@@ -155,6 +159,13 @@ public class EventServiceImpl implements EventService{
 	}
 
 
+	/**
+	 * This method concatenates multiple vectors to have more events.
+	 * 
+	 * @param vector1
+	 * @param vector2
+	 * @return vector
+	 */
 	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2){
 		Vector<Events> vector = new Vector<Events>();
 
@@ -164,6 +175,12 @@ public class EventServiceImpl implements EventService{
 		return vector;
 	}
 
+	/**
+	 * This method converts string to a date
+	 * 
+	 * @param localDate
+	 * @return locD
+	 */
 	public LocalDate dateConverter(String localDate) {
 		LocalDate locD = LocalDate.parse((CharSequence)localDate);
 		return locD;
@@ -172,7 +189,7 @@ public class EventServiceImpl implements EventService{
 	/**
 	 * This method is used to convert months from an int to a String.
 	 * 
-	 * @param i
+	 * @param i,(1 = january, 2 = february, ...)
 	 */
 	public String convertMonth(int i) {
 		if(i==1)
@@ -203,6 +220,13 @@ public class EventServiceImpl implements EventService{
 
 	}
 	
+	/**
+	 * This method returns true or false depending on whether the user wants to view the event list or not
+	 * 
+	 * @param condition
+	 * @return tf
+	 * @throws InvalidInputException
+	 */
 	public boolean setCnd(String condition) throws InvalidInputException {
 		boolean tf=false;
 			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
@@ -237,7 +261,7 @@ public class EventServiceImpl implements EventService{
 	}
 
 	/**
-	 * This method is used to create a vector containing all the states that are read from the genres.txt file
+	 * This method is used to create a vector containing all the states that are read from the states.txt file
 	 * 
 	 * @return stateVect
 	 */
@@ -264,6 +288,7 @@ public class EventServiceImpl implements EventService{
 	//   **************************************************************************************************
 
     /**
+     * This method shows the number of events for each month
      * 
      * @param eventVector
      * @param monthEvents
@@ -373,6 +398,13 @@ public class EventServiceImpl implements EventService{
 		return tot;
 	}
 	
+	/**
+	 * This method displays the events grouped by genre.
+	 * 
+	 * @param eventVector
+	 * @param genre
+	 * @return respons
+	 */
 	public JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
 
 		JSONObject respons = new JSONObject();
@@ -393,6 +425,13 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	} 
 
+	/**
+	 * This method displays the events grouped by State.
+	 * 
+	 * @param eventVector
+	 * @param stateName
+	 * @return respons
+	 */
 	public JSONObject stateEvents(Vector<Events> eventVector, Vector<String> stateName) {
 
 		JSONObject respons = new JSONObject();
@@ -418,7 +457,7 @@ public class EventServiceImpl implements EventService{
 	//   **************************************************************************************************
 	
 	/**
-	 * This method return a JSONObject with with the explanation of the data
+	 * This method return a JSONObject with the explanation of the data
 	 * that we will receive as a response in the various routes
 	 * 
 	 * @return respons
@@ -443,6 +482,13 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
+	/**
+	 * This method returns the information of each single event.
+     *
+	 * 
+	 * @param filteredEvents
+	 * @param respons
+	 */
 	public void ToJson(Vector<Events> filteredEvents, JSONObject respons) {
 		// TODO Auto-generated method stub
 
@@ -472,7 +518,7 @@ public class EventServiceImpl implements EventService{
 	}
 
 	/**
-	 * This method 
+	 * This method groups events by genre.
 	 * 
 	 * @param filteredEvents
 	 * @param condition
@@ -492,6 +538,13 @@ public class EventServiceImpl implements EventService{
 
 	}
 	
+	/**
+	 * This method groups events by State.
+	 * 
+	 * @param filteredEvents
+	 * @param condition
+	 * @param respons
+	 */
 	public void GrouppedStateToJson(Vector<Events> filteredEvents, boolean condition, JSONObject respons) {
 		// TODO Auto-generated method stub
 		JSONArray eventsForGenre = new JSONArray();
@@ -506,8 +559,14 @@ public class EventServiceImpl implements EventService{
 
 	}
 
-
-	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
+    /**
+     * This method is used to compare events in the United States and Canada using the genre parameter.
+     * 
+     * @param filteredEventsUS
+     * @param filteredEventsCA
+     * @return repsons
+     */
+	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA, String genre) {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 		JSONObject US = new JSONObject();
@@ -515,14 +574,14 @@ public class EventServiceImpl implements EventService{
 		JSONArray eventsUS = new JSONArray();
 		JSONArray eventsCA = new JSONArray();
 
-		US.put("The total of events in US is", totEvents(filteredEventsUS)-1);
-		CA.put("The total of events in Canada is", totEvents(filteredEventsCA)-1);
-		US.put("The month with the most events in US is", maxEvents(filteredEventsUS));
-		CA.put("The month with the most events in Canada is", maxEvents(filteredEventsCA));
-		US.put("The month with the fewest events in US is", minEvents(filteredEventsUS));
-		CA.put("The month with the fewest events in Canada is", minEvents(filteredEventsCA));
-		US.put("The average monthly events in the US", avgEvents(filteredEventsUS));
-		CA.put("The average monthly events in the Canada", avgEvents(filteredEventsCA));
+		US.put("The total of events in US for "+genre+" is", totEvents(filteredEventsUS)-1);
+		CA.put("The total of events in Canada for "+genre+" is", totEvents(filteredEventsCA)-1);
+		US.put("The month with the most events for "+genre+" in US is", maxEvents(filteredEventsUS));
+		CA.put("The month with the most events for "+genre+" in Canada is", maxEvents(filteredEventsCA));
+		US.put("The month with the fewest events for "+genre+" in US is", minEvents(filteredEventsUS));
+		CA.put("The month with the fewest events for "+genre+" in Canada is", minEvents(filteredEventsCA));
+		US.put("The average monthly events for "+genre+" in the US", avgEvents(filteredEventsUS));
+		CA.put("The average monthly events for "+genre+" in Canada", avgEvents(filteredEventsCA));
 		
 		GrouppedStateToJson(filteredEventsUS, false, US);
 		
@@ -539,7 +598,7 @@ public class EventServiceImpl implements EventService{
 	}
 
     /**
-     * This method generates statistics for a particular genre and State
+     * This method displays the statistics of a series of events grouped by state and genre
      * 
      * @param filteredEvents
      * @param state_code
@@ -561,11 +620,13 @@ public class EventServiceImpl implements EventService{
 	}
 
 	/**
+	 * This method displays the statistics of a series of events filtered by state 
+	 * and the events grouped for genre.
 	 * 
 	 * @param filteredEvents
 	 * @param state_code
 	 * @param respons
-	 * @return
+	 * @return respons
 	 * @throws IOException
 	 */
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, JSONObject respons ) throws IOException {
@@ -584,6 +645,15 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
+	/**
+	 * This method shows the statistics for a state and if the boolean is true it also shows all events.
+	 * 
+	 * @param filteredEvents
+	 * @param state_code
+	 * @param seeEvents
+	 * @return
+	 * @throws IOException
+	 */
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
@@ -597,6 +667,16 @@ public class EventServiceImpl implements EventService{
 	}
 	
 
+	/**
+	 * This method shows the statistics for a state and a genre, and if the boolean is true it also shows all events.
+	 * 
+	 * @param filteredEvents
+	 * @param state_code
+	 * @param genre
+	 * @param seeEvents
+	 * @return
+	 * @throws IOException
+	 */
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
@@ -609,6 +689,18 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
+	/**
+	 * This method shows the statistics for two states and a genre, and if the boolean is true it also shows all events.
+	 * 
+	 * @param filteredEvents1
+	 * @param filteredEvents2
+	 * @param state_code
+	 * @param genre
+	 * @param state_code2
+	 * @param seeEvents
+	 * @return respons
+	 * @throws IOException
+	 */
 	public JSONObject StatsToJson_state(Vector<Events> filteredEvents1,Vector<Events> filteredEvents2, String state_code, String genre,
 			String state_code2, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
@@ -627,7 +719,18 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
-
+    /**
+     * This method shows the statistics for a state and two genres, and if the boolean is true it also shows all events.
+     * 
+     * @param filteredEvents1
+     * @param filteredEvents2
+     * @param state_code
+     * @param genre
+     * @param genre2
+     * @param seeEvents
+     * @return respons
+     * @throws IOException
+     */
 	public JSONObject StatsToJson_genre(Vector<Events> filteredEvents1,Vector<Events> filteredEvents2, String state_code, String genre, String genre2,
 			boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
@@ -647,7 +750,21 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	}
 
-
+    /**
+     * This method shows the statistics for 2 states and 2 genres, and if the boolean is true it also shows all events.
+     * 
+     * @param filteredEvents1
+     * @param filteredEvents2
+     * @param filteredEvents3
+     * @param filteredEvents4
+     * @param state_code
+     * @param genre
+     * @param state_code2
+     * @param genre2
+     * @param seeEvents
+     * @return respons
+     * @throws IOException
+     */
 	public JSONObject StatsToJson(Vector<Events> filteredEvents1, Vector<Events> filteredEvents2,Vector<Events> filteredEvents3,Vector<Events> filteredEvents4,String state_code, String genre, String state_code2,
 			String genre2, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub

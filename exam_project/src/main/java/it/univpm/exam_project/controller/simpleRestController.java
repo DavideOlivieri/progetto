@@ -143,7 +143,8 @@ public class simpleRestController {
 	/**
 	 * Route 5
 	 *  /compareUSCA (Displays the statistics between the United States and Canada)
-	 *  Compare the total of events, the monthly average and the month with the most and the least events
+	 *  Compare the total of events, the monthly average and the month with the most and the least events.
+	 *  It also displays events grouped by State.
 	 * 
 	 * @param genre
 	 * @return JSONObject 
@@ -165,7 +166,7 @@ public class simpleRestController {
 				vectorUS = filterVectorGen.genFilter(genre, vectorUS);
 				vectorCA = filterVectorGen.genFilter(genre, vectorCA);
 			}
-			JSONObject JSONEvent_country = EventService.CmpToJson( vectorUS, vectorCA);
+			JSONObject JSONEvent_country = EventService.CmpToJson( vectorUS, vectorCA,genre);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 
 		} catch(Exception e) {
@@ -237,7 +238,7 @@ public class simpleRestController {
 	/**
 	 * Route 7
 	 *  /getStatsforState (Displays the statistic for a given State)
-	 *  Shows the number of events for genre from a given State
+	 *  Shows the number of events grouped by genre.
 	 * 
 	 * @param state_code
 	 * @return JSONObject : Statistics for a given state
