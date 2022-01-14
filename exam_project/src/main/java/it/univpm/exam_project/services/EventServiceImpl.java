@@ -803,7 +803,7 @@ public class EventServiceImpl implements EventService{
 	
 	public void stateController(String state_code) throws stateParamException {
 		// TODO Auto-generated method stub
-		Vector<String> stateVect = readTxt("src/main/java/it/univpm/exam_project/services/states.txt");
+		Vector<String> stateVect = readTxt("src/main/java/it/univpm/exam_project/services/statecodes.txt");
 		for(int i=0; i<stateVect.size(); i++) {
 			if(state_code.equals(stateVect.get(i)))
 				return;
