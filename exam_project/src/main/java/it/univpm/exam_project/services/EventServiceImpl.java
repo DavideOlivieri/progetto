@@ -248,10 +248,11 @@ public class EventServiceImpl implements EventService{
 
 		try {
 
-			Scanner fileState = new Scanner(new BufferedReader(new FileReader(cnc)));
-			while (fileState.hasNext())
-				vect.add(fileState.nextLine());
+			Scanner file = new Scanner(new BufferedReader(new FileReader(cnc)));
 
+			while (file.hasNext())
+				vect.add(file.nextLine());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
