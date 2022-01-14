@@ -772,7 +772,7 @@ public class EventServiceImpl implements EventService{
 
 	public void segmentController(String segment) throws segmentParamException {
 		// TODO Auto-generated method stub
-		Vector<String> segmentVect = readTxt("");
+		Vector<String> segmentVect = readTxt("src/main/java/it/univpm/exam_project/services/segments.txt");
 		for(int i=0; i<segmentVect.size(); i++) {
 			if(segment.equals(segmentVect.get(i)))
 				return;
@@ -792,12 +792,13 @@ public class EventServiceImpl implements EventService{
 	
 	public void countryController(String country_code) throws countryParamException {
 		// TODO Auto-generated method stub
-		Vector<String> countryVect = readTxt("");
+		Vector<String> countryVect = readTxt("src/main/java/it/univpm/exam_project/services/countrys.txt");
 		for(int i=0; i<countryVect.size(); i++) {
 			if(country_code.equals(countryVect.get(i)))
 				return;
 		}
-		throw new countryParamException();
+		return;
+		//throw new countryParamException();
 	}
 	
 	public void stateController(String state_code) throws stateParamException {
