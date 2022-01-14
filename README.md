@@ -19,14 +19,20 @@ The program will have to evaluate only the events located in USA and Canada. \
 They are available through our application:
 - filtering of events, foreseen in USA and / or Canada, through the selection of one or two States, followed by the production of statistics relating to the State or States chosen.
 - filtering of events, foreseen in USA and / or Canada, through the selection of one or two genres, followed by the production of statistics relating to the chosen genre or genres.
+- 
+- statistics relating to the state chosen, such as total events, the months with the most and the fewest events, monthly average of events, and events grouped by genre.
 
-                
 <div id='id-section2'/>
 
 ## API Ticketmaster
 ***
-To get access to the Ticketmaster API, we made an account on the TM Developer website ( https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#search-events- v2 ) and then we were given the route to be used together with a personal apikey.
+To get access to the Ticketmaster API, we made an account on the TM Developer website ( https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#search-events-v2 ) and then we were given the route to be used together with a personal apikey.
 > apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC
+
+#### Problems with API
+When we make a call to the API, the response we are given is made up of a maximum of 60 events. \
+So on some routes such as those for searching by country, the respons contains a maximum of 60 events and so the statistics are not very accurate. \
+But for example, for the search by state the statistics are almost perfect because the events in many states are less than 60. 
 
 
 <div id='id-section3'/>
