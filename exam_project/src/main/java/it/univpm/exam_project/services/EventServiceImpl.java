@@ -18,6 +18,10 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import it.univpm.exam_project.exception.InvalidInputException;
+import it.univpm.exam_project.exception.countryParamException;
+import it.univpm.exam_project.exception.genreParamException;
+import it.univpm.exam_project.exception.segmentParamException;
+import it.univpm.exam_project.exception.stateParamException;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.parser.Parser;
 
@@ -238,49 +242,23 @@ public class EventServiceImpl implements EventService{
 		return tf;
 	}
 
-	/**
-	 * This method is used to create a vector containing all the genres that are read from the genres.txt file
-	 * 
-	 * @return generiVect
-	 */
-	public static Vector<String> readGen() {
+	public static Vector<String> readTxt(String cnc) {
 
-		Vector<String> generiVect = new Vector<String>();
+		Vector<String> vect = new Vector<String>();
 
 		try {
 
-			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/genres.txt.txt")));
-			while (fileGeneri.hasNext())
-				generiVect.add(fileGeneri.nextLine());
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return generiVect;
-	}
-
-	/**
-	 * This method is used to create a vector containing all the states that are read from the states.txt file
-	 * 
-	 * @return stateVect
-	 */
-	public static Vector<String> readState() {
-
-		Vector<String> stateVect = new Vector<String>();
-
-		try {
-
-			Scanner fileState = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/states.txt")));
+			Scanner fileState = new Scanner(new BufferedReader(new FileReader(cnc)));
 			while (fileState.hasNext())
-				stateVect.add(fileState.nextLine());
+				vect.add(fileState.nextLine());
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return stateVect;
+		return vect;
 	}
+	
 
 	
 	//   **************************************************************************************************
@@ -528,7 +506,7 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONArray eventsForGenre = new JSONArray();
 		Vector<String> vectorGen = null;
-		vectorGen=EventServiceImpl.readGen();
+		vectorGen=EventServiceImpl.readTxt("src/main/java/it/univpm/exam_project/services/genres.txt.txt");
 		if(condition==true)
 			ToJson(filteredEvents, respons);
 		
@@ -549,7 +527,7 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONArray eventsForGenre = new JSONArray();
 		Vector<String> vectorGen = null;
-		vectorGen=EventServiceImpl.readState();
+		vectorGen=EventServiceImpl.readTxt("src/main/java/it/univpm/exam_project/services/states.txt");
 		if(condition==true)
 			ToJson(filteredEvents, respons);
 		
@@ -791,5 +769,49 @@ public class EventServiceImpl implements EventService{
 
 		return respons;
 	}
+
+	public void segmentController(String segment) throws segmentParamException {
+		// TODO Auto-generated method stub
+		Vector<String> segmentVect = readTxt("");
+		for(int i=0; i<segmentVect.size(); i++) {
+			if(segment.equals(segmentVect.get(i)))
+				return;
+		}
+		throw new segmentParamException();
+	}
+	
+	public void genreController(String genre) throws genreParamException {
+		// TODO Auto-generated method stub
+		Vector<String> genreVect = readTxt("src/main/java/it/univpm/exam_project/services/genres.txt.txt");
+		for(int i=0; i<genreVect.size(); i++) {
+			if(genre.equals(genreVect.get(i)))
+				return;
+		}
+		throw new genreParamException();
+	}
+	
+	public void countryController(String country_code) throws countryParamException {
+		// TODO Auto-generated method stub
+		Vector<String> countryVect = readTxt("");
+		for(int i=0; i<countryVect.size(); i++) {
+			if(country_code.equals(countryVect.get(i)))
+				return;
+		}
+		throw new countryParamException();
+	}
+	
+	public void stateController(String state_code) throws stateParamException {
+		// TODO Auto-generated method stub
+		Vector<String> stateVect = readTxt("src/main/java/it/univpm/exam_project/services/states.txt");
+		for(int i=0; i<stateVect.size(); i++) {
+			if(state_code.equals(stateVect.get(i)))
+				return;
+		}
+		throw new stateParamException();
+	}
+	
+	
+
+
 
 }

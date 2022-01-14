@@ -15,6 +15,10 @@ import it.univpm.exam_project.filters.GenreFilter;
 import it.univpm.exam_project.filters.SegmentFilter;
 import it.univpm.exam_project.filters.StatesFilter;
 import it.univpm.exam_project.exception.InvalidInputException;
+import it.univpm.exam_project.exception.countryParamException;
+import it.univpm.exam_project.exception.genreParamException;
+import it.univpm.exam_project.exception.segmentParamException;
+import it.univpm.exam_project.exception.stateParamException;
 import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
 import it.univpm.exam_project.services.EventServiceImpl;
@@ -63,6 +67,7 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventsfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
+			EventService.segmentController(segment);
 			boolean seeEvents = EventService.setCnd(condition);
 			Vector<Events> vector = EventService.connection_segment(segment);
 
@@ -73,6 +78,8 @@ public class simpleRestController {
 			EventService.GrouppedGenreToJson(vector, seeEvents, JSONEvent_segment);
 			EventService.GrouppedStateToJson(vector, false, JSONEvent_segment);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
+		} catch(segmentParamException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
@@ -92,6 +99,7 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventsfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
+			EventService.genreController(genre);
 			boolean seeEvents = EventService.setCnd(condition);
 			Vector<Events> vector = EventService.connection_genre(genre);
 
@@ -102,6 +110,8 @@ public class simpleRestController {
 			
 			EventService.GrouppedStateToJson(vector, seeEvents, JSONEvent_genre);
 			return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK); 
+		} catch(genreParamException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
@@ -121,7 +131,8 @@ public class simpleRestController {
 	@RequestMapping(value = "/getEventsForCountryCode")
 	public ResponseEntity<Object> getEventsfromCountryCode(@RequestParam(name="countryCode", defaultValue="CA") String countryCode,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition) {
-		try {			
+		try {	
+			EventService.countryController(countryCode);
 			boolean seeEvents = EventService.setCnd(condition);
 			Vector<Events> vector = EventService.connection_country(countryCode);
 
@@ -133,6 +144,8 @@ public class simpleRestController {
 			EventService.GrouppedGenreToJson(vector, seeEvents, JSONEvent_country);
 			EventService.GrouppedStateToJson(vector, false, JSONEvent_country);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
+		} catch(countryParamException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
@@ -152,7 +165,7 @@ public class simpleRestController {
 	@RequestMapping(value = "/compareUSCA")
 	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", defaultValue="Rock") String genre) {
 		try {
-
+			EventService.genreController(genre);
 			Vector<Events> vectorGen = EventService.connection_genre(genre);
 			Vector<Events> vectorUS = EventService.connection_country("US");
 			Vector<Events> vectorCA = EventService.connection_country("CA");
@@ -168,7 +181,8 @@ public class simpleRestController {
 			}
 			JSONObject JSONEvent_country = EventService.CmpToJson( vectorUS, vectorCA,genre);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
-
+		} catch(genreParamException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
@@ -193,7 +207,11 @@ public class simpleRestController {
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
 			try {
-
+				EventService.genreController(genre);
+				EventService.genreController(genre2);
+				EventService.stateController(state_code);
+				EventService.stateController(state_code2);
+				
 				StatesFilter filterVectorState = new StatesFilter();
 				boolean seeEvents = EventService.setCnd(condition);
 
@@ -224,6 +242,10 @@ public class simpleRestController {
 				else
 					JSONEvent_country = EventService.StatsToJson( vectorGen11, vectorGen21, vectorGen12, vectorGen22, state_code, genre, state_code2, genre2, seeEvents);
 				return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);	
+			} catch(genreParamException e) {
+				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
+			} catch(stateParamException e) {
+				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 			} catch(InvalidInputException e) {
 				return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 			}catch(IOException e) {
@@ -247,6 +269,7 @@ public class simpleRestController {
 	public ResponseEntity<Object> getStatsforState(@RequestParam(name="state_code", defaultValue="CA") String state_code,
 			                                       @RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {
+			EventService.stateController(state_code);
 			boolean seeEvents = EventService.setCnd(condition);
 
 			StatesFilter filterVectorState = new StatesFilter();
@@ -257,7 +280,8 @@ public class simpleRestController {
 
 			JSONEvent_country = EventService.StatsToJson(vectorState, state_code, seeEvents);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
-			
+		} catch(stateParamException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);	
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
