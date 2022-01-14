@@ -151,10 +151,11 @@ public class simpleRestController {
 	@RequestMapping(value = "/compareUSCA")
 	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", defaultValue="Rock") String genre) {
 		try {
+
 			Vector<Events> vectorGen = EventService.connection_genre(genre);
 			Vector<Events> vectorUS = EventService.connection_country("US");
 			Vector<Events> vectorCA = EventService.connection_country("CA");
-			Vector<Events> vectorCountry = EventService.concateneted(vectorUS, vectorCA);
+		    Vector<Events> vectorCountry = EventService.concateneted(vectorUS, vectorCA);
 			CountryFilter filterVector = new CountryFilter();
 			Vector<Events> vector = EventService.concateneted(vectorGen, vectorCountry);
 			vectorUS = filterVector.countryFilter("US", vector);
