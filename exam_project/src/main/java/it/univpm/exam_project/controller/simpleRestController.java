@@ -70,7 +70,8 @@ public class simpleRestController {
 			vector=filterVector.SegFilter(segment, vector);
 
 			JSONObject JSONEvent_segment = new JSONObject();
-			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_segment);
+			EventService.GrouppedGenreToJson(vector, seeEvents, JSONEvent_segment);
+			EventService.GrouppedStateToJson(vector, false, JSONEvent_segment);
 			return new ResponseEntity<>(JSONEvent_segment, HttpStatus.OK);
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
@@ -88,18 +89,21 @@ public class simpleRestController {
 	 * @return JSONObject containing all the events for the choosen genre.
 	 */
 	@RequestMapping(value = "/getEventsForGenre")
-	public ResponseEntity<Object> getEventsfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre) {
+	public ResponseEntity<Object> getEventsfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre,
+			@RequestParam(name="seeEvents", defaultValue= "no")String condition){
 		try {
+			boolean seeEvents = EventService.setCnd(condition);
 			Vector<Events> vector = EventService.connection_genre(genre);
 
 			GenreFilter filterVector = new GenreFilter();
 			vector=filterVector.genFilter(genre, vector);
 
 			JSONObject JSONEvent_genre = new JSONObject();
-
-			EventService.ToJson(vector,JSONEvent_genre);
+			
+			EventService.GrouppedStateToJson(vector, seeEvents, JSONEvent_genre);
 			return new ResponseEntity<>(JSONEvent_genre, HttpStatus.OK); 
-	
+		} catch(InvalidInputException e) {
+			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
@@ -115,7 +119,7 @@ public class simpleRestController {
 	 * @return JSONObject containing all the events for the chosen countrycode
 	 */
 	@RequestMapping(value = "/getEventsForCountryCode")
-	public ResponseEntity<Object> getEventsfromCountryCode(@RequestParam(name="countryCode", defaultValue="PL") String countryCode,
+	public ResponseEntity<Object> getEventsfromCountryCode(@RequestParam(name="countryCode", defaultValue="CA") String countryCode,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {			
 			boolean seeEvents = EventService.setCnd(condition);
@@ -126,7 +130,8 @@ public class simpleRestController {
 
 			JSONObject JSONEvent_country = new JSONObject();
 
-			EventService.GrouppedToJson(vector, seeEvents, JSONEvent_country);
+			EventService.GrouppedGenreToJson(vector, seeEvents, JSONEvent_country);
+			EventService.GrouppedStateToJson(vector, false, JSONEvent_country);
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
@@ -144,14 +149,16 @@ public class simpleRestController {
 	 * @return JSONObject 
 	 */
 	@RequestMapping(value = "/compareUSCA")
-	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", required=false) String genre) {
+	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", defaultValue="Rock") String genre) {
 		try {
+			Vector<Events> vectorGen = EventService.connection_genre(genre);
 			Vector<Events> vectorUS = EventService.connection_country("US");
 			Vector<Events> vectorCA = EventService.connection_country("CA");
-
+			Vector<Events> vectorCountry = EventService.concateneted(vectorUS, vectorCA);
 			CountryFilter filterVector = new CountryFilter();
-			vectorUS = filterVector.countryFilter("US", vectorUS);
-			vectorCA = filterVector.countryFilter("CA", vectorCA);
+			Vector<Events> vector = EventService.concateneted(vectorGen, vectorCountry);
+			vectorUS = filterVector.countryFilter("US", vector);
+			vectorCA = filterVector.countryFilter("CA", vector);
 			if(genre!=null) {
 				GenreFilter filterVectorGen = new GenreFilter();
 				vectorUS = filterVectorGen.genFilter(genre, vectorUS);

@@ -15,8 +15,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import it.univpm.exam_project.exception.InvalidInputException;
@@ -226,7 +224,7 @@ public class EventServiceImpl implements EventService{
 
 		try {
 
-			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/genres.txt")));
+			Scanner fileGeneri = new Scanner(new BufferedReader(new FileReader("src/main/java/it/univpm/exam_project/services/genres.txt.txt")));
 			while (fileGeneri.hasNext())
 				generiVect.add(fileGeneri.nextLine());
 
@@ -342,7 +340,7 @@ public class EventServiceImpl implements EventService{
 	 */
 	public String maxEvents(Vector<Events> eventVector) {
 		int tot = 0;
-		int j=0;
+		int j=-1;
 		String month;
 		int[] ev = new int[12];
 		numEvents(eventVector, ev);
@@ -352,7 +350,10 @@ public class EventServiceImpl implements EventService{
 				j=i;
 			}
 		}
-		month=convertMonth(j+1);
+		if(j==-1)
+			month="No month has more than 0 events";
+		else
+			month=convertMonth(j+1);
 		return month;
 	}
 
@@ -391,6 +392,25 @@ public class EventServiceImpl implements EventService{
 		return respons;
 	} 
 
+	public JSONObject stateEvents(Vector<Events> eventVector, Vector<String> stateName) {
+
+		JSONObject respons = new JSONObject();
+		Events currentEvents;
+		String currentState;
+		for(int j=0; j<stateName.size();j++) {
+			int k=0;
+			currentState= stateName.get(j);
+			for(int i = 0; i<eventVector.size();i++) {
+				currentEvents = eventVector.get(i);
+				if(currentEvents.getState().equals(currentState)) {
+					k++;
+				}
+			}
+			if(k!=0)
+				respons.put("Events number in "+ currentState +" ",k );
+		}
+		return respons;
+	} 
 	
 	//   **************************************************************************************************
 	//                        ALL VARIOUS TYPES OF JSON USED      
@@ -457,7 +477,7 @@ public class EventServiceImpl implements EventService{
 	 * @param condition
 	 * @param respons
 	 */
-	public void GrouppedToJson(Vector<Events> filteredEvents, boolean condition, JSONObject respons) {
+	public void GrouppedGenreToJson(Vector<Events> filteredEvents, boolean condition, JSONObject respons) {
 		// TODO Auto-generated method stub
 		JSONArray eventsForGenre = new JSONArray();
 		Vector<String> vectorGen = null;
@@ -470,20 +490,49 @@ public class EventServiceImpl implements EventService{
 		respons.put("Events grouped by genre", eventsForGenre);
 
 	}
+	
+	public void GrouppedStateToJson(Vector<Events> filteredEvents, boolean condition, JSONObject respons) {
+		// TODO Auto-generated method stub
+		JSONArray eventsForGenre = new JSONArray();
+		Vector<String> vectorGen = null;
+		vectorGen=EventServiceImpl.readState();
+		if(condition==true)
+			ToJson(filteredEvents, respons);
+		
+		eventsForGenre.add(stateEvents(filteredEvents, vectorGen));
+		
+		respons.put("Events grouped by state", eventsForGenre);
+
+	}
 
 
 	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA) {
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
+		JSONObject US = new JSONObject();
+		JSONObject CA = new JSONObject();
+		JSONArray eventsUS = new JSONArray();
+		JSONArray eventsCA = new JSONArray();
 
-		respons.put("The total of events in US is", totEvents(filteredEventsUS)-1);
-		respons.put("The total of events in Canada is", totEvents(filteredEventsCA)-1);
-		respons.put("The month with the most events in US is", maxEvents(filteredEventsUS));
-		respons.put("The month with the most events in Canada is", maxEvents(filteredEventsCA));
-		respons.put("The month with the fewest events in US is", minEvents(filteredEventsUS));
-		respons.put("The month with the fewest events in Canada is", minEvents(filteredEventsCA));
-		respons.put("The average monthly events in the US", avgEvents(filteredEventsUS));
-		respons.put("The average monthly events in the Canada", avgEvents(filteredEventsCA));
+		US.put("The total of events in US is", totEvents(filteredEventsUS)-1);
+		CA.put("The total of events in Canada is", totEvents(filteredEventsCA)-1);
+		US.put("The month with the most events in US is", maxEvents(filteredEventsUS));
+		CA.put("The month with the most events in Canada is", maxEvents(filteredEventsCA));
+		US.put("The month with the fewest events in US is", minEvents(filteredEventsUS));
+		CA.put("The month with the fewest events in Canada is", minEvents(filteredEventsCA));
+		US.put("The average monthly events in the US", avgEvents(filteredEventsUS));
+		CA.put("The average monthly events in the Canada", avgEvents(filteredEventsCA));
+		
+		GrouppedStateToJson(filteredEventsUS, false, US);
+		
+		GrouppedStateToJson(filteredEventsCA, false, CA);
+		
+		eventsUS.add(US);
+		eventsCA.add(CA);
+
+		respons.put("US", eventsUS);
+		
+		respons.put("CA", eventsCA);
 
 		return respons;
 	}
@@ -529,7 +578,7 @@ public class EventServiceImpl implements EventService{
 
 		respons.put("The average monthly events in "+state_code+" is", avgEvents(filteredEvents));		
 		
-		GrouppedToJson(filteredEvents, false, respons);
+		GrouppedGenreToJson(filteredEvents, false, respons);
 
 		return respons;
 	}
