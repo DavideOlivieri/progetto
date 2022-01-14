@@ -797,8 +797,8 @@ public class EventServiceImpl implements EventService{
 			if(country_code.equals(countryVect.get(i)))
 				return;
 		}
-		return;
-		//throw new countryParamException();
+		
+		throw new countryParamException();
 	}
 	
 	public void stateController(String state_code) throws stateParamException {
