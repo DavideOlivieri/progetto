@@ -99,9 +99,9 @@ This route allows to view metatadata by genre of the events.
 In thi application we can serch for these segment:
 
 >Sports | Baseball, Basketball, Boxing, Hockey \
->Music | Classical, Hip-Hop/Rap, Blues, Dance/Electronic \
+>Music | Classical, Hip-Hop/Rap, Blues, Dance/Electronic, Other \
 >Art & Theatre | Comedy \
->Miscellaneous | Blues, Hobby/Special Interest Expos
+>Miscellaneous | Hobby/Special Interest Expos
 
 #### Example
 ```json
@@ -142,7 +142,7 @@ Example of a route for /getEventForCountryCode with Cananda
 
 Response:
 ```json
-      
+
 ```
 
 ### Route /compareUSCA
@@ -206,14 +206,31 @@ This is an example with the default parameter (state_code = CA )
 ```json
 {
     "The month with the most events in CA is": "January",
-    "The month/s with the fewest events in CA is": "May, June, July, August, September, October, November, December",
+    "The month with the fewest events in CA is": "May, June, July, August,              September, October, November, December",
+    "Events": [
+        {
+            "country_code": "US",
+            "event_id": "G5vYZps1PENwD",
+            "local_time": "19:00:00",
+            "city": "San Francisco",
+            "subgenre": "NBA",
+            "segment": "Sports",
+            "country_name": "United States Of America",
+            "genre": "Basketball",
+            "event_name": "Golden State Warriors vs. Phoenix Suns",
+            "state": "California",
+            "state_code": "CA",
+            "local_date": "2022-03-30"
+        },
+        "..."
+            ],
     "The total of events in CA is": 60,
     "The average monthly events in CA is": 5.0,
     "Events grouped by genre": [
         {
-            "Events number of Baseball ": 3,
             "Events number of Basketball ": 24,
-            "Events number of Hockey ": 9,
+            "Events number of Hockey ": 6,
+            "Events number of Motorsports/Racing ": 6,
             "Events number of Fairs & Festivals ": 3,
             "Events number of Rock ": 6,
             "Events number of Football ": 6,
