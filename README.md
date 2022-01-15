@@ -66,7 +66,7 @@ This route allows you to view the metadata, that is a description of all the att
 #### Example
 If for example in postman we insert this route : `localhost:8080/getEvents`
 
-The answer to this request will be:
+Response:
 ```json
 {
     "country_code": " : country code",
@@ -93,56 +93,193 @@ In this application we can search for these segments:
 > Arts & Theatre \
 > Miscellaneous
 
+Optional parameter to be entered:
+> segment = param, if you want to search for another segment (default value = Sports). \
+> seeEvents = yes/no, yes if you want to see the events, no if not (default value = no).
+
+#### Example
+
+In this example we will use the following parameters:
+| KEY | VALUE |
+| :--- | :---: | 
+| segment | Music |
+| seeEvents | yes |
+
+The entered route will then be of this type: \
+`localhost:8080/getEventsForSegment?segment=Music&seeEvents=yes`
+
+Response:
+```json
+{
+    "Events": [
+        {
+            "country_code": "US",
+            "event_id": "vvG10ZpVj3ykZr",
+            "local_time": "19:00:00",
+            "city": "Inglewood",
+            "subgenre": "Alternative Rock",
+            "segment": "Music",
+            "country_name": "United States Of America",
+            "genre": "Rock",
+            "event_name": "iHeartRadio ALTer EGO Presented by Capital One",
+            "state": "California",
+            "state_code": "CA",
+            "local_date": "2022-01-15"
+        },
+        "..."
+ ],
+    "Events grouped by state": [
+        {
+            "Events number in Washington ": 3,
+            "Events number in Pennsylvania ": 6,
+            "Events number in North Carolina ": 9,
+            "Events number in Florida ": 12,
+            "Events number in California ": 6,
+            "Events number in South Carolina ": 3,
+            "Events number in Arizona ": 3,
+            "Events number in Minnesota ": 3,
+            "Events number in Texas ": 6,
+            "Events number in Georgia ": 6,
+            "Events number in Ohio ": 3
+        }
+    ],
+    "Events grouped by genre": [
+        {
+            "Events number of Rock ": 60
+        }
+    ]
+}        
+```
 ### Route /getEventsForGenre
 ***
-This route allows to view metatadata by genre of the events.
-In thi application we can serch for these segment:
+This route displays all events filtered by genre. \
+For the United States and Canada, events grouped by state are displayed. \
+These are among the best known genres:
 
 >Sports | Baseball, Basketball, Boxing, Hockey \
 >Music | Classical, Hip-Hop/Rap, Blues, Dance/Electronic, Other \
 >Art & Theatre | Comedy \
 >Miscellaneous | Hobby/Special Interest Expos
 
+Optional parameter to be entered:
+> genre = param, if you want to search for another genre (default value = Basketball). \
+> seeEvents = yes/no, yes if you want to see the events, no if not (default value = no).
+
 #### Example
+
+In this example we will use the following parameters:
+| KEY | VALUE |
+| :--- | :---: | 
+| genre | Hip-Hop/Rap |
+| seeEvents | yes |
+
+The entered route will then be of this type:
+
+`localhost:8080/getEventsForGenre?genre=Hip-Hop/Rap&seeEvents=yes`
+
+Response:
 ```json
 {
- "country_code": "US", 
- "event_id": "Z7r9jZ1AdFf84",
- "local_time": "19:00:00",
- "city": "Nevada",
- "subgenre": "NHL",
- "segment": "Sports",
- "country_name": "United States Of America",
- "genre": "Hockey"
- "event_name": "Vegas Golden Knights vs. New York Rangers",
- "state": "NV",
- "state_code": "Las Vegas",
- "local_date": "2022-01-06"
-}
+    "Events": [
+        {
+            "country_code": "US",
+            "event_id": "vvG10ZpIuvds4O",
+            "local_time": "20:00:00",
+            "city": "Inglewood",
+            "subgenre": "French Rap",
+            "segment": "Music",
+            "country_name": "United States Of America",
+            "genre": "Hip-Hop/Rap",
+            "event_name": "Bad Bunny - El Ultimo Tour Del Mundo",
+            "state": "California",
+            "state_code": "CA",
+            "local_date": "2022-02-25"
+        },
+        "..."
+    ],
+    "Events grouped by state": [
+        {
+            "Events number in Tennessee ": 3,
+            "Events number in Nevada ": 3,
+            "Events number in Florida ": 3,
+            "Events number in District of Columbia ": 3,
+            "Events number in Colorado ": 3,
+            "Events number in Illinois ": 3,
+            "Events number in California ": 12,
+            "Events number in New Jersey ": 3,
+            "Events number in Arizona ": 3,
+            "Events number in Texas ": 12
+        }
+    ]
+}        
+        
 ```
 ### Route /getEventsForCountryCode
 ***
-This route allows to view metadata by CountryCode of the events.
+This route displays all events filtered by Country code. \
+For the United States and Canada, events grouped by state and genre are displayed. \
 Here are some examples of country codes to choose:
 | Country | countryCode |
 | :--- | :---: | 
 | United State | US |
 | Canada | CA |
-| France | FR |
-| Italy | IT |
-| Germany | DE |
 | Poland | PL |
+
 Optional parameter to be entered:
 
-> countryCode = param, if you want to search for another state. 
+> countryCode = param, if you want to search for another Country (default value = CA). \
+> seeEvents = yes/no, yes if you want to see the events, no if not (default value = no)
 
 #### Example
-Example of a route for /getEventForCountryCode with Cananda
->localhost:8080/getEventForCountryCode?countryCode=CA
+Example of a route for /getEventForCountryCode 
+
+In this example we will use the following parameters:
+
+| KEY | VALUE |
+| :--- | :---: | 
+| seeEvents | yes |
+
+The entered route will then be of this type:
+
+`localhost:8080/getEventsForCountryCode?seeEvents=yes`
 
 Response:
 ```json
-
+{
+    "Events": [
+        {
+            "country_code": "CA",
+            "event_id": "G5vZZpzHppwzG",
+            "local_time": "18:00:00",
+            "city": "Toronto",
+            "subgenre": "NBA",
+            "segment": "Sports",
+            "country_name": "Canada",
+            "genre": "Basketball",
+            "event_name": "Toronto Raptors vs. Portland Trail Blazers",
+            "state": "Ontario",
+            "state_code": "ON",
+            "local_date": "2022-01-23"
+        },
+        "..."
+         ],
+    "Events grouped by state": [
+        {
+            "Events number in Ontario ": 27,
+            "Events number in British Columbia ": 12,
+            "Events number in Manitoba ": 3,
+            "Events number in Alberta ": 9,
+            "Events number in Quebec ": 9
+        }
+    ],
+    "Events grouped by genre": [
+        {
+            "Events number of Basketball ": 18,
+            "Events number of Hockey ": 36,
+            "Events number of Rock ": 6
+        }
+    ]
+}
 ```
 
 ### Route /compareUSCA
