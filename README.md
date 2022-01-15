@@ -291,12 +291,12 @@ This route displays the total, maximum and minimum of events that will take plac
 ### Route /getStats
 ***
 In this route you can enter 1 or 2 state code and 1 or 2 genres. \
-Parameters to be entered: 
+Optional parameter to be entered:
 > state_code = param \
 > state_code2 = param \
 > genre = paramn \
 > genre2 = param \
-> seeEvents = if value is "Yes" shows all the events and not only the stats.
+> seeEvents = yes/no, yes if you want to see the events, no if not (default value = no).
 
 You can choose from many states, these are some of the well known in the United States and Canada:
 
@@ -317,14 +317,30 @@ On this site you can find all states for the United States ( https://en.wikipedi
 On this site you can find all states for Canada ( https://en.wikipedia.org/wiki/ISO_3166-2:CA ) \
 
 #### Example
-This is an example with the default parameters (genre = Hockey, state_code = CA) \
+
+In this example we will use the following parameters:
+| KEY | VALUE |
+| :--- | :---: | 
+| state_code | AZ |
+| genre | Hockey |
+| genre2 | Basketball |
+
 The entered route will then be of this type:
 
-
+`localhost:8080/getStats?state_code=AZ&genre=Hockey&genre2=Basketball`
 
 Response:
 ```json
-
+{
+    "The month with the fewest events of Hockey in AZ is": "February, March, April, May, June, July, August, September, October, November, December",
+    "The average monthly events of Basketball in AZ is": 2.5,
+    "The total of events of Basketball in AZ is": 30,
+    "The total of events of Hockey in AZ is": 3,
+    "The average monthly events of Hockey in AZ is": 0.25,
+    "The month with the most events of Basketball in AZ is": "February",
+    "The month with the most events of Hockey in AZ is": "January",
+    "The month with the fewest events of Basketball in AZ is": "April, May, June, July, August, September, October, November, December"
+}
 ```
 
 ### Route /getStatsforState
@@ -383,10 +399,11 @@ With these exceptions, the parameters written for the countrycode, the segment a
 For example, if in the route /getEventsForGenre as parameter for genre is inserted "Basket" instead of "Basketball" the program will return this type of error.
 
 
->Eror: The genre searched for does not exist or is not present in our databases. 
->he first letter must be uppercase for every genre. 
-These are some examples of the most popular genres: 
-Baseball, Basketball, Boxing, Hockey; Classical, Hip-Hop/Rap, Blues, Comedy, Hobby/Special Interest Expos
+>Error: The genre searched for does not exist or is not present in our databases. \
+>The first letter must be uppercase for every genre. \
+>These are some examples of the most popular genres: \
+>Baseball, Basketball, Boxing, Hockey; Classical, Hip-Hop/Rap, Blues, Comedy, Hobby/Special Interest Expos.
+
 <div id='id-section6'/>
 
 
