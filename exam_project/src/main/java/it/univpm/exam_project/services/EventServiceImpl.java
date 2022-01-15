@@ -233,7 +233,7 @@ public class EventServiceImpl implements EventService{
 	 * @return tf
 	 * @throws InvalidInputException
 	 */
-	public boolean setCnd(String condition) throws InvalidInputException {
+	public static boolean setCnd(String condition) throws InvalidInputException {
 		boolean tf=false;
 			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
 				tf=false;
