@@ -318,14 +318,13 @@ On this site you can find all states for Canada ( https://en.wikipedia.org/wiki/
 
 #### Example
 This is an example with the default parameters (genre = Hockey, state_code = CA) \
+The entered route will then be of this type:
+
+
+
 Response:
 ```json
-{
-    "The total of events of Hockey in CA is": 12,
-    "The average monthly events of Hockey in CA is": 1.0,
-    "The month with the fewest events of Hockey in CA is": "April, May, June, July, August, September, October, November, December",
-    "The month with the most events of Hockey in CA is": "January"
-}
+
 ```
 
 ### Route /getStatsforState
@@ -334,44 +333,34 @@ This route shows some statistics for the chosen State like, the total of events,
 It also allows to see the number of events for a specific genre. \
 Optional parameter to be entered:
 
-> state_code = param, if you want to search for another state \
-> seeEvents = yes/no, if value is "yes" shows all the events and not only the stats.
+> state_code = param, if you want to search for another state (defalt value = CA(California)) \
+> seeEvents = yes/no, yes if you want to see the events, no if not (default value = no)
 
 #### Example
-This is an example with the default parameter (state_code = CA )
+
+Example of a route for /getStatsforState \
+
+In this example we will not enter any parameters.
+
+The entered route will then be of this type:
+
+`localhost:8080/getStatsforState`
 
 ```json
 {
     "The month with the most events in CA is": "January",
-    "The month with the fewest events in CA is": "May, June, July, August,              September, October, November, December",
-    "Events": [
-        {
-            "country_code": "US",
-            "event_id": "G5vYZps1PENwD",
-            "local_time": "19:00:00",
-            "city": "San Francisco",
-            "subgenre": "NBA",
-            "segment": "Sports",
-            "country_name": "United States Of America",
-            "genre": "Basketball",
-            "event_name": "Golden State Warriors vs. Phoenix Suns",
-            "state": "California",
-            "state_code": "CA",
-            "local_date": "2022-03-30"
-        },
-        "..."
-            ],
+    "The month with the fewest events in CA is": "May, June, July, August, September, October, November, December",
     "The total of events in CA is": 60,
     "The average monthly events in CA is": 5.0,
     "Events grouped by genre": [
         {
-            "Events number of Basketball ": 24,
-            "Events number of Hockey ": 6,
+            "Events number of Basketball ": 21,
+            "Events number of Hockey ": 9,
+            "Events number of Performance Art ": 3,
             "Events number of Motorsports/Racing ": 6,
-            "Events number of Fairs & Festivals ": 3,
+            "Events number of Fairs & Festivals ": 6,
             "Events number of Rock ": 6,
-            "Events number of Football ": 6,
-            "Events number of Ice Shows ": 9
+            "Events number of Football ": 9
         }
     ]
 }
@@ -379,9 +368,27 @@ This is an example with the default parameter (state_code = CA )
 <div id='id-section5'/>
 
 ## Exception
+***
+
+There are 3 types of exceptions that check the entered parameters, and they are: 
+
+1) [countryParamException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/countryParamException.java)
+2) [segmentParamException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/segmentParamException.java)
+3) [genreParamException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/genreParamException.java)
+
+With these exceptions, the parameters written for the countrycode, the segment and the genre are checked and if they are not present in our list an error message is sent with some indications to resolve the error.
+
+#### Example:
+
+For example, if in the route /getEventsForGenre as parameter for genre is inserted "Basket" instead of "Basketball" the program will return this type of error.
 
 
+>Eror: The genre searched for does not exist or is not present in our databases. 
+>he first letter must be uppercase for every genre. 
+These are some examples of the most popular genres: 
+Baseball, Basketball, Boxing, Hockey; Classical, Hip-Hop/Rap, Blues, Comedy, Hobby/Special Interest Expos
 <div id='id-section6'/>
+
 
 ## Authors
 This project was developed during the Object Oriented Programming course (2021/2022) by:
