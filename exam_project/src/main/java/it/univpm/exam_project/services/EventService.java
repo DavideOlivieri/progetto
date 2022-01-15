@@ -27,7 +27,10 @@ public interface EventService {
 	
 	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2);
 	
-	public LocalDate dateConverter(String localDate);
+	public static LocalDate dateConverter(String localDate) {
+		LocalDate locD = LocalDate.parse((CharSequence)localDate);
+		return locD;
+	}
 	
 	public String convertMonth(int i);
 	

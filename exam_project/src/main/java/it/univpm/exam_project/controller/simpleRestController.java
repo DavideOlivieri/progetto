@@ -208,9 +208,11 @@ public class simpleRestController {
 		try {
 			try {
 				EventService.genreController(genre);
-				EventService.genreController(genre2);
+				if(genre2!=null)
+					EventService.genreController(genre2);
 				EventService.stateController(state_code);
-				EventService.stateController(state_code2);
+				if(state_code2!=null)
+					EventService.stateController(state_code2);
 				
 				StatesFilter filterVectorState = new StatesFilter();
 				boolean seeEvents = EventService.setCnd(condition);

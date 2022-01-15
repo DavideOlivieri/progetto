@@ -185,7 +185,7 @@ public class EventServiceImpl implements EventService{
 	 * @param localDate
 	 * @return locD
 	 */
-	public LocalDate dateConverter(String localDate) {
+	public static LocalDate dateConverter(String localDate) {
 		LocalDate locD = LocalDate.parse((CharSequence)localDate);
 		return locD;
 	}
