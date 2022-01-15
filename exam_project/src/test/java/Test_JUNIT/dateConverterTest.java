@@ -14,7 +14,7 @@ class dateConverterTest {
 	
 	private String dateString;
 	
-	private LocalDate localDateString, trueValue = LocalDate.of(2022, 1, 15);;
+	private LocalDate localDateString, trueValue = LocalDate.of(2022, 1, 15);
 
 	
 	@BeforeEach

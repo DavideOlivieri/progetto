@@ -195,33 +195,35 @@ public class EventServiceImpl implements EventService{
 	 * 
 	 * @param i,(1 = january, 2 = february, ...)
 	 */
-	public String convertMonth(int i) {
-		if(i==1)
-			return "January";
-		if(i==2)
-			return "February";
-		if(i==3)
-			return "March";
-		if(i==4)
-			return "April";
-		if(i==5)
-			return "May";
-		if(i==6)
-			return "June";
-		if(i==7)
-			return "July";
-		if(i==8)
-			return "August";
-		if(i==9)
-			return "September";
-		if(i==10)
-			return "October";
-		if(i==11)
-			return "November";
-		if(i==12)
-			return "December";
-		return "Error month";
-
+	public static String convertMonth(int i) {
+		switch(i) {
+			case 1:
+				return "January";
+			case 2:
+				return "February";
+			case 3:
+				return "March";
+			case 4:
+				return "April";
+			case 5:
+				return "May";
+			case 6:
+				return "June";
+			case 7:
+				return "July";
+			case 8:
+				return "August";
+			case 9:
+				return "September";
+			case 10:
+				return "October";
+			case 11:
+				return "November";
+			case 12:
+				return "December";
+			default:
+				return "Error month";
+		}
 	}
 	
 	/**
