@@ -219,7 +219,8 @@ Response:
 ***
 This route displays all events filtered by Country code. \
 For the United States and Canada, events grouped by state and genre are displayed. \
-Here are some examples of country codes to choose:
+Here are some examples of Country codes to choose:
+
 | Country | countryCode |
 | :--- | :---: | 
 | United State | US |
@@ -228,7 +229,7 @@ Here are some examples of country codes to choose:
 
 Optional parameter to be entered:
 
-> countryCode = param, if you want to search for another Country (default value = CA). \
+> countryCode = param, if you want to search for another Country code (default value = CA). \
 > seeEvents = yes/no, yes if you want to see the events, no if not (default value = no)
 
 #### Example
@@ -290,10 +291,10 @@ A comparison will also be made between the genres of events that will take place
 This route displays the total of events, the month/s with the maximun and minimum events that will take place in US and Canada. \
 The comparison can be made by choosing the genre in fact the optional parameter to be entered is:
 
-> genre = param, (default value = \
+> genre = param, (default value = Rock) 
 
 #### Example
-
+Example of a route for /compareUSCA \
 In this example we will use the following parameters:
 
 | KEY | VALUE |
@@ -352,14 +353,16 @@ The entered route will then be of this type:
 ### Route /getStats
 ***
 In this route you can enter 1 or 2 state code and 1 or 2 genres. \
+The response will contain statistics for 1/2 state/s or 1/2 genre/s.
+
 Optional parameter to be entered:
-> state_code = param \
-> state_code2 = param \
-> genre = param \
-> genre2 = param \
+> state_code = param, if you want to search for another State code (defaul value = CA ) \
+> state_code2 = param, if you want to search for two States (defaul value = null )\
+> genre = param, if you want to search for another genre (defaul value = Hockey )\
+> genre2 = param, if you want to search for two genres (defaul value = null )\
 > seeEvents = yes/no, yes if you want to see the events, no if not (default value = no).
 
-You can choose from many states, these are some of the well known in the United States and Canada:
+You can choose from many State codes, these are some of the well known in the United States and Canada:
 
 | United States | Canada |
 | :--- | :---: | 
@@ -378,8 +381,9 @@ On this site you can find all states for the United States ( https://en.wikipedi
 On this site you can find all states for Canada ( https://en.wikipedia.org/wiki/ISO_3166-2:CA ) \
 
 #### Example
-
+Example of a route for /getStats \
 In this example we will use the following parameters:
+
 | KEY | VALUE |
 | :--- | :---: | 
 | state_code | AZ |
@@ -468,6 +472,11 @@ For example, if in the route /getEventsForGenre as parameter for genre is insert
 
 [InvalidInputException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/InvalidInputException.java)
 This exception checks the parameter entered for seeEvents and if it is not valid an error message such as the following is sent:
+
+>Error: Input invalid for seeEvents 
+>The allowed inputs are: 
+>not to see the events: no, No, NO, false. 
+>to see the events: si, Si, SI, yes, true.
 
 <div id='id-section6'/>
 
