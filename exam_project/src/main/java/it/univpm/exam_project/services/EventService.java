@@ -1,6 +1,5 @@
 package it.univpm.exam_project.services;
 
-import java.time.LocalDate;
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
@@ -27,39 +26,14 @@ public interface EventService {
 	
 	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2);
 	
-	public static LocalDate dateConverter(String localDate) {
-		LocalDate locD = LocalDate.parse((CharSequence)localDate);
-		return locD;
-	}
+	public void numEvents(Vector<Events> eventVector, int[]monthEvents);
 	
-	public static String convertMonth(int i) {
-		switch(i) {
-			case 1:
-				return "January";
-			case 2:
-				return "February";
-			case 3:
-				return "March";
-			case 4:
-				return "April";
-			case 5:
-				return "May";
-			case 6:
-				return "June";
-			case 7:
-				return "July";
-			case 8:
-				return "August";
-			case 9:
-				return "September";
-			case 10:
-				return "October";
-			case 11:
-				return "November";
-			case 12:
-				return "December";
-			default:
-				return "Error month";
-		}
-	}
+	public float avgEvents(Vector<Events> eventVector);
+	
+	public String minEvents(Vector<Events> eventVector);
+	
+	public String maxEvents(Vector<Events> eventVector);
+	
+	public int totEvents(Vector<Events> eventVector);
+	
 }

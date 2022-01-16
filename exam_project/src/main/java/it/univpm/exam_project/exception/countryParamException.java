@@ -1,9 +1,15 @@
 package it.univpm.exam_project.exception;
 
+/**
+ * Exception that is called if the entered country_code is incorrect.
+ * 
+ * @author Jacopo Coloccioni
+ * @author Davide Olivieri
+ *
+ */
 public class countryParamException extends Exception{
 
-
-/**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

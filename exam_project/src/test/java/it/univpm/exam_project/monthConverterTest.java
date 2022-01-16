@@ -9,6 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import it.univpm.exam_project.services.EventServiceImpl;
 
+/**
+ * 
+ * @author Jacopo Coloccioni
+ *
+ */
 @SpringBootTest
 class monthConverterTest {
 	

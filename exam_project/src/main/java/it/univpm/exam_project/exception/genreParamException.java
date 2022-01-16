@@ -1,9 +1,16 @@
 package it.univpm.exam_project.exception;
 
+/**
+ * Exception that is called if the entered genre is incorrect.
+ * 
+ * @author Davide Olivieri
+ * @author Jacopo Coloccioni
+ *
+ */
 public class genreParamException extends Exception{
 
 
-/**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
