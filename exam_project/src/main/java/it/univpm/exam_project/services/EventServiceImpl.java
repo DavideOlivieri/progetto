@@ -497,6 +497,36 @@ public class EventServiceImpl implements EventService{
 		respons.put("Events", events);
 
 	}
+	
+	/**
+	 * This method returns the information of each single event inside an already structured array.
+	 * 
+	 * @param filteredEvents
+	 * @param events
+	 */
+	public void ToJson(Vector<Events> filteredEvents, JSONArray events) {
+		// TODO Auto-generated method stub
+
+		for(int i=0;i<filteredEvents.size();i++) {
+			JSONObject event = new JSONObject();
+
+			event.put("event_name", filteredEvents.get(i).getName());
+			event.put("event_id", filteredEvents.get(i).getEvent_id());
+			event.put("local_date", filteredEvents.get(i).getLocal_date());
+			event.put("local_time", filteredEvents.get(i).getLocal_time());
+			event.put("country_code", filteredEvents.get(i).getCountry_code());
+			event.put("city", filteredEvents.get(i).getCity());
+			event.put("state", filteredEvents.get(i).getState());
+			event.put("state_code", filteredEvents.get(i).getState_code());
+			event.put("country_name", filteredEvents.get(i).getCountry_name());
+			event.put("segment", filteredEvents.get(i).getSegment());
+			event.put("genre", filteredEvents.get(i).getGenre() );
+			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
+
+			events.add(event);
+		}
+
+	}
 
 	/**
 	 * This method groups events by genre.
@@ -687,11 +717,15 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 
-		if(seeEvents==true)
-			ToJson(filteredEvents1, respons);
-		if(seeEvents==true)
-			ToJson(filteredEvents2, respons);
-
+		if(seeEvents==true) {
+			JSONArray events1 = new JSONArray();
+			ToJson(filteredEvents1, events1);
+			respons.put(genre +" events in "+ state_code, events1);
+			
+			JSONArray events2 = new JSONArray();
+			ToJson(filteredEvents2, events2);
+			respons.put(genre +" events in "+ state_code2, events2);
+		}
 
 		StatsToJson(filteredEvents1, state_code, genre, respons);
 
@@ -717,11 +751,15 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 
-		if(seeEvents==true)
-			ToJson(filteredEvents1, respons);
-		if(seeEvents==true)
-			ToJson(filteredEvents2, respons);
-
+		if(seeEvents==true) {
+			JSONArray events1 = new JSONArray();
+			ToJson(filteredEvents1, events1);
+			respons.put(genre +" events in "+ state_code, events1);
+			
+			JSONArray events2 = new JSONArray();
+			ToJson(filteredEvents2, events2);
+			respons.put(genre2 +" events in "+ state_code, events2);
+		}
 
 		StatsToJson(filteredEvents1, state_code, genre, respons);
 
@@ -751,15 +789,23 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONObject respons = new JSONObject();
 
-		if(seeEvents==true)
-			ToJson(filteredEvents1, respons);
-		if(seeEvents==true)
-			ToJson(filteredEvents2, respons);
-		if(seeEvents==true)
-			ToJson(filteredEvents3, respons);
-		if(seeEvents==true)
-			ToJson(filteredEvents4, respons);
-
+		if(seeEvents==true) {
+			JSONArray events1 = new JSONArray();
+			ToJson(filteredEvents1, events1);
+			respons.put(genre +" events in "+ state_code, events1);
+			
+			JSONArray events2 = new JSONArray();
+			ToJson(filteredEvents2, events2);
+			respons.put(genre2 +" events in "+ state_code, events2);
+			
+			JSONArray events3 = new JSONArray();
+			ToJson(filteredEvents3, events3);
+			respons.put(genre +" events in "+ state_code2, events3);
+			
+			JSONArray events4 = new JSONArray();
+			ToJson(filteredEvents4, events4);
+			respons.put(genre2 +" events in "+ state_code2, events4);
+		}
 
 		StatsToJson(filteredEvents1, state_code, genre, respons);
 
@@ -772,7 +818,13 @@ public class EventServiceImpl implements EventService{
 
 		return respons;
 	}
-
+		
+	/**
+	 *	This method checks the user-entered segment using a text file that contains all usable segments.
+	 * 
+	 * @param segment
+	 * @throws segmentParamException
+	 */
 	public void segmentController(String segment) throws segmentParamException {
 		// TODO Auto-generated method stub
 		Vector<String> segmentVect = readTxt("src/main/java/it/univpm/exam_project/services/segments.txt");
@@ -782,7 +834,13 @@ public class EventServiceImpl implements EventService{
 		}
 		throw new segmentParamException();
 	}
-	
+		
+	/**
+	 *	This method checks the user-entered genre using a text file that contains all usable genres.
+	 * 
+	 * @param genre
+	 * @throws genreParamException
+	 */
 	public void genreController(String genre) throws genreParamException {
 		// TODO Auto-generated method stub
 		Vector<String> genreVect = readTxt("src/main/java/it/univpm/exam_project/services/genres.txt.txt");
@@ -792,7 +850,14 @@ public class EventServiceImpl implements EventService{
 		}
 		throw new genreParamException();
 	}
-	
+		
+	/**
+	 * 
+	 *	This method checks the user-entered country_code using a text file that contains all usable country_codes.
+	 * 
+	 * @param country_code
+	 * @throws countryParamException
+	 */
 	public void countryController(String country_code) throws countryParamException {
 		// TODO Auto-generated method stub
 		Vector<String> countryVect = readTxt("src/main/java/it/univpm/exam_project/services/countrys.txt");
@@ -803,7 +868,14 @@ public class EventServiceImpl implements EventService{
 		
 		throw new countryParamException();
 	}
-	
+		
+	/**
+	 * 
+	 *	This method checks the user-entered state_code using a text file that contains all usable state_codes.
+	 * 
+	 * @param state_code
+	 * @throws stateParamException
+	 */
 	public void stateController(String state_code) throws stateParamException {
 		// TODO Auto-generated method stub
 		Vector<String> stateVect = readTxt("src/main/java/it/univpm/exam_project/services/statecodes.txt");
