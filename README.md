@@ -91,7 +91,7 @@ In this application we can search for these segments:
 
 > Sports \
 > Music \
-> Arts & Theatre \
+> Art & Theatre \
 > Miscellaneous
 
 Optional parameter to be entered:
@@ -157,10 +157,10 @@ This route displays all events filtered by genre. \
 For the United States and Canada, events grouped by state are displayed. \
 These are among the best known genres:
 
->Sports | Baseball, Basketball, Boxing, Hockey \
->Music | Classical, Hip-Hop/Rap, Blues, Dance/Electronic, Other \
->Art & Theatre | Comedy \
->Miscellaneous | Hobby/Special Interest Expos
+>Sports | Baseball, Basketball, Boxing, Hockey, Football. \
+>Music | Classical, Hip-Hop/Rap, Blues, Dance/Electronic, Other. \
+>Art & Theatre | Comedy. \
+>Miscellaneous | Hobby/Special Interest Expos, Ice Shows, Fairs & Festivals.
 
 Optional parameter to be entered:
 > genre = param, if you want to search for another genre (default value = Basketball). \
