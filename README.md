@@ -6,7 +6,8 @@
 - [Application usage](#id-section3)
 - [Routes](#id-section4)
 - [Exception](#id-section5)
-- [Authors](#id-section6)
+- [JUnit Test](#id-section6)
+- [Authors](#id-section7)
 
 <div id='id-section1'/>
 
@@ -285,16 +286,76 @@ Response:
 ### Route /compareUSCA
 ***
 In this route, a comparison is made between the number of events that will take place in the United States and those in Canada.\
-A comparison will also be made between the genres of events that will take place in the two states.
-This route displays the total, maximum and minimum of events that will take place in US and Canada.
+A comparison will also be made between the genres of events that will take place in the two states. \
+This route displays the total of events, the month/s with the maximun and minimum events that will take place in US and Canada. \
+The comparison can be made by choosing the genre in fact the optional parameter to be entered is:
 
+> genre = param, (default value = \
+
+#### Example
+
+In this example we will use the following parameters:
+
+| KEY | VALUE |
+| :--- | :---: | 
+| genre | Hockey |
+
+The entered route will then be of this type:
+`localhost:8080/compareUSCA?genre=Hockey`
+
+```json
+{
+    "US": [
+        {
+            "The month with the most events for Hockey in US is": "January",
+            "The total of events in US for Hockey is": 60,
+            "The month with the fewest events for Hockey in US is": "April, May, June, July, August, September, October, November, December",
+            "Events grouped by state": [
+                {
+                    "Events number in Michigan ": 6,
+                    "Events number in Washington ": 6,
+                    "Events number in Nevada ": 3,
+                    "Events number in Colorado ": 3,
+                    "Events number in Massachusetts ": 12,
+                    "Events number in Minnesota ": 3,
+                    "Events number in Ohio ": 3,
+                    "Events number in Tennessee ": 3,
+                    "Events number in Missouri ": 3,
+                    "Events number in Pennsylvania ": 9,
+                    "Events number in North Carolina ": 3,
+                    "Events number in Illinois ": 3,
+                    "Events number in California ": 3
+                }
+            ],
+            "The average monthly events for Hockey in the US": 5.0
+        }
+    ],
+    "CA": [
+        {
+            "The month with the most events for Hockey in Canada is": "March",
+            "The month with the fewest events for Hockey in Canada is": "April, May, June, July, August, September, October, November, December",
+            "The average monthly events for Hockey in Canada": 3.0,
+            "Events grouped by state": [
+                {
+                    "Events number in Ontario ": 9,
+                    "Events number in British Columbia ": 9,
+                    "Events number in Manitoba ": 3,
+                    "Events number in Alberta ": 9,
+                    "Events number in Quebec ": 6
+                }
+            ],
+            "The total of events in Canada for Hockey is": 36
+        }
+    ]
+}
+```
 ### Route /getStats
 ***
 In this route you can enter 1 or 2 state code and 1 or 2 genres. \
 Optional parameter to be entered:
 > state_code = param \
 > state_code2 = param \
-> genre = paramn \
+> genre = param \
 > genre2 = param \
 > seeEvents = yes/no, yes if you want to see the events, no if not (default value = no).
 
@@ -386,13 +447,14 @@ The entered route will then be of this type:
 ## Exception
 ***
 
-There are 3 types of exceptions that check the entered parameters, and they are: 
+There are 4 types of exceptions that check the entered parameters, and they are: 
 
 1) [countryParamException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/countryParamException.java)
 2) [segmentParamException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/segmentParamException.java)
 3) [genreParamException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/genreParamException.java)
+4) [stateParamException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/stateParamException.java)
 
-With these exceptions, the parameters written for the countrycode, the segment and the genre are checked and if they are not present in our list an error message is sent with some indications to resolve the error.
+With these exceptions, the parameters written for countrycode,segment, genre and State are checked and if they are not present in our list an error message is sent with some indications to resolve the error.
 
 #### Example:
 
@@ -404,10 +466,25 @@ For example, if in the route /getEventsForGenre as parameter for genre is insert
 >These are some examples of the most popular genres: \
 >Baseball, Basketball, Boxing, Hockey; Classical, Hip-Hop/Rap, Blues, Comedy, Hobby/Special Interest Expos.
 
+[InvalidInputException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/InvalidInputException.java)
+This exception checks the parameter entered for seeEvents and if it is not valid an error message such as the following is sent:
+
 <div id='id-section6'/>
+
+## JUnit Test
+****
+
+3 JUnit tests developed in JUnit 5 have been implemented:
+1) [dateConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/dateConverterTest.java):Test to verify the correct operation of the dateConverter method.
+2) [monthConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/monthConverterTest.java):Test to verify the correct functioning of the monthConverter method.
+3) [InvalidInputExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/InvalidInputExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in seeEvents.
+
+<div id='id-section7'/>
 
 
 ## Authors
+****
+
 This project was developed during the Object Oriented Programming course (2021/2022) by:
 
 -[Davide Olivieri](https://github.com/DavideOlivieri) \
