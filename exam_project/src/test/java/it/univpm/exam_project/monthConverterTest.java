@@ -1,28 +1,25 @@
-package Test_JUNIT;
+package it.univpm.exam_project;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import it.univpm.exam_project.services.EventServiceImpl;
 
-class dateConverterTest {
+@SpringBootTest
+class monthConverterTest {
 	
-	private String dateString;
-	
-	private LocalDate localDateString, trueValue = LocalDate.of(2022, 1, 15);
+	private int month = 12;
 
+	private String finalValue;
 	
 	@BeforeEach
 	public void setUp() {
 		
-		dateString = "2022-01-15";
-		
-		localDateString = EventServiceImpl.dateConverter(dateString);
+		finalValue=EventServiceImpl.convertMonth(month);
 		
 	}
 	
@@ -31,8 +28,7 @@ class dateConverterTest {
 	
 	@Test
 	public void testDateConverter() {
-		assertEquals(localDateString, trueValue);
+		assertEquals(finalValue, "December");
 	}
-
 
 }

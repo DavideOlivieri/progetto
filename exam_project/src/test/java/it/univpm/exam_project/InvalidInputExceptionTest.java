@@ -5,13 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import it.univpm.exam_project.exception.InvalidInputException;
 import it.univpm.exam_project.services.EventServiceImpl;
 
-class InvalidInputExceptionTestTest {
+@SpringBootTest
+class InvalidInputExceptionTest {
 	
-	String inputValue ="treu";
+	String inputValue ="sI";
 	
 	boolean exitValue;
 
@@ -25,10 +27,10 @@ class InvalidInputExceptionTestTest {
 
 	@Test
 	void test() {
-		 Throwable exception = assertThrows(InvalidInputException.class, () -> {
+		 InvalidInputException exception = assertThrows(InvalidInputException.class, () -> {
 			 exitValue=EventServiceImpl.setCnd(inputValue);
 			 });
-		 assertEquals("Error: Input invalid", exception.getMessage());
+		 assertEquals("Error: Input invalid", exception.getMsg());
 	}
 
 }
