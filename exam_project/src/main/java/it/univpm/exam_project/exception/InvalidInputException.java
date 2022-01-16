@@ -14,7 +14,10 @@ public class InvalidInputException extends Exception{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String msg = "Error: Input invalid";
+	private String msg = "Error: Input invalid \n"
+			+ "The allowed inputs are: \n"
+			+ "not to see the events: no, No, NO, false. \n"
+			+ "to see the events: si, Si, SI, yes, true.";
 
 	public InvalidInputException() {
 		super();

@@ -235,9 +235,9 @@ public class EventServiceImpl implements EventService{
 	 */
 	public static boolean setCnd(String condition) throws InvalidInputException {
 		boolean tf=false;
-			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("n")||condition.equals("N")||condition.equals("false"))
+			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("false"))
 				tf=false;
-			else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("s")||condition.equals("true"))
+			else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("true"))
 				tf=true;
 			else 
 				throw new InvalidInputException();
