@@ -13,6 +13,7 @@ public class countryParamException extends Exception{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private String msg = "Error: The country_code searched for does not exist or is not present in our databases";
 	
 	public countryParamException() {
@@ -23,7 +24,7 @@ public class countryParamException extends Exception{
 		super(msg);
 		this.msg=msg;
 	}
-
+	
 	public String getMsg() {
 		return msg;
 	}

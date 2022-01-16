@@ -33,10 +33,11 @@ import it.univpm.exam_project.services.EventServiceImpl;
 public class simpleRestController {
 
 	/**
+	 * Creation of different routes
+	 * 
 	 * @see it.univpm.exam_project.models.Events
 	 * @see it.univpm.exam_project.services.EventServiceImpl
 	 * 
-	 * Creation of different routes
 	 */
 
 
@@ -56,12 +57,12 @@ public class simpleRestController {
 
 	/**
 	 * Route2  
-	 * /getEventForSegment (Search by segment, returns all events of that kind and the total of events)
+	 * /getEventForSegment (Search by segment, returns all events of that kind and events grouped by state and genre)
 	 * 
 	 * @param segment
 	 * @param condition
-	 * @return
-	 * @throws SegmentNotFoundException
+	 * @return JSONEvent_segment containing all the events for the chosen segment.
+	 *
 	 */
 	@RequestMapping(value = "/getEventsForSegment")
 	public ResponseEntity<Object> getEventsfromSegment(@RequestParam(name="segment", defaultValue="Sports") String segment,
@@ -90,10 +91,11 @@ public class simpleRestController {
 
 	/**
 	 * Route 3  
-	 * /getEventForGenre (Search by genre, returns all events of that kind and the total of events).
+	 * /getEventForGenre (Search by genre, returns all events of that kind and events grouped by state).
 	 * 
 	 * @param genre
-	 * @return JSONObject containing all the events for the choosen genre.
+	 * @param condition
+	 * @return JSONEvent_genre containing all the events for the chosen genre.
 	 */
 	@RequestMapping(value = "/getEventsForGenre")
 	public ResponseEntity<Object> getEventsfromGenre(@RequestParam(name="genre", defaultValue="Basketball") String genre,
@@ -122,11 +124,11 @@ public class simpleRestController {
 	
 	/**
 	 * Route 4 
-	 * /getEventForCountryCode (Search by Country, returns all the events of that Country)
+	 * /getEventForCountryCode (Search by Country, returns all the events of that Country if you want and events grouped by genre and state)
 	 * 
 	 * @param countryCode
 	 * @param condition
-	 * @return JSONObject containing all the events for the chosen countrycode
+	 * @return JSONObject containing all the events for the chosen country_code
 	 */
 	@RequestMapping(value = "/getEventsForCountryCode")
 	public ResponseEntity<Object> getEventsfromCountryCode(@RequestParam(name="countryCode", defaultValue="CA") String countryCode,
@@ -265,6 +267,7 @@ public class simpleRestController {
 	 *  Shows the number of events grouped by genre.
 	 * 
 	 * @param state_code
+	 * @param condition
 	 * @return JSONObject : Statistics for a given state
 	 */
 	@RequestMapping(value = "/getStatsforState")
