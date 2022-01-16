@@ -18,10 +18,12 @@ Ticketmaster is a well-known software dedicated to the management and booking of
 Through the APIs derived from the TM Developer page, accessible through the Discovery API address, we get the metadata.\
 The program will have to evaluate only the events located in USA and Canada. \
 They are available through our application:
-- filtering of events, foreseen in USA and / or Canada, through the selection of one or two States, followed by the production of statistics relating to the State or States chosen.
-- filtering of events, foreseen in USA and / or Canada, through the selection of one or two genres, followed by the production of statistics relating to the chosen genre or genres.
-- 
-- statistics relating to the state chosen, such as total events, the months with the most and the fewest events, monthly average of events, and events grouped by genre.
+
+- Filtering events for segment and view events grouped by States and genres.
+- Filtering events for genre and view events grouped by States.
+- Statistics relating to the United States and Canada, so a sort of comparison between the two states.
+- Statistics relating to the state chosen, such as total events, the months with the most and the fewest events, monthly average of events, and events grouped by genre.
+- Statistics for a chosen state, such as the total of events, the month with the most and fewest events, the monthly average of events, and the grouping of events by genre.
 
 <div id='id-section2'/>
 
@@ -40,7 +42,7 @@ But for example, for the search by state the statistics are almost perfect becau
 
 ## Application usage
 ***
-After the application has been started, routes can be called from any browser or from an application such as postman.\
+After the application has been started, routes can be called from any browser or from any application such as postman. \
 Example of usecase
 `localhost:8080/<route_name>`
 
@@ -57,7 +59,7 @@ In this case 8080 is the standard port but can be changed.
 | `/getEventsForSegment` | Displays all events of that kind of segment | Get |
 | `/getEventsForGenre` | Displays all events of that kind of genre | Get |
 | `/getEventsForCountryCode` | Displays the events that will take place in the chosen state | Get |
-| `/compareUSCA` | Compare the total / maximum / minimum of events between US and CA | Get |
+| `/compareUSCA` | Compare the statistics between US and CA | Get |
 | `/getStats` | Displays the statistics chosen a state and a genre | Get |
 | `/getStatsforState` | Displays the events for genre for a specific State | Get |
 
@@ -217,7 +219,7 @@ Response:
 ```
 ### Route /getEventsForCountryCode
 ***
-This route displays all events filtered by Country code. \
+This route displays all events filtered by United States and Canada. \
 For the United States and Canada, events grouped by state and genre are displayed. \
 Here are some examples of Country codes to choose:
 
@@ -419,7 +421,7 @@ Optional parameter to be entered:
 
 #### Example
 
-Example of a route for /getStatsforState \
+Example of a route for /getStatsforState 
 
 In this example we will not enter any parameters.
 
@@ -473,9 +475,9 @@ For example, if in the route /getEventsForGenre as parameter for genre is insert
 [InvalidInputException](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/main/java/it/univpm/exam_project/exception/InvalidInputException.java)
 This exception checks the parameter entered for seeEvents and if it is not valid an error message such as the following is sent:
 
->Error: Input invalid for seeEvents 
->The allowed inputs are: 
->not to see the events: no, No, NO, false. 
+>Error: Input invalid for seeEvents \
+>The allowed inputs are: \
+>not to see the events: no, No, NO, false. \
 >to see the events: si, Si, SI, yes, true.
 
 <div id='id-section6'/>
