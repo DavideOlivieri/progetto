@@ -14,7 +14,10 @@ public class segmentParamException extends Exception{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String msg = "Error: The segment searched for does not exist or is not present in our databases";
+	private String msg = "Error: The segment searched for does not exist or is not present in our databases. \n"
+			+ "The first letter must be uppercase for every genre. \n"
+			+ "These are some examples of segments: \n"
+			+ "Sports, Music, Miscellaneous, Arts & Theatre.";
 
 	public segmentParamException() {
 		super();

@@ -17,7 +17,7 @@ public class genreParamException extends Exception{
 	private String msg = "Error: The genre searched for does not exist or is not present in our databases. \n"
 			+ "The first letter must be uppercase for every genre. \n"
 			+ "These are some examples of the most popular genres: \n"
-			+ "Baseball, Basketball, Boxing, Hockey; Classical, Hip-Hop/Rap, Blues, Comedy, Hobby/Special Interest Expos";
+			+ "Baseball, Basketball, Boxing, Hockey; Classical, Hip-Hop/Rap, Blues; Comedy; Hobby/Special Interest Expos";
 	
 	public genreParamException() {
 		super();
