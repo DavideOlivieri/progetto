@@ -658,7 +658,7 @@ public class EventServiceImpl implements EventService{
 	 * @param genre
 	 * @throws genreParamException
 	 */
-	public void genreController(String genre) throws genreParamException {
+	public static void genreController(String genre) throws genreParamException {
 		// TODO Auto-generated method stub
 		Vector<String> genreVect = readTxt("src/main/java/it/univpm/exam_project/services/genres.txt.txt");
 		for(int i=0; i<genreVect.size(); i++) {
