@@ -10,12 +10,13 @@ package it.univpm.exam_project.models;
  */
 
 public class Events {
-	/**
-	 * Parameters
-	 */
+	
+    //  **************************************************************************************************
+	//                                       PARAMETERS
+	//   **************************************************************************************************
 	private String event_name;           // name of the event
 	private String event_id;             // event identification number
-	private String event_url;            // event url
+	private String event_url;            // event URL
 	private int month;                   // month in which the event will take place
 	private String local_date;           // date on which the event will take place
 	private String local_time;           // exact time of the start of the event
@@ -27,9 +28,24 @@ public class Events {
 	private String segment;              // segment of the event (Grouping of genres)
 	private String genre;                // genre of the event
 
+    //  **************************************************************************************************
+	//                                        CONSTRUCTOR
+	//   **************************************************************************************************
 	/**
-	 * Constructor
-	 *
+	 * 
+	 * @param event_name
+	 * @param event_id
+	 * @param event_url
+	 * @param localDate
+	 * @param local_time
+	 * @param country_code
+	 * @param state_code
+	 * @param city
+	 * @param state
+	 * @param country_name
+	 * @param genre
+	 * @param subgenre
+	 * @param segment
 	 */
 	public Events(String event_name, String event_id, String event_url, String localDate, 
 			String local_time, String country_code, String state_code, String city, 
@@ -52,10 +68,9 @@ public class Events {
 	}
 
 
-	/**
-	 * Getters and setters
-	 * 
-	 */
+    //  **************************************************************************************************
+	//                                      GETTER AND SETTER
+	//   **************************************************************************************************
 
 	public String getSegment() {
 		return segment;

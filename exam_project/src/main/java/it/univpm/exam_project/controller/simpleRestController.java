@@ -162,7 +162,7 @@ public class simpleRestController {
 	 *  It also displays events grouped by State.
 	 * 
 	 * @param genre
-	 * @return JSONObject 
+	 * @return JSONObject containing all the statistics of the USA and Canada.
 	 */
 	@RequestMapping(value = "/compareUSCA")
 	public ResponseEntity<Object> cmpUsCa(@RequestParam(name="genre", defaultValue="Rock") String genre) {
@@ -199,7 +199,7 @@ public class simpleRestController {
 	 * @param state_code
 	 * @param state_code2
 	 * @param condition : with this parameter it is possible to show or not the list of events.
-	 * @return JSONObject
+	 * @return JSONObject containing all the statistics of the events filtered by state_code and genre.
 	 */
 	@RequestMapping(value = "/getStats")
 	public ResponseEntity<Object> getStats(@RequestParam(name="genre", defaultValue="Hockey") String genre,
@@ -268,7 +268,7 @@ public class simpleRestController {
 	 * 
 	 * @param state_code
 	 * @param condition
-	 * @return JSONObject : Statistics for a given state
+	 * @return JSONObject containing all the statistics of the events filtered by state_code and events grouped by genre.
 	 */
 	@RequestMapping(value = "/getStatsforState")
 	public ResponseEntity<Object> getStatsforState(@RequestParam(name="state_code", defaultValue="CA") String state_code,

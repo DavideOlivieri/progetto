@@ -40,7 +40,7 @@ public class EventServiceImpl implements EventService{
 	//   **************************************************************************************************
 
    /**
-    * This method takes as input the url string of the API,
+    * This method takes as input the URL string of the API,
     * opens the connection and takes the API data that will be placed in the JSONObject obj.
     * 
     * @param url
@@ -194,6 +194,7 @@ public class EventServiceImpl implements EventService{
 	 * This method is used to convert months from an int to a String.
 	 * 
 	 * @param i,(1 = january, 2 = february, ...)
+	 * @return
 	 */
 	public static String convertMonth(int i) {
 		switch(i) {
@@ -575,6 +576,7 @@ public class EventServiceImpl implements EventService{
      * 
      * @param filteredEventsUS
      * @param filteredEventsCA
+     * @param genre
      * @return response
      */
 	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA, String genre) {
@@ -886,8 +888,5 @@ public class EventServiceImpl implements EventService{
 		throw new stateParamException();
 	}
 	
-	
-
-
 
 }

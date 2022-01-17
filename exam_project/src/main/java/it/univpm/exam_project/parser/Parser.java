@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 import it.univpm.exam_project.models.Events;
 
 /**
- * Class that analyze metadata from ticketmaster API json file
+ * Class that analyze metadata from TicketMaster API JSON file
  * 
  * @author DavideOlivieri
  * @author JacopoColoccioni
@@ -17,11 +17,11 @@ import it.univpm.exam_project.models.Events;
 public class Parser {
 
 	/**
-	 * Method that analyze the json returned by the API call
+	 * Method that analyze the JSON returned by the API call
 	 * and inserts the data into the eventList vector.
 	 * 
-	 * @param json, provides the json code which is analyzed in the method.
-	 * @return eventsList, vector of events containing the events from the json code
+	 * @param json, provides the JSON code which is analyzed in the method.
+	 * @return eventsList, vector of events containing the events from the JSON code
 	 * @see it.univpm.exam_project.models.Events
 	 * @see it.univpm.exam_project.services.EventServiceImpl
 	 */

@@ -5,7 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ExamProjectApplication {
-
+	
+	/**
+	 * Main method of the Java application
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(ExamProjectApplication.class, args);
 	}
