@@ -35,7 +35,10 @@ class InvalidInputExceptionTest {
 		 InvalidInputException exception = assertThrows(InvalidInputException.class, () -> {
 			 exitValue=EventServiceImpl.setCnd(inputValue);
 			 });
-		 assertEquals("Error: Input invalid", exception.getMsg());
+		 assertEquals("Error: Input invalid for seeEvents \n"
+					+ "The allowed inputs are: \n"
+					+ "not to see the events: no, No, NO, false. \n"
+					+ "to see the events: si, Si, SI, yes, true.", exception.getMsg());
 	}
 
 }

@@ -17,7 +17,7 @@ public class segmentParamException extends Exception{
 	private String msg = "Error: The segment searched for does not exist or is not present in our databases. \n"
 			+ "The first letter must be uppercase for every genre. \n"
 			+ "These are some examples of segments: \n"
-			+ "Sports, Music, Miscellaneous, Arts & Theatre.";
+			+ "Sports, Music, Miscellaneous.";
 
 	public segmentParamException() {
 		super();
