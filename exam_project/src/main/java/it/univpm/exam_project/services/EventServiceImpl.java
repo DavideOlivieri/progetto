@@ -84,11 +84,11 @@ public class EventServiceImpl implements EventService{
 //	                    ALL DIFFERENT CONNECTIONS TO OBTAIN SPECIFIC DATA
 //  ***************************************************************************************************************************
 
-	// apiurl + personal apikey
+	// api_url + personal api_key
 	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
 
 	/**
-	 * This method makes a call to the API, passing the countrycode along with the url. 
+	 * This method makes a call to the API, passing the country_code along with the URL. 
 	 * Then a JSONObject is created through which the data is taken,
 	 * then through the parser the events are inserted into an event vector which is finally returned
 	 * 
@@ -106,7 +106,7 @@ public class EventServiceImpl implements EventService{
 	}
 
 	/**
-	 * This method makes a call to the API, passing the segment along with the url. 
+	 * This method makes a call to the API, passing the segment along with the URL. 
 	 * Then a JSONObject is created through which the data is taken,
 	 * then through the parser the events are inserted into an event vector which is finally returned
 	 * 
@@ -125,7 +125,7 @@ public class EventServiceImpl implements EventService{
 	    
 	  
 	/**
-	 * This method makes a call to the API, passing the genre along with the url. 
+	 * This method makes a call to the API, passing the genre along with the URL. 
 	 * Then a JSONObject is created through which the data is taken,
 	 * then through the parser the events are inserted into an event vector which is finally returned
 	 * 
@@ -144,7 +144,7 @@ public class EventServiceImpl implements EventService{
 	}
 
 	/**
-	 * This method makes a call to the API, passing the statecode along with the url. 
+	 * This method makes a call to the API, passing the state_code along with the URL. 
 	 * Then a JSONObject is created through which the data is taken,
 	 * then through the parser the events are inserted into an event vector which is finally returned
 	 * 
@@ -191,10 +191,10 @@ public class EventServiceImpl implements EventService{
 	}
 
 	/**
-	 * This method is used to convert months from an int to a String.
+	 * This method is used to convert months from an integer to a String.
 	 * 
-	 * @param i,(1 = january, 2 = february, ...)
-	 * @return
+	 * @param i,(1 = January, 2 = February, ...)
+	 * @return month written in letters
 	 */
 	public static String convertMonth(int i) {
 		switch(i) {
