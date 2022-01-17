@@ -58,7 +58,7 @@ In this case 8080 is the standard port but can be changed.
 ### All the routes
 | Routes  | Desciption | Type |
 | :--- | :---: | ---:  |
-| `/getEvents` | Displays the resulting data in JSON format | Get |
+| `/getEvents` | Displays the data provided to us as a response in JSON format | Get |
 | `/getEventsForSegment` | Displays all events of that kind of segment and some statistics | Get |
 | `/getEventsForGenre` | Displays all events of that kind of genre and some statistics | Get |
 | `/getEventsForCountryCode` | Displays the events that will take place in the chosen state and some statistics | Get |
@@ -497,7 +497,7 @@ This exception checks the parameter entered for seeEvents and if it is not valid
 -dateConverterTest(): Method to test the convertMonth() method, relative to the control of the inserted string, provided a string representing a date, and an object of the LocalDate class representing the same date, checks that the result of the conversion is equal to the LocalDate object.
 
 2) [monthConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/monthConverterTest.java):Test to verify the correct functioning of the monthConverter method. \
--monthConverterTest(): Method to test the convertMonth () method, which allows you to get a month given the respective number.
+-monthConverterTest(): Method to test the convertMonth () method, which allows you to get a string month given the respective number.
 3) [InvalidInputExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/InvalidInputExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in seeEvents parameter. 
 4) [genreControllerExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/genreControllerExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in genre parameter. 
 
@@ -522,7 +522,7 @@ We made the controller, model, parser and some method of EventServiceImpl togeth
 Jacopo Coloccioni made the exceptions, tests, some methods of EventServiceImpl and has implemented most of the routes. \
 Davide Olivieri made the filters, some methods of EventServiceImpl, Javadoc and Readme.
 
-For the testing part, which we did at the end, we worked together
+For the testing part, which we did at the end, we worked together.
 
 
 Developers: \
