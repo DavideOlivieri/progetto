@@ -457,9 +457,13 @@ public class EventServiceImpl implements EventService{
 		response.put("state"," : state name");
 		response.put("state_code"," : state code");
 		response.put("country_name"," : country name");
-		response.put("segment", " : segment");
+		response.put("segment", " : grouping of genres ");
 		response.put("genre", " : genre");
 		response.put("subgenre", " : subgenre");
+		response.put("tot_events"," : total of events");
+		response.put("min_events", " : month with the fewest events");
+		response.put("max_events", " : month with the most events");
+		response.put("avg_events", " : average of events of all months");
 
 		return response;
 	}
