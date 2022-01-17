@@ -13,30 +13,33 @@
 
 ## Introduction
 ***
-This project is a Sping application that allows you to filter the data of Ticketmaster site, and make statistics of the data.\
-Ticketmaster is a well-known software dedicated to the management and booking of musical, theatrical, film and artistic events, available at https://www.ticketmaster.it/. \
+This project is a Spring application that allows you to filter the data of Ticketmaster site, and make statistics of the data.\
+Ticketmaster is a well-known software dedicated to the management and booking of sports, musical, theatrical, film and artistic events, available at https://www.ticketmaster.it/. \
 Through the APIs derived from the TM Developer page, accessible through the Discovery API address, we get the metadata.\
 The program will have to evaluate only the events located in USA and Canada. \
 They are available through our application:
 
 - Filtering events for segment and view events grouped by States and genres.
 - Filtering events for genre and view events grouped by States.
+- Filtering events for Country code and view events grouped by genre and States.
 - Statistics relating to the United States and Canada, so a sort of comparison between the two states.
-- Statistics relating to the state chosen, such as total events, the months with the most and the fewest events, monthly average of events, and events grouped by genre.
+- Statistics relating to 1/2 chosen State/s and 1/2 genre/s.
 - Statistics for a chosen state, such as the total of events, the month with the most and fewest events, the monthly average of events, and the grouping of events by genre.
 
 <div id='id-section2'/>
 
 ## API Ticketmaster
 ***
-To get access to the Ticketmaster API, we made an account on the TM Developer website ( https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#search-events-v2 ) and then we were given the route to be used together with a personal apikey.
+To get access to the Ticketmaster API, we made an account on the TM Developer website \
+( https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#search-events-v2 ) \
+and then we were given the route to be used together with a personal apikey.
 > apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC
 
 #### Problems with API
 When we make a call to the API, the response we are given is made up of a maximum of 60 events. \
 So on some routes such as those for searching by country, the respons contains a maximum of 60 events and so the statistics are not very accurate. \
-But for example, for the search by state the statistics are almost perfect because the events in many states are less than 60. 
-
+But for example, for the search by state the statistics are almost perfect because the events in many states are less than 60. \
+In addition, the API if no data such as a Country code and a genre are entered, it will default to United States and Basketball.
 
 <div id='id-section3'/>
 
@@ -56,12 +59,12 @@ In this case 8080 is the standard port but can be changed.
 | Routes  | Desciption | Type |
 | :--- | :---: | ---:  |
 | `/getEvents` | Displays the resulting data in JSON format | Get |
-| `/getEventsForSegment` | Displays all events of that kind of segment | Get |
-| `/getEventsForGenre` | Displays all events of that kind of genre | Get |
-| `/getEventsForCountryCode` | Displays the events that will take place in the chosen state | Get |
+| `/getEventsForSegment` | Displays all events of that kind of segment and some statistics | Get |
+| `/getEventsForGenre` | Displays all events of that kind of genre and some statistics | Get |
+| `/getEventsForCountryCode` | Displays the events that will take place in the chosen state and some statistics | Get |
 | `/compareUSCA` | Compare the statistics between US and CA | Get |
 | `/getStats` | Displays the statistics chosen a state and a genre | Get |
-| `/getStatsforState` | Displays the events for genre for a specific State | Get |
+| `/getStatsforState` | Displays the statistics for a specific State | Get |
 
 ### Route /getEvents
 ***
@@ -93,7 +96,6 @@ In this application we can search for these segments:
 
 > Sports \
 > Music \
-> Art & Theatre \
 > Miscellaneous
 
 Optional parameter to be entered:
@@ -500,3 +502,13 @@ This project was developed during the Object Oriented Programming course (2021/2
 
 -[Davide Olivieri](https://github.com/DavideOlivieri) \
 -[Jacopo Coloccioni](https://github.com/JacopoColoccioni)
+
+### Work division:
+Initially, both of us having minimal basics we decided to work together, so we helped each other while we wrote the code so we could learn together and help each other. 
+
+Later we figured out how to work and we started to divide the tasks in order to proceed faster.
+
+We made the controller, model, parser and some method of EventServiceImpl together. \
+Jacopo Coloccioni made the exceptions, tests, some methods of EventServiceImpl and has implemented most of the routes. \
+Davide Olivieri made the filters, some methods of EventServiceImpl, Javadoc and Readme.
+
