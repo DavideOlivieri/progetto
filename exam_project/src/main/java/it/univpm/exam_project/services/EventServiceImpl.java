@@ -263,177 +263,6 @@ public class EventServiceImpl implements EventService{
 		return vect;
 	}
 	
-
-	
-	//   **************************************************************************************************
-	//                        METHODS USED TO MAKE STATISTICS      
-	//   **************************************************************************************************
-
-    /**
-     * This method shows the number of events for each month
-     * 
-     * @param eventVector
-     * @param monthEvents
-     */
-	public void numEvents(Vector<Events> eventVector, int[]monthEvents) {
-		Events currentEvents;
-		for(int i = 0; i<eventVector.size();i++) {
-			currentEvents = eventVector.get(i);
-
-			for(int j = 1; j <= 12; j++) {
-				if(currentEvents.getMonth()==j) {
-					monthEvents[j-1]++;
-				}
-			}
-		}
-
-	} 
-
-	/**
-	 * Method that return the average of events of all months.
-	 * 
-	 * @param eventVector
-	 * @return average events
-	 */
-	public float avgEvents(Vector<Events> eventVector) {
-		float avgevents=0;
-		int[] ev = new int[12];
-		numEvents(eventVector, ev);
-		for(int i = 0; i<12;i++) {
-			avgevents += ev[i];			
-		}
-		avgevents/=12;
-		return avgevents;
-	}
-
-
-    /**
-     * Method that returns the month with the fewest events
-     * 
-     * @param eventVector, Vector with all the events inside
-     * @return month, month with the fewest events.
-     */
-	public String minEvents(Vector<Events> eventVector) {
-		int app = 10000;
-		String month="";
-		int j=0;
-		int[] ev = new int[12];
-		numEvents(eventVector, ev);
-		for(int i = 0; i<12;i++) {
-			if(ev[i] < app) {
-				app = ev[i];
-				j=i;
-			}
-	
-		}
-		month+=convertMonth(j+1);
-		
-		for(int k = j+1; k<12; k++) {
-			if(ev[k] == app) {
-					month+=", "+convertMonth(k+1);
-			}
-	
-		}
-		
-		return month;
-	}
-
-
-
-	/**
-	 * Method that returns the month with the most events
-	 * 
-	 * @param eventVector
-	 * @return month, month with the most events.
-	 */
-	public String maxEvents(Vector<Events> eventVector) {
-		int tot = 0;
-		int j=-1;
-		String month;
-		int[] ev = new int[12];
-		numEvents(eventVector, ev);
-		for(int i = 0; i<12;i++) {
-			if(ev[i] > tot) {
-				tot =  ev[i];
-				j=i;
-			}
-		}
-		if(j==-1)
-			month="No month has more than 0 events";
-		else
-			month=convertMonth(j+1);
-		return month;
-	}
-
-    /**
-     * Method that returns the total of events
-     * 
-     * @param eventVector
-     * @return total, the total of events inside the Vector.
-     */
-	public int totEvents(Vector<Events> eventVector) {
-		int tot=0;
-		for(int i=0; i<=eventVector.size();i++) {
-			tot++;
-		}
-
-		return tot;
-	}
-	
-	/**
-	 * This method displays the events grouped by genre.
-	 * 
-	 * @param eventVector
-	 * @param genre
-	 * @return response
-	 */
-	public JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
-
-		JSONObject response = new JSONObject();
-		Events currentEvents;
-		String currentGenre;
-		for(int j=0; j<genre.size();j++) {
-			int k=0;
-			currentGenre= genre.get(j);
-			for(int i = 0; i<eventVector.size();i++) {
-				currentEvents = eventVector.get(i);
-				if(currentEvents.getGenre().equals(currentGenre)) {
-					k++;
-				}
-			}
-			if(k!=0)
-				response.put("Events number of "+ currentGenre +" ",k );
-		}
-		return response;
-	} 
-
-	/**
-	 * This method displays the events grouped by State.
-	 * 
-	 * @param eventVector
-	 * @param stateName
-	 * @return response
-	 */
-	public JSONObject stateEvents(Vector<Events> eventVector, Vector<String> stateName) {
-
-		JSONObject response = new JSONObject();
-		Events currentEvents;
-		String currentState;
-		for(int j=0; j<stateName.size();j++) {
-			int k=0;
-			currentState= stateName.get(j);
-			for(int i = 0; i<eventVector.size();i++) {
-				currentEvents = eventVector.get(i);
-				if(currentEvents.getState().equals(currentState)) {
-					k++;
-				}
-			}
-			if(k!=0)
-				response.put("Events number in "+ currentState +" ",k );
-		}
-		return response;
-	} 
-	
 	//   **************************************************************************************************
 	//                        ALL VARIOUS TYPES OF JSON USED      
 	//   **************************************************************************************************
@@ -468,41 +297,7 @@ public class EventServiceImpl implements EventService{
 		return response;
 	}
 
-	/**
-	 * This method returns the information of each single event.
-     *
-	 * 
-	 * @param filteredEvents
-	 * @param response
-	 */
-	public void ToJson(Vector<Events> filteredEvents, JSONObject response) {
-		// TODO Auto-generated method stub
 
-		JSONArray events = new JSONArray();
-
-		for(int i=0;i<filteredEvents.size();i++) {
-			JSONObject event = new JSONObject();
-
-			event.put("event_name", filteredEvents.get(i).getName());
-			event.put("event_id", filteredEvents.get(i).getEvent_id());
-			event.put("local_date", filteredEvents.get(i).getLocal_date());
-			event.put("local_time", filteredEvents.get(i).getLocal_time());
-			event.put("country_code", filteredEvents.get(i).getCountry_code());
-			event.put("city", filteredEvents.get(i).getCity());
-			event.put("state", filteredEvents.get(i).getState());
-			event.put("state_code", filteredEvents.get(i).getState_code());
-			event.put("country_name", filteredEvents.get(i).getCountry_name());
-			event.put("segment", filteredEvents.get(i).getSegment());
-			event.put("genre", filteredEvents.get(i).getGenre() );
-			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
-
-			events.add(event);
-		}
-
-		response.put("Events", events);
-
-	}
-	
 	/**
 	 * This method returns the information of each single event inside an already structured array.
 	 * 
@@ -545,10 +340,14 @@ public class EventServiceImpl implements EventService{
 		JSONArray eventsForGenre = new JSONArray();
 		Vector<String> vectorGen = null;
 		vectorGen=EventServiceImpl.readTxt("src/main/java/it/univpm/exam_project/services/genres.txt.txt");
-		if(condition==true)
-			ToJson(filteredEvents, response);
 		
-		eventsForGenre.add(genEvents(filteredEvents, vectorGen));
+		if(condition==true) {
+			JSONArray events = new JSONArray();
+			ToJson(filteredEvents, events);
+			response.put("Events", events);
+		}
+		
+		eventsForGenre.add(stat.genEvents(filteredEvents, vectorGen));
 		
 		response.put("Events grouped by genre", eventsForGenre);
 
@@ -566,10 +365,14 @@ public class EventServiceImpl implements EventService{
 		JSONArray eventsForGenre = new JSONArray();
 		Vector<String> vectorGen = null;
 		vectorGen=EventServiceImpl.readTxt("src/main/java/it/univpm/exam_project/services/states.txt");
-		if(condition==true)
-			ToJson(filteredEvents, response);
 		
-		eventsForGenre.add(stateEvents(filteredEvents, vectorGen));
+		if(condition==true) {
+			JSONArray events = new JSONArray();
+			ToJson(filteredEvents, events);
+			response.put("Events", events);
+		}
+		
+		eventsForGenre.add(stat.stateEvents(filteredEvents, vectorGen));
 		
 		response.put("Events grouped by state", eventsForGenre);
 
@@ -591,14 +394,14 @@ public class EventServiceImpl implements EventService{
 		JSONArray eventsUS = new JSONArray();
 		JSONArray eventsCA = new JSONArray();
 
-		US.put("The total of events in US for "+genre+" is", totEvents(filteredEventsUS)-1);
-		CA.put("The total of events in Canada for "+genre+" is", totEvents(filteredEventsCA)-1);
-		US.put("The month with the most events for "+genre+" in US is", maxEvents(filteredEventsUS));
-		CA.put("The month with the most events for "+genre+" in Canada is", maxEvents(filteredEventsCA));
-		US.put("The month with the fewest events for "+genre+" in US is", minEvents(filteredEventsUS));
-		CA.put("The month with the fewest events for "+genre+" in Canada is", minEvents(filteredEventsCA));
-		US.put("The average monthly events for "+genre+" in the US", avgEvents(filteredEventsUS));
-		CA.put("The average monthly events for "+genre+" in Canada", avgEvents(filteredEventsCA));
+		US.put("The total of events in US for "+genre+" is", stat.totEvents(filteredEventsUS)-1);
+		CA.put("The total of events in Canada for "+genre+" is", stat.totEvents(filteredEventsCA)-1);
+		US.put("The month with the most events for "+genre+" in US is", stat.maxEvents(filteredEventsUS));
+		CA.put("The month with the most events for "+genre+" in Canada is", stat.maxEvents(filteredEventsCA));
+		US.put("The month with the fewest events for "+genre+" in US is", stat.minEvents(filteredEventsUS));
+		CA.put("The month with the fewest events for "+genre+" in Canada is", stat.minEvents(filteredEventsCA));
+		US.put("The average monthly events for "+genre+" in the US", stat.avgEvents(filteredEventsUS));
+		CA.put("The average monthly events for "+genre+" in Canada", stat.avgEvents(filteredEventsCA));
 		
 		GrouppedStateToJson(filteredEventsUS, false, US);
 		
@@ -626,13 +429,13 @@ public class EventServiceImpl implements EventService{
 	public void StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, JSONObject response) throws IOException {
 		// TODO Auto-generated method stub
 
-		response.put("The total of events of "+ genre+" in "+state_code+" is", totEvents(filteredEvents)-1);
+		response.put("The total of events of "+ genre+" in "+state_code+" is", stat.totEvents(filteredEvents)-1);
 
-		response.put("The month with the most events of "+ genre+" in "+state_code+" is", maxEvents(filteredEvents));
+		response.put("The month with the most events of "+ genre+" in "+state_code+" is", stat.maxEvents(filteredEvents));
 
-		response.put("The month with the fewest events of "+ genre+" in "+state_code+" is", minEvents(filteredEvents));
+		response.put("The month with the fewest events of "+ genre+" in "+state_code+" is", stat.minEvents(filteredEvents));
 
-		response.put("The average monthly events of "+ genre+" in "+state_code+" is", avgEvents(filteredEvents));		
+		response.put("The average monthly events of "+ genre+" in "+state_code+" is", stat.avgEvents(filteredEvents));		
 
 	}
 
@@ -649,13 +452,13 @@ public class EventServiceImpl implements EventService{
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, JSONObject response ) throws IOException {
 		// TODO Auto-generated method stub
 
-		response.put("The total of events in "+state_code+" is", totEvents(filteredEvents)-1);
+		response.put("The total of events in "+state_code+" is", stat.totEvents(filteredEvents)-1);
 
-		response.put("The month with the most events in "+state_code+" is", maxEvents(filteredEvents));
+		response.put("The month with the most events in "+state_code+" is", stat.maxEvents(filteredEvents));
 
-		response.put("The month with the fewest events in "+state_code+" is", minEvents(filteredEvents));
+		response.put("The month with the fewest events in "+state_code+" is", stat.minEvents(filteredEvents));
 
-		response.put("The average monthly events in "+state_code+" is", avgEvents(filteredEvents));		
+		response.put("The average monthly events in "+state_code+" is", stat.avgEvents(filteredEvents));		
 		
 		GrouppedGenreToJson(filteredEvents, false, response);
 
@@ -675,8 +478,12 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONObject response = new JSONObject();
 
-		if(seeEvents==true)
-			ToJson(filteredEvents, response);
+		if(seeEvents==true) {
+			JSONArray events = new JSONArray();
+			ToJson(filteredEvents, events);
+			response.put("Events in "+ state_code, events);
+
+		}
 
 		StatsToJson(filteredEvents, state_code, response);
 
@@ -698,9 +505,13 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONObject response = new JSONObject();
 
-		if(seeEvents==true)
-			ToJson(filteredEvents, response);
+		if(seeEvents==true) {
+			JSONArray events = new JSONArray();
+			ToJson(filteredEvents, events);
+			response.put(genre +" events in "+ state_code, events);
 
+		}
+		
 		StatsToJson(filteredEvents, state_code, genre, response);
 
 		return response;

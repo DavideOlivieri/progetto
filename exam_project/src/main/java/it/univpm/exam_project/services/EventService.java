@@ -26,14 +26,4 @@ public interface EventService {
 	
 	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2);
 	
-	public void numEvents(Vector<Events> eventVector, int[]monthEvents);
-	
-	public float avgEvents(Vector<Events> eventVector);
-	
-	public String minEvents(Vector<Events> eventVector);
-	
-	public String maxEvents(Vector<Events> eventVector);
-	
-	public int totEvents(Vector<Events> eventVector);
-	
 }
