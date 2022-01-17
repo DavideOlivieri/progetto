@@ -6,6 +6,12 @@ import org.json.simple.JSONObject;
 
 import it.univpm.exam_project.models.Events;
 
+/**
+ * 
+ * @author Jacopo Coloccioni
+ * @author Davide Olivieri
+ *
+ */
 public class stat {
 	
 	//  **************************************************************************************************
