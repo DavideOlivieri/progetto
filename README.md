@@ -16,7 +16,7 @@
 This project is a Spring application that allows you to filter the data of Ticketmaster site, and make statistics of the data.\
 Ticketmaster is a well-known software dedicated to the management and booking of sports, musical, theatrical, film and artistic events, available at https://www.ticketmaster.it/. \
 Through the APIs derived from the TM Developer page, accessible through the Discovery API address, we get the metadata.\
-The program will have to evaluate only the events located in USA and Canada. \
+The program allows you to view the statistics of events located in the USA and Canada. \
 They are available through our application:
 
 - Filtering events for segment and view events grouped by States and genres.
@@ -498,7 +498,8 @@ This exception checks the parameter entered for seeEvents and if it is not valid
 
 2) [monthConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/monthConverterTest.java):Test to verify the correct functioning of the monthConverter method. \
 -monthConverterTest(): Method to test the convertMonth () method, which allows you to get a month given the respective number.
-3) [InvalidInputExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/InvalidInputExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in seeEvents. \
+3) [InvalidInputExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/InvalidInputExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in seeEvents parameter. 
+4) [genreControllerExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/genreControllerExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in genre parameter. 
 
 
 <div id='id-section7'/>
