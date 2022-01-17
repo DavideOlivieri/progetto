@@ -75,17 +75,22 @@ If for example in postman we insert this route : `localhost:8080/getEvents`
 Response:
 ```json
 {
-    "country_code": " : country code",
-    "event_id": " : event id",
-    "local_time": " : time(year/month/day)",
-    "city": " : city name",
-    "subgenre": " : subgenre",
-    "segment": " : segment",
-    "country_name": " : country name",
-    "genre": " : genre",
-    "event_name": " : event name",
-    "state": " : state name",
-    "local_date": " : date"
+    "city": "city name",
+    "min_events": "month with the fewest events",
+    "avg_events": "average of events of all months",
+    "tot_events": "total of events",
+    "max_events": "month with the most events",
+    "local_date": "date(year/month/day)",
+    "country_code": "country code",
+    "event_id": "event id",
+    "local_time": "time",
+    "subgenre": "subgenre",
+    "segment": "grouping of genres ",
+    "country_name": "country name",
+    "genre": "genre",
+    "event_name": "event name",
+    "state": "state name",
+    "state_code": "state code"
 }
 ```
 ### Route /getEventsForSegment
@@ -488,9 +493,13 @@ This exception checks the parameter entered for seeEvents and if it is not valid
 ****
 
 3 JUnit tests developed in JUnit 5 have been implemented:
-1) [dateConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/dateConverterTest.java):Test to verify the correct operation of the dateConverter method.
-2) [monthConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/monthConverterTest.java):Test to verify the correct functioning of the monthConverter method.
-3) [InvalidInputExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/InvalidInputExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in seeEvents.
+1) [dateConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/dateConverterTest.java):Test to verify the correct operation of the dateConverter method. \
+-dateConverterTest(): Method to test the convertMonth() method, relative to the control of the inserted string, provided a string representing a date, and an object of the LocalDate class representing the same date, checks that the result of the conversion is equal to the LocalDate object.
+
+2) [monthConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/monthConverterTest.java):Test to verify the correct functioning of the monthConverter method. \
+-monthConverterTest(): Method to test the convertMonth () method, which allows you to get a month given the respective number.
+3) [InvalidInputExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/InvalidInputExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in seeEvents. \
+
 
 <div id='id-section7'/>
 
@@ -511,4 +520,11 @@ Later we figured out how to work and we started to divide the tasks in order to 
 We made the controller, model, parser and some method of EventServiceImpl together. \
 Jacopo Coloccioni made the exceptions, tests, some methods of EventServiceImpl and has implemented most of the routes. \
 Davide Olivieri made the filters, some methods of EventServiceImpl, Javadoc and Readme.
+
+For the testing part, which we did at the end, we worked together
+
+
+Developers: \
+*Davide Olivieri* \
+*Jacopo Coloccioni*
 
