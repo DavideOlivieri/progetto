@@ -448,22 +448,22 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		JSONObject response = new JSONObject();
 
-		response.put("event_name"," : event name");
-		response.put("event_id"," : event id");
-		response.put("local_date"," : date");
-		response.put("local_time"," : time(year/month/day)");
-		response.put("country_code"," : country code");
-		response.put("city"," : city name");
-		response.put("state"," : state name");
-		response.put("state_code"," : state code");
-		response.put("country_name"," : country name");
-		response.put("segment", " : grouping of genres ");
-		response.put("genre", " : genre");
-		response.put("subgenre", " : subgenre");
-		response.put("tot_events"," : total of events");
-		response.put("min_events", " : month with the fewest events");
-		response.put("max_events", " : month with the most events");
-		response.put("avg_events", " : average of events of all months");
+		response.put("event_name","event name");
+		response.put("event_id","event id");
+		response.put("local_date","date(year/month/day)");
+		response.put("local_time","time");
+		response.put("country_code","country code");
+		response.put("city","city name");
+		response.put("state","state name");
+		response.put("state_code","state code");
+		response.put("country_name","country name");
+		response.put("segment", "grouping of genres ");
+		response.put("genre", "genre");
+		response.put("subgenre", "subgenre");
+		response.put("tot_events","total of events");
+		response.put("min_events", "month with the fewest events");
+		response.put("max_events", "month with the most events");
+		response.put("avg_events", "average of events of all months");
 
 		return response;
 	}
