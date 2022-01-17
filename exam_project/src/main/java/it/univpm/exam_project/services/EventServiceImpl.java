@@ -273,6 +273,7 @@ public class EventServiceImpl implements EventService{
 	 * 
 	 * @return response
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getEvents() {
 		// TODO Auto-generated method stub
 		JSONObject response = new JSONObject();
@@ -304,6 +305,7 @@ public class EventServiceImpl implements EventService{
 	 * @param filteredEvents
 	 * @param events
 	 */
+	@SuppressWarnings("unchecked")
 	public void ToJson(Vector<Events> filteredEvents, JSONArray events) {
 		// TODO Auto-generated method stub
 
@@ -335,6 +337,7 @@ public class EventServiceImpl implements EventService{
 	 * @param condition
 	 * @param response
 	 */
+	@SuppressWarnings("unchecked")
 	public void GrouppedGenreToJson(Vector<Events> filteredEvents, boolean condition, JSONObject response) {
 		// TODO Auto-generated method stub
 		JSONArray eventsForGenre = new JSONArray();
@@ -360,6 +363,7 @@ public class EventServiceImpl implements EventService{
 	 * @param condition
 	 * @param response
 	 */
+	@SuppressWarnings("unchecked")
 	public void GrouppedStateToJson(Vector<Events> filteredEvents, boolean condition, JSONObject response) {
 		// TODO Auto-generated method stub
 		JSONArray eventsForGenre = new JSONArray();
@@ -386,6 +390,7 @@ public class EventServiceImpl implements EventService{
      * @param genre
      * @return response
      */
+	@SuppressWarnings("unchecked")
 	public JSONObject CmpToJson(Vector<Events> filteredEventsUS, Vector<Events> filteredEventsCA, String genre) {
 		// TODO Auto-generated method stub
 		JSONObject response = new JSONObject();
@@ -426,6 +431,7 @@ public class EventServiceImpl implements EventService{
      * @param response
      * @throws IOException
      */
+	@SuppressWarnings("unchecked")
 	public void StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, JSONObject response) throws IOException {
 		// TODO Auto-generated method stub
 
@@ -449,6 +455,7 @@ public class EventServiceImpl implements EventService{
 	 * @return response
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, JSONObject response ) throws IOException {
 		// TODO Auto-generated method stub
 
@@ -474,6 +481,7 @@ public class EventServiceImpl implements EventService{
 	 * @return response
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject response = new JSONObject();
@@ -501,6 +509,7 @@ public class EventServiceImpl implements EventService{
 	 * @return response
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject StatsToJson(Vector<Events> filteredEvents, String state_code, String genre, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
 		JSONObject response = new JSONObject();
@@ -529,6 +538,7 @@ public class EventServiceImpl implements EventService{
 	 * @return response
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject StatsToJson_state(Vector<Events> filteredEvents1,Vector<Events> filteredEvents2, String state_code, String genre,
 			String state_code2, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
@@ -563,6 +573,7 @@ public class EventServiceImpl implements EventService{
      * @return response
      * @throws IOException
      */
+	@SuppressWarnings("unchecked")
 	public JSONObject StatsToJson_genre(Vector<Events> filteredEvents1,Vector<Events> filteredEvents2, String state_code, String genre, String genre2,
 			boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub
@@ -601,6 +612,7 @@ public class EventServiceImpl implements EventService{
      * @return response
      * @throws IOException
      */
+	@SuppressWarnings("unchecked")
 	public JSONObject StatsToJson(Vector<Events> filteredEvents1, Vector<Events> filteredEvents2,Vector<Events> filteredEvents3,Vector<Events> filteredEvents4,String state_code, String genre, String state_code2,
 			String genre2, boolean seeEvents) throws IOException {
 		// TODO Auto-generated method stub

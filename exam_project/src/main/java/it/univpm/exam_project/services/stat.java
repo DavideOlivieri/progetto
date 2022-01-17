@@ -136,6 +136,7 @@ public class stat {
 	 * @param genre
 	 * @return response
 	 */
+	@SuppressWarnings("unchecked")
 	public static JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
 
 		JSONObject response = new JSONObject();
@@ -163,6 +164,7 @@ public class stat {
 	 * @param stateName
 	 * @return response
 	 */
+	@SuppressWarnings("unchecked")
 	public static JSONObject stateEvents(Vector<Events> eventVector, Vector<String> stateName) {
 
 		JSONObject response = new JSONObject();
