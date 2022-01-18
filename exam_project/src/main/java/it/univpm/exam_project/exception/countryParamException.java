@@ -20,7 +20,7 @@ public class countryParamException extends Exception{
 	private String msg = "Error: The country_code searched for does not exist or is not present in our databases \n"
 			+ "The two letter must be uppercase for every Country code. \n"
 			+ "These are some examples of country codes : \n"
-			+ "US, CA, PL";
+			+ "US, CA, PL, AU";
 	
 	/**
 	 *  Default constructor.
