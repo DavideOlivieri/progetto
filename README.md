@@ -70,7 +70,7 @@ In this case 8080 is the standard port but can be changed.
 ***
 This route allows you to view the metadata, that is a description of all the attributes and related data types. This output is shown in JSON format.
 #### Example
-If for example in postman we insert this route : `localhost:8080/getEvents`
+If for example in postman, we insert this route : `localhost:8080/getEvents`
 
 Response:
 ```json
@@ -169,7 +169,6 @@ These are among the best known genres:
 
 >Sports | Baseball, Basketball, Boxing, Hockey, Football. \
 >Music | Classical, Hip-Hop/Rap, Blues, Dance/Electronic, Other. \
->Art & Theatre | Comedy. \
 >Miscellaneous | Hobby/Special Interest Expos, Ice Shows, Fairs & Festivals.
 
 Optional parameter to be entered:
@@ -389,7 +388,7 @@ You can choose from many State codes, these are some of the well known in the Un
 | UT - Utah | NT - Territoires du Nord-Ouest | 
 
 On this site you can find all states for the United States ( https://en.wikipedia.org/wiki/ISO_3166-2:US ) \
-On this site you can find all states for Canada ( https://en.wikipedia.org/wiki/ISO_3166-2:CA ) \
+On this site you can find all states for Canada ( https://en.wikipedia.org/wiki/ISO_3166-2:CA ) 
 
 #### Example
 Example of a route for /getStats \
@@ -494,7 +493,7 @@ This exception checks the parameter entered for seeEvents and if it is not valid
 ## JUnit Test
 ****
 
-3 JUnit tests developed in JUnit 5 have been implemented:
+4 JUnit tests developed in JUnit 5 have been implemented:
 1) [dateConverterTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/dateConverterTest.java):Test to verify the correct operation of the dateConverter method. \
 -dateConverterTest(): Method to test the convertMonth() method, relative to the control of the inserted string, provided a string representing a date, and an object of the LocalDate class representing the same date, checks that the result of the conversion is equal to the LocalDate object.
 
