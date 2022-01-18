@@ -95,7 +95,8 @@ Response:
 ```
 ### Route /getEventsForSegment
 ***
-This route allows to view the metadata by segment. Segment groups specific genres. 
+This route allows you to see the events filtered by segment. Segment groups specific genres. \
+In addition, the events grouped by States and by genre will also be shown.
 
 In this application we can search for these segments:
 
@@ -226,7 +227,7 @@ Response:
 ```
 ### Route /getEventsForCountryCode
 ***
-This route displays all events filtered by United States and Canada. \
+This route displays all events filtered by State code. \
 For the United States and Canada, events grouped by state and genre are displayed. \
 Here are some examples of Country codes to choose:
 
@@ -235,6 +236,7 @@ Here are some examples of Country codes to choose:
 | United State | US |
 | Canada | CA |
 | Poland | PL |
+| Australia | AU |
 
 Optional parameter to be entered:
 
@@ -361,8 +363,8 @@ The entered route will then be of this type:
 ```
 ### Route /getStats
 ***
-In this route you can enter 1 or 2 state code and 1 or 2 genres. \
-The response will contain statistics for 1/2 state/s or 1/2 genre/s.
+In this route you can enter 1 or 2 state code/s and 1 or 2 genre/s. \
+The response will contain statistics for 1/2 state/s and 1/2 genre/s.
 
 Optional parameter to be entered:
 > state_code = param, if you want to search for another State code (defaul value = CA ) \
