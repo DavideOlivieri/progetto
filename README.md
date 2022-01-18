@@ -502,6 +502,7 @@ This exception checks the parameter entered for seeEvents and if it is not valid
 3) [InvalidInputExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/InvalidInputExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in seeEvents parameter. 
 4) [genreControllerExceptionTest](https://github.com/DavideOlivieri/progetto/blob/main/exam_project/src/test/java/it/univpm/exam_project/genreControllerExceptionTest.java):Test to verify the correct operation of the exception related to the control of the input in genre parameter. 
 
+We did several tests for each test and they all gave a positive result.
 
 <div id='id-section7'/>
 
