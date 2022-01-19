@@ -1,7 +1,3 @@
-US
-AU
-CA
-PL
 GB
 DE
 FR
