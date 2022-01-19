@@ -91,6 +91,18 @@ public class Parser {
 		return eventsList;
 	}
 	
+	
+	/**
+	 * Method that analyze the JSON returned by the API call
+	 * and inserts the data into the eventList vector.
+	 * This parser was made for the European States and therefore without State code but only Countrycode.
+	 * 
+	 * @param json, provides the JSON code which is analyzed in the method.
+	 * @return eventsList, vector of events containing the events from the JSON code
+	 * @see it.univpm.exam_project.models.Events
+	 * @see it.univpm.exam_project.services.EventServiceImpl
+	 * 
+	 */
 	public Vector<EventsUE> parseUE(JSONObject json){
 
 		Vector<EventsUE> eventsList = new Vector<EventsUE>();

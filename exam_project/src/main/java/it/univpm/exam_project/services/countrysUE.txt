@@ -1,3 +1,15 @@
+US
+AU
+CA
+PL
 GB
 DE
 FR
+IT
+AT
+BE
+DK
+EE
+ES
+SE
+CH

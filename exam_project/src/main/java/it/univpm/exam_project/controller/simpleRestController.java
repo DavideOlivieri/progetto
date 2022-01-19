@@ -125,7 +125,7 @@ public class simpleRestController {
 	
 	/**
 	 * Route 4 
-	 * /getEventForCountryCode (Search by Country, returns all the events of that Country if you want and events grouped by genre and state)
+	 * /getEventForCountryCode (Search by Country, returns all the events of that Country and events grouped by genre and state)
 	 * 
 	 * @param countryCode
 	 * @param condition

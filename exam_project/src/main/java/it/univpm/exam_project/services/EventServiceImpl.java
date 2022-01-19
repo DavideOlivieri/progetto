@@ -120,17 +120,6 @@ public class EventServiceImpl implements EventService{
 	}
 	
 
-	public boolean controllerUEcountry(String countryCode){
-		// TODO Auto-generated method stub
-		Vector<String> countryVect = readTxt("src/main/java/it/univpm/exam_project/services/countrysUE.txt");
-		for(int i=0; i<countryVect.size(); i++) {
-			if(countryCode.equals(countryVect.get(i)))
-				return true;
-		}
-		
-		return false;
-	}
-
 	/**
 	 * This method makes a call to the API, passing the segment along with the URL. 
 	 * Then a JSONObject is created through which the data is taken,
@@ -189,105 +178,7 @@ public class EventServiceImpl implements EventService{
 	}
 
 
-	/**
-	 * This method concatenates multiple vectors to have more events.
-	 * 
-	 * @param vector1
-	 * @param vector2
-	 * @return vector
-	 */
-	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2){
-		Vector<Events> vector = new Vector<Events>();
 
-		vector.addAll(vector1);
-		vector.addAll(vector2);
-
-		return vector;
-	}
-
-	/**
-	 * This method converts string to a date
-	 * 
-	 * @param localDate
-	 * @return locD
-	 */
-	public static LocalDate dateConverter(String localDate) {
-		LocalDate locD = LocalDate.parse((CharSequence)localDate);
-		return locD;
-	}
-
-	/**
-	 * This method is used to convert months from an integer to a String.
-	 * 
-	 * @param i,(1 = January, 2 = February, ...)
-	 * @return month written in letters
-	 */
-	public static String convertMonth(int i) {
-		switch(i) {
-			case 1:
-				return "January";
-			case 2:
-				return "February";
-			case 3:
-				return "March";
-			case 4:
-				return "April";
-			case 5:
-				return "May";
-			case 6:
-				return "June";
-			case 7:
-				return "July";
-			case 8:
-				return "August";
-			case 9:
-				return "September";
-			case 10:
-				return "October";
-			case 11:
-				return "November";
-			case 12:
-				return "December";
-			default:
-				return "Error month";
-		}
-	}
-	
-	/**
-	 * This method returns true or false depending on whether the user wants to view the event list or not
-	 * 
-	 * @param condition
-	 * @return tf
-	 * @throws InvalidInputException
-	 */
-	public static boolean setCnd(String condition) throws InvalidInputException {
-		boolean tf=false;
-			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("false"))
-				tf=false;
-			else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("true"))
-				tf=true;
-			else 
-				throw new InvalidInputException();
-		return tf;
-	}
-
-	public static Vector<String> readTxt(String cnc) {
-
-		Vector<String> vect = new Vector<String>();
-
-		try {
-
-			Scanner file = new Scanner(new BufferedReader(new FileReader(cnc)));
-
-			while (file.hasNext())
-				vect.add(file.nextLine());
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return vect;
-	}
 	
 	//   **************************************************************************************************
 	//                        ALL VARIOUS TYPES OF JSON USED      
@@ -405,6 +296,14 @@ public class EventServiceImpl implements EventService{
 
 	}
 	
+	
+	/**
+	 * This method groups events by genre but for the vector with European states.
+	 * 
+	 * @param filteredEvents
+	 * @param condition
+	 * @param response
+	 */
 	@SuppressWarnings("unchecked")
 	public void GrouppedGenreToJsonUE(Vector<EventsUE> filteredEvents, boolean condition, JSONObject response) {
 		// TODO Auto-generated method stub
@@ -716,8 +615,13 @@ public class EventServiceImpl implements EventService{
 		return response;
 	}
 		
+	
+	//   **************************************************************************************************
+	//                    METHODS THAT CHECK THE PARAMETERS ENTERED BY THE USER
+	//   **************************************************************************************************
+	
 	/**
-	 *	This method checks the user-entered segment using a text file that contains all usable segments.
+	 *	This method checks the user entered segment using a text file that contains all usable segments.
 	 * 
 	 * @param segment
 	 * @throws segmentParamException
@@ -733,7 +637,7 @@ public class EventServiceImpl implements EventService{
 	}
 		
 	/**
-	 *	This method checks the user-entered genre using a text file that contains all usable genres.
+	 *	This method checks the user entered genre using a text file that contains all usable genres.
 	 * 
 	 * @param genre
 	 * @throws genreParamException
@@ -750,7 +654,7 @@ public class EventServiceImpl implements EventService{
 		
 	/**
 	 * 
-	 *	This method checks the user-entered country_code using a text file that contains all usable country_codes.
+	 *	This method checks the user entered country_code using a text file that contains all usable country_codes.
 	 * 
 	 * @param country_code
 	 * @throws countryParamException
@@ -768,7 +672,7 @@ public class EventServiceImpl implements EventService{
 		
 	/**
 	 * 
-	 *	This method checks the user-entered state_code using a text file that contains all usable state_codes.
+	 *	This method checks the user entered state_code using a text file that contains all usable state_codes.
 	 * 
 	 * @param state_code
 	 * @throws stateParamException
@@ -783,5 +687,133 @@ public class EventServiceImpl implements EventService{
 		throw new stateParamException();
 	}
 	
+	/**
+	 * 
+	 *	This method checks the user entered country_code using a text file that contains all usable state_codes.
+	 * 
+	 * @param state_code
+	 */
+	public boolean controllerUEcountry(String countryCode){
+		// TODO Auto-generated method stub
+		Vector<String> countryVect = readTxt("src/main/java/it/univpm/exam_project/services/countrysUE.txt");
+		for(int i=0; i<countryVect.size(); i++) {
+			if(countryCode.equals(countryVect.get(i)))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	
+	
+	//   **************************************************************************************************
+	//                              OTHER METHODS USED
+	//   **************************************************************************************************
+	
+	/**
+	 * This method concatenates multiple vectors to have more events.
+	 * 
+	 * @param vector1
+	 * @param vector2
+	 * @return vector
+	 */
+	public Vector<Events> concateneted(Vector<Events> vector1, Vector<Events> vector2){
+		Vector<Events> vector = new Vector<Events>();
+
+		vector.addAll(vector1);
+		vector.addAll(vector2);
+
+		return vector;
+	}
+
+	/**
+	 * This method converts string to a date
+	 * 
+	 * @param localDate
+	 * @return locD
+	 */
+	public static LocalDate dateConverter(String localDate) {
+		LocalDate locD = LocalDate.parse((CharSequence)localDate);
+		return locD;
+	}
+
+	/**
+	 * This method is used to convert months from an integer to a String.
+	 * 
+	 * @param i,(1 = January, 2 = February, ...)
+	 * @return month written in letters
+	 */
+	public static String convertMonth(int i) {
+		switch(i) {
+			case 1:
+				return "January";
+			case 2:
+				return "February";
+			case 3:
+				return "March";
+			case 4:
+				return "April";
+			case 5:
+				return "May";
+			case 6:
+				return "June";
+			case 7:
+				return "July";
+			case 8:
+				return "August";
+			case 9:
+				return "September";
+			case 10:
+				return "October";
+			case 11:
+				return "November";
+			case 12:
+				return "December";
+			default:
+				return "Error month";
+		}
+	}
+	
+	/**
+	 * This method returns true or false depending on whether the user wants to view the event list or not
+	 * 
+	 * @param condition
+	 * @return tf
+	 * @throws InvalidInputException
+	 */
+	public static boolean setCnd(String condition) throws InvalidInputException {
+		boolean tf=false;
+			if(condition.equals("no")||condition.equals("No")||condition.equals("NO")||condition.equals("false"))
+				tf=false;
+			else if(condition.equals("si")||condition.equals("Si")||condition.equals("SI")||condition.equals("yes")||condition.equals("true"))
+				tf=true;
+			else 
+				throw new InvalidInputException();
+		return tf;
+	}
+
+	/**
+     * This method reads text files
+     * 
+     * @param cnc
+     * @return vect
+     */
+	public static Vector<String> readTxt(String cnc) {
+
+		Vector<String> vect = new Vector<String>();
+
+		try {
+
+			Scanner file = new Scanner(new BufferedReader(new FileReader(cnc)));
+
+			while (file.hasNext())
+				vect.add(file.nextLine());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return vect;
+	}
 
 }
