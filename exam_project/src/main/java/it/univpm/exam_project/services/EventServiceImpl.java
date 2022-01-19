@@ -89,13 +89,13 @@ public class EventServiceImpl implements EventService{
 	private static String apiUrl="https://app.ticketmaster.com/discovery/v2/events.json?apikey=ojDlNPpgliPJgnuvATaFreLEiAEzHTcC";
 
 	/**
-	 * This method makes a call to the API, passing the country_code along with the URL. 
+	 * This method makes a call to the API, passing the country_code of the country without states along with the URL. 
 	 * Then a JSONObject is created through which the data is taken,
 	 * then through the parser the events are inserted into an event vector which is finally returned
 	 * 
 	 * @param countryCode
 	 * @return eventVector
-	 * @throws countryParamException 
+	 * 
 	 */
 	public Vector<EventsUE> connection_countryUE(String countryCode){
 		Vector<EventsUE> eventVectorUE = new Vector<EventsUE>();
@@ -107,6 +107,15 @@ public class EventServiceImpl implements EventService{
 			return eventVectorUE;
 	}
 	
+	/**
+	 * This method makes a call to the API, passing the country_code along with the URL. 
+	 * Then a JSONObject is created through which the data is taken,
+	 * then through the parser the events are inserted into an event vector which is finally returned
+	 * 
+	 * @param countryCode
+	 * @return eventVector
+	 * 
+	 */
 	public Vector<Events> connection_country(String countryCode){
 		Vector<Events> eventVector = new Vector<Events>();
 		
@@ -247,6 +256,12 @@ public class EventServiceImpl implements EventService{
 
 	}
 	
+	/**
+	 * This method returns the information of each single event without states inside an already structured array.
+	 * 
+	 * @param filteredEvents
+	 * @param events
+	 */
 	@SuppressWarnings("unchecked")
 	public void ToJsonUE(Vector<EventsUE> filteredEvents, JSONArray events) {
 		// TODO Auto-generated method stub
@@ -692,6 +707,7 @@ public class EventServiceImpl implements EventService{
 	 *	This method checks the user entered country_code using a text file that contains all usable state_codes.
 	 * 
 	 * @param state_code
+	 * @return boolean
 	 */
 	public boolean controllerUEcountry(String countryCode){
 		// TODO Auto-generated method stub

@@ -35,6 +35,14 @@ public class CountryFilter {
 		return filteredStates;
 	}
 
+	/**
+	 * Method that filters all events by Country
+	 * 
+	 * @param countryCode, the countryCode for which to filter events.
+	 * @param eventstoFilter, Vector that contains all events to be filtered.
+	 * @return filteredStates, events filtered for the chosen Country.
+	 * @see it.univpm.exam_project.models.EventsUE
+	 */
 	public Vector<EventsUE> countryFilterUE(String countryCode, Vector<EventsUE> eventstoFilter){
 
 		Vector<EventsUE> filteredStates = new Vector<EventsUE>();

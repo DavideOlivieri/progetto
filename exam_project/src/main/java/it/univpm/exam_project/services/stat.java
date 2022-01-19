@@ -131,7 +131,7 @@ public class stat {
 	}
 	
 	/**
-	 * This method displays the events grouped by genre.
+	 * This method displays the events without state grouped by genre.
 	 * 
 	 * @param eventVector
 	 * @param genre
@@ -158,6 +158,13 @@ public class stat {
 		return response;
 	} 
 	
+	/**
+	 * This method displays the events grouped by genre.
+	 * 
+	 * @param eventVector
+	 * @param genre
+	 * @return response
+	 */
 	@SuppressWarnings("unchecked")
 	public static JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
 
