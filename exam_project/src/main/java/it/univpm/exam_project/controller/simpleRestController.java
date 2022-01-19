@@ -162,7 +162,7 @@ public class simpleRestController {
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
 	}
 

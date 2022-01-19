@@ -706,7 +706,7 @@ public class EventServiceImpl implements EventService{
 	 * 
 	 *	This method checks the user entered country_code using a text file that contains all usable state_codes.
 	 * 
-	 * @param state_code
+	 * @param countryCode
 	 * @return boolean
 	 */
 	public boolean controllerUEcountry(String countryCode){

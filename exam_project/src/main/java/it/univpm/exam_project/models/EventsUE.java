@@ -28,9 +28,7 @@ public class EventsUE {
 	 * @param localDate
 	 * @param local_time
 	 * @param country_code
-	 * @param state_code
 	 * @param city
-	 * @param state
 	 * @param country_name
 	 * @param genre
 	 * @param subgenre
