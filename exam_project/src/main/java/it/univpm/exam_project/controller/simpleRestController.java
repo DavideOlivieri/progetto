@@ -21,6 +21,7 @@ import it.univpm.exam_project.exception.segmentParamException;
 import it.univpm.exam_project.exception.stateParamException;
 import it.univpm.exam_project.filters.CountryFilter;
 import it.univpm.exam_project.models.Events;
+import it.univpm.exam_project.models.EventsUE;
 import it.univpm.exam_project.services.EventServiceImpl;
 
 /**
@@ -134,24 +135,34 @@ public class simpleRestController {
 	public ResponseEntity<Object> getEventsfromCountryCode(@RequestParam(name="countryCode", defaultValue="CA") String countryCode,
 			@RequestParam(name="seeEvents", defaultValue= "no")String condition) {
 		try {	
+			Vector<Events> vector = null;
+			Vector<EventsUE> vectorUE;
+			JSONObject JSONEvent_country = new JSONObject();
 			EventService.countryController(countryCode);
 			boolean seeEvents = EventService.setCnd(condition);
-			Vector<Events> vector = EventService.connection_country(countryCode);
+			if(EventService.controllerUEcountry(countryCode)) {
+				vectorUE = EventService.connection_countryUE(countryCode);
+				CountryFilter filterVector = new CountryFilter();
+				vectorUE = filterVector.countryFilterUE(countryCode, vectorUE);
 
-			CountryFilter filterVector = new CountryFilter();
-			vector = filterVector.countryFilter(countryCode, vector);
+				EventService.GrouppedGenreToJsonUE(vectorUE, seeEvents, JSONEvent_country);
+			}
+			else {
+				vector = EventService.connection_country(countryCode);
+				CountryFilter filterVector = new CountryFilter();
+				vector = filterVector.countryFilter(countryCode, vector);
 
-			JSONObject JSONEvent_country = new JSONObject();
 
 			EventService.GrouppedGenreToJson(vector, seeEvents, JSONEvent_country);
 			EventService.GrouppedStateToJson(vector, false, JSONEvent_country);
+			}
 			return new ResponseEntity<>(JSONEvent_country, HttpStatus.OK);
 		} catch(countryParamException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(InvalidInputException e) {
 			return new ResponseEntity<>(e.getMsg(), HttpStatus.BAD_REQUEST);
 		} catch(Exception e) {
-			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 

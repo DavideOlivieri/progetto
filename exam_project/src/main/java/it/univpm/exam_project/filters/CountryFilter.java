@@ -3,6 +3,7 @@ package it.univpm.exam_project.filters;
 import java.util.Vector;
 
 import it.univpm.exam_project.models.Events;
+import it.univpm.exam_project.models.EventsUE;
 
 /**
  * @author DavideOlivieri
@@ -26,6 +27,19 @@ public class CountryFilter {
 		Vector<Events> filteredStates = new Vector<Events>();
 
 		for(Events event : eventstoFilter) {
+
+			if(countryCode.equals(event.getCountry_code()))
+				filteredStates.add(event);
+
+		}
+		return filteredStates;
+	}
+
+	public Vector<EventsUE> countryFilterUE(String countryCode, Vector<EventsUE> eventstoFilter){
+
+		Vector<EventsUE> filteredStates = new Vector<EventsUE>();
+
+		for(EventsUE event : eventstoFilter) {
 
 			if(countryCode.equals(event.getCountry_code()))
 				filteredStates.add(event);

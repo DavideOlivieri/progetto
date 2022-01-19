@@ -5,6 +5,7 @@ import java.util.Vector;
 import org.json.simple.JSONObject;
 
 import it.univpm.exam_project.models.Events;
+import it.univpm.exam_project.models.EventsUE;
 
 /**
  * 
@@ -136,6 +137,27 @@ public class stat {
 	 * @param genre
 	 * @return response
 	 */
+	@SuppressWarnings("unchecked")
+	public static JSONObject genEventsUE(Vector<EventsUE> eventVector, Vector<String> genre) {
+
+		JSONObject response = new JSONObject();
+		EventsUE currentEvents;
+		String currentGenre;
+		for(int j=0; j<genre.size();j++) {
+			int k=0;
+			currentGenre= genre.get(j);
+			for(int i = 0; i<eventVector.size();i++) {
+				currentEvents = eventVector.get(i);
+				if(currentEvents.getGenre().equals(currentGenre)) {
+					k++;
+				}
+			}
+			if(k!=0)
+				response.put("Events number of "+ currentGenre +" ",k );
+		}
+		return response;
+	} 
+	
 	@SuppressWarnings("unchecked")
 	public static JSONObject genEvents(Vector<Events> eventVector, Vector<String> genre) {
 

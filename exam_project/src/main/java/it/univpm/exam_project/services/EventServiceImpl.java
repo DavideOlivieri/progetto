@@ -23,6 +23,7 @@ import it.univpm.exam_project.exception.genreParamException;
 import it.univpm.exam_project.exception.segmentParamException;
 import it.univpm.exam_project.exception.stateParamException;
 import it.univpm.exam_project.models.Events;
+import it.univpm.exam_project.models.EventsUE;
 import it.univpm.exam_project.parser.Parser;
 
 /**
@@ -94,15 +95,40 @@ public class EventServiceImpl implements EventService{
 	 * 
 	 * @param countryCode
 	 * @return eventVector
+	 * @throws countryParamException 
 	 */
+	public Vector<EventsUE> connection_countryUE(String countryCode){
+		Vector<EventsUE> eventVectorUE = new Vector<EventsUE>();
+
+			String url = apiUrl+"&countryCode="+countryCode;
+			JSONObject json = getJSONObject(url);
+			Parser pars = new Parser();		
+			eventVectorUE = pars.parseUE(json);
+			return eventVectorUE;
+	}
+	
 	public Vector<Events> connection_country(String countryCode){
 		Vector<Events> eventVector = new Vector<Events>();
+		
+		
+			String url = apiUrl+"&countryCode="+countryCode;
+			JSONObject json = getJSONObject(url);
+			Parser pars = new Parser();		
+			eventVector = pars.parse(json);
+			return eventVector;
+		
+	}
+	
 
-		String url = apiUrl+"&countryCode="+countryCode;
-		JSONObject json = getJSONObject(url);
-		Parser pars = new Parser();		
-		eventVector = pars.parse(json);
-		return eventVector;
+	public boolean controllerUEcountry(String countryCode){
+		// TODO Auto-generated method stub
+		Vector<String> countryVect = readTxt("src/main/java/it/univpm/exam_project/services/countrysUE.txt");
+		for(int i=0; i<countryVect.size(); i++) {
+			if(countryCode.equals(countryVect.get(i)))
+				return true;
+		}
+		
+		return false;
 	}
 
 	/**
@@ -329,6 +355,29 @@ public class EventServiceImpl implements EventService{
 		}
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void ToJsonUE(Vector<EventsUE> filteredEvents, JSONArray events) {
+		// TODO Auto-generated method stub
+
+		for(int i=0;i<filteredEvents.size();i++) {
+			JSONObject event = new JSONObject();
+
+			event.put("event_name", filteredEvents.get(i).getName());
+			event.put("event_id", filteredEvents.get(i).getEvent_id());
+			event.put("local_date", filteredEvents.get(i).getLocal_date());
+			event.put("local_time", filteredEvents.get(i).getLocal_time());
+			event.put("country_code", filteredEvents.get(i).getCountry_code());
+			event.put("city", filteredEvents.get(i).getCity());
+			event.put("country_name", filteredEvents.get(i).getCountry_name());
+			event.put("segment", filteredEvents.get(i).getSegment());
+			event.put("genre", filteredEvents.get(i).getGenre() );
+			event.put("subgenre", filteredEvents.get(i).getSubgenre() );
+
+			events.add(event);
+		}
+
+	}
 
 	/**
 	 * This method groups events by genre.
@@ -351,6 +400,25 @@ public class EventServiceImpl implements EventService{
 		}
 		
 		eventsForGenre.add(stat.genEvents(filteredEvents, vectorGen));
+		
+		response.put("Events grouped by genre", eventsForGenre);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void GrouppedGenreToJsonUE(Vector<EventsUE> filteredEvents, boolean condition, JSONObject response) {
+		// TODO Auto-generated method stub
+		JSONArray eventsForGenre = new JSONArray();
+		Vector<String> vectorGen = null;
+		vectorGen=EventServiceImpl.readTxt("src/main/java/it/univpm/exam_project/services/genres.txt.txt");
+		
+		if(condition==true) {
+			JSONArray events = new JSONArray();
+			ToJsonUE(filteredEvents, events);
+			response.put("Events", events);
+		}
+		
+		eventsForGenre.add(stat.genEventsUE(filteredEvents, vectorGen));
 		
 		response.put("Events grouped by genre", eventsForGenre);
 
