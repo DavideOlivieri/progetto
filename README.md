@@ -49,7 +49,7 @@ After the application has been started, routes can be called from any browser or
 Example of usecase
 `localhost:8080/<route_name>`
 
-In this case 8080 is the standard port but can be changed.
+In this case 8080 is the standard port.
 
 <div id='id-section4'/>
 
@@ -61,9 +61,9 @@ In this case 8080 is the standard port but can be changed.
 | `/getEvents` | Displays the data provided to us as a response in JSON format | Get |
 | `/getEventsForSegment` | Displays all events of that kind of segment and some statistics | Get |
 | `/getEventsForGenre` | Displays all events of that kind of genre and some statistics | Get |
-| `/getEventsForCountryCode` | Displays the events that will take place in the chosen state and some statistics | Get |
-| `/compareUSCA` | Compare the statistics between US and CA | Get |
-| `/getStats` | Displays the statistics chosen a state and a genre | Get |
+| `/getEventsForCountryCode` | Displays the events that will take place in the chosen Country and some statistics | Get |
+| `/compareUSCA` | Compare the statistics between United States and Canada | Get |
+| `/getStats` | Displays the statistics chosen a State and a genre | Get |
 | `/getStatsforState` | Displays the statistics for a specific State | Get |
 
 ### Route /getEvents
@@ -236,11 +236,17 @@ Here are some examples of Country codes to choose:
 | Canada | CA |
 | Poland | PL |
 | Australia | AU |
+| Great Britain | GB |
+| France | FR |
+| Germany | DE |
+| Spain | ES |
 
 Optional parameter to be entered:
 
 > countryCode = param, if you want to search for another Country code (default value = CA). \
 > seeEvents = yes/no, yes if you want to see the events, no if not (default value = no)
+
+If the error message appears for the selected Country and says that the Country is not present in our database, it means that the Country has been written incorrectly or that there are no events available for that Country.
 
 #### Example
 Example of a route for /getEventForCountryCode 
@@ -293,6 +299,9 @@ Response:
     ]
 }
 ```
+### Specifics on this route (/getEventForCountryCode)
+
+In this route the events are differentiated on the basis of the State of belonging as many Countries do not have states(such as the European States).
 
 ### Route /compareUSCA
 ***
